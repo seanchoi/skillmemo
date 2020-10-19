@@ -4,8 +4,8 @@ import json
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
 # when deploy to the server
-# with open(BASE_DIR / 'secret.json') as f:
-#     SECRET_KEY = f.read().strip()
+with open(BASE_DIR / 'secret.json') as f:
+    SECRET_KEY = f.read().strip()
 
 # CSRF_COOKIE_SECURE = True
 # SESSION_COOKIE_SECURE = True
@@ -13,8 +13,6 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 # SECURE_HSTS_SECONDS = 31536000
 # SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 # SECURE_HSTS_PRELOAD = True
-
-SECRET_KEY=")uc$0$8s3urb(8+_2j6g2$6tha(z5xj#bgl@ao8+i%a_8iegcj"
 
 DEBUG = True
 

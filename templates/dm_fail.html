@@ -1,0 +1,50 @@
+{% extends 'base2.html' %}
+{% block title %} @{{account_owner.user_id}} {% endblock %}
+{% block content %}
+{% load static %}
+    <div class="left">
+        
+    </div>
+    <div class="middle">
+        <div class="search-wrap">
+            <form action="/{{account_owner.user_id}}/search/" method="POST" id="search">
+                {% csrf_token %}
+            <div class="search_section">
+                    <input type="text" name="search" class="search_bar" placeholder="memo keyword">
+                    <input type="hidden" name="search_preview" value="/{{account_owner.user_id}}/search_preview/">
+                    <button><i class="fas fa-search"></i></button>
+            </div>
+
+            </form>
+            <div class="search_preview"></div>
+
+        </div>
+        <div class="fail-mag-wrap">
+            <div class="fail-msg">
+               <div class="fail-msg-bgimg">
+                    <i class="fas fa-quote-left"></i>
+                    <div class="fail-msg-wrap">
+                    <h1> SORRY! USER NOT FOUND</h1>               
+                    <span> The message was not sent</span>  
+                    <span> Please check recipient id and try to send it again!</span> 
+                    </div>
+               </div>
+            </div>
+        </div>
+
+    </div>    
+
+    <div class="right">
+        <!-- new memo button -->
+        <div class="btn-blue go-back-dashboard"><i class="fas fa-arrow-left"></i></div>  
+        {% if account_owner.user_id == logged_user.user_id %}
+        <!-- <a href="/{{account_owner.user_id}}" class="btn-blue go-back-dashboard"><i class="fas fa-arrow-left"></i></a>   -->
+        <a href="/{{account_owner.user_id}}/newmemo/" class="btn-blue add-memo"><i class="fas fa-pencil-alt"></i></a>
+        {% endif %}
+
+    </div>
+
+    </div>
+</div> <!-- this tag connects to base html <div class="dash_frame"> )-->
+    
+{% endblock %}

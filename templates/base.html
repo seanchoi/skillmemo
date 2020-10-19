@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/bdf130d6e6.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"
+    integrity="sha256-lFA8dPmfmR4AQorTbla7C2W0aborhztLt0IQFLAVBTQ="
+    crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <title>SKILL MEMO | Simply Ultimate Learning & Teaching Tool</title>
+</head>
+<body>
+    <!-- top bar -->
+    <div class="navbar">
+        <!-- <div class="navbar_content_align"> -->
+        <a href="/"><img class="nav_logo" src="{% static 'img/logo_light.png' %}"><span>skillmemo</span></a>
+            {% if logged_user_id %}
+            <div class="navbar_right-wrap">
+                <div class="top_user_menu">
+                  <a href="/{{logged_user_id}}">memos</a>
+                </div>
+                <div class="menu_section">
+
+                    <div class="profile_link">
+                        {% if logged_user.profile_pic %}
+                        <div class="navbar_profile_outer-wrap">
+                          <div class="navbar_profile_pic">
+                            <img src="{{logged_user.profile_pic.url}}">                     
+                          </div>
+                          <img class="profile_ring" src="{% static 'img/navbar_profile_ring.png' %}">
+                        </div>
+                        {% else %}
+                          <img class="no_navbar_profile" src="{% static 'img/profile_frame.png' %}">
+                        {% endif %}
+                        
+                        {% if logged_user.brand_name %}
+                        <div>{{ logged_user.brand_name}}</div>
+                        {% else %}
+                        <div>{{ logged_user.first_name}}</div>
+                        {% endif %}
+
+                    </div>
+                    <!-- account menu -->
+                    <div class="account_menu-wrap">  
+                      <div class="menu-deco"></div>
+                      <div class="account_menu_frame">
+                        <div class="acct_menu_item"><a href="/{{logged_user.user_id}}/deleted_memos/">Rcently Deleted</a></div>
+                        <div class="acct_menu_item"><a href="/{{logged_user.user_id}}/settings/">Account Settings</a></div>
+                        <a href="/logout/" class="btn-logout">logout</a>
+                      </div>
+                    </div>
+
+                </div>
+            </div>
+            {% else %}
+                <div class="register_button">
+                    <a href="/register" id="create_account" class="btn-register">create account</a>
+                    <a href="/login" id="login" class="btn-register">login</a>                
+                </div>
+            {% endif %}
+            
+
+
+    </div>
+
+    <div class="container base">
+        {% block content %} {% endblock %}
+
+    </div>
+    <script src=" {% static 'js/login_reg.js' %}"></script>
+    <script src=" {% static 'js/dashboard.js' %}"></script>
+    <!-- <script src=" {% static 'js/tab_function.js' %}"></script> -->
+</body>
+</html>

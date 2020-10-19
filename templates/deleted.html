@@ -1,0 +1,78 @@
+{% extends 'base2.html' %}
+{% block title %} @{{account_owner.user_id}} {% endblock %}
+{% block content %}
+{% load static %}
+    <div class="left">
+        
+    </div>
+    <div class="middle">
+        <div class="search-wrap">
+            <form action="/{{account_owner.user_id}}/search/" method="POST" id="search">
+                {% csrf_token %}
+            <div class="search_section">
+                    <input type="text" name="search" class="search_bar" placeholder="memo keyword">
+                    <input type="hidden" name="search_preview" value="/{{account_owner.user_id}}/search_preview/">
+                    <button><i class="fas fa-search"></i></button>
+            </div>
+
+            </form>
+            <div class="search_preview"></div>
+
+        </div>
+
+        <div class="memo_list deleted">
+            <div class="tag_frame deleted_tag">
+                <div class="deleted_result_info">
+                    <span>Recently Deleted</span>
+                </div>
+                <div class="list_tag search_result_tag">
+                    <span class="result_num">{{deleted.count}}</span> <span class="result_found"><!--{% if account_owner.user_id != logged_user_id %} <span class="public_search">public</span> {% endif %}-->{% if deleted.count == 1 or deleted.count == 0 %} memo {%else %} memos{% endif %}</span>
+                </div>
+            </div>
+            <div class="wrapper recent-memo">
+                {% for memo in deleted reversed%}
+                <div class="tab-items-set">
+                        <div class="result_item_frame">
+                            <div><a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword">{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:20 }}</a></div><div>{{memo.created_at|truncatechars:14}}</div>
+                        </div>
+                        <div class="tab_buttons-wrap">
+                            <form action="/{{account_owner.user_id}}/{{memo.id}}/move_from_tab/" method="POST">
+                                {% csrf_token %}
+                                <select class="tab_select" name="move_to">
+                                <option value="{{memo.tab_name}}" selected>{% if not emo.tab_name %}no tab {% else %}{{memo.tab_name}}{% endif %}</option>
+                                <option value="">no tab</option>
+                                <option value="{{account_owner.tab01}}">{{account_owner.tab01}}</option>
+                                <option value="{{account_owner.tab02}}">{{account_owner.tab02}}</option>
+                                <option value="{{account_owner.tab03}}">{{account_owner.tab03}}</option>
+                                <option value="{{account_owner.tab04}}">{{account_owner.tab04}}</option>
+                                <option value="{{account_owner.tab05}}">{{account_owner.tab05}}</option>
+                                </select>
+                                <i class="fas fa-sign-out-alt list_tab_move"></i>
+                            </form>
+                            <form action="/{{account_owner.user_id}}/{{memo.id}}/permanent_delete/" id="tab_delete" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="tab_item" value="{{memo.id}}">
+                                <i class="fas fa-trash-alt tab_delete_perm"></i>
+                            </form>
+                        </div>                
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div> 
+    </div>   
+
+    <div class="right">
+        <!-- new memo button -->
+        <div class="btn-blue go-back-dashboard"><i class="fas fa-arrow-left"></i></div>  
+        <!-- <a href="/{{account_owner.user_id}}" class="btn-blue go-back-dashboard"><i class="fas fa-arrow-left"></i></a> -->
+        {% if account_owner.user_id == logged_user.user_id %}
+        <a href="/{{account_owner.user_id}}/newmemo/" class="btn-blue add-memo"><i class="fas fa-pencil-alt"></i></a>
+        {% endif %}
+
+    </div>
+
+    </div>
+</div> <!-- this tag connects to base html <div class="dash_frame"> )-->
+    
+{% endblock %}

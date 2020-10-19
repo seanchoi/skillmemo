@@ -1,0 +1,99 @@
+{% extends 'base2.html' %}
+{% block title %} @{{account_owner.user_id}} {% endblock %}
+{% block content %}
+{% load static %}
+    <div class="left">
+        
+    </div>
+    <div class="middle">
+        <div class="search-wrap">
+            <form action="/{{account_owner.user_id}}/search/" method="POST" id="search">
+                {% csrf_token %}
+            <div class="search_section">
+                    <input type="text" name="search" class="search_bar" placeholder="memo keyword">
+                    <input type="hidden" name="search_preview" value="/{{account_owner.user_id}}/search_preview/">
+                    <button><i class="fas fa-search"></i></button>
+            </div>
+
+            </form>
+            <div class="search_preview"></div>
+
+        </div>
+
+        <div class="memo_list deleted">
+            <div class="tag_frame search_tag">
+                <div class="dm_result">
+                    <span>Saved Memos</span><!--<span class="delete_exp">RESTORE or</span> <span class="delete_exp">DELETE permanently</span>-->
+                </div>
+                <div class="list_tag search_result_tag">
+                    <span class="dm-count">saved</span><span class="result_num">{{saved_memos.count}}</span> <span class="result_found">{% if saved_memos.count == 1 or saved_memos.count == 0 %} memo {%else %} memos {% endif %}</span>
+                </div>
+            </div>
+
+            <div class="dm-list-wrap">
+                <!-- <div class="dm-list-title">Received</div> -->
+                <div class="wrapper recent-memo dm-list">
+                    {% for memo in saved_memos reversed%}                    
+                    <div class="result-items-set">
+                            <div class="dm_item_frame saved_item_frame">
+                                <div class="saved-memo-profile">
+                                    <div class="memo-owner-frame">
+                                        <a href="/{{memo.made_by.user_id}}">
+                                        {% if memo.made_by.profile_pic %}
+                                            <img class="saved-memo-profile" src="{{memo.made_by.profile_pic.url }}">
+                                            {% else %}
+                                            <img lass="saved-memo-profile" src="{% static 'img/profile_frame.png' %}">
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="saved-memo-item"><a href="/{{memo.made_by.user_id}}/{{memo.id}}"><span class="list_keyword">{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:40 }}</a></div>
+                            </div>
+                            <div class="tab_buttons-wrap-savedmemo">                                
+                                <form class="memo-save-form" action="/{{account_owner.user_id}}/{{logged_user.user_id}}/{{memo.id}}/memoSave/" method="POST">
+                                    {% csrf_token %}
+                                    <div class="memo-save-wrap-savedmemo">
+                                        <i class="far fa-bookmark save-btn"></i>
+                                    </div>
+                                </form>
+                                <form class="memo-unsave-form-ajax" action="/{{account_owner.user_id}}/{{logged_user.user_id}}/{{memo.id}}/memoUnSave/" method="POST">
+                                    {% csrf_token %}
+                                    <div class="memo-unsave-wrap-savedmemo">
+                                        <i class="fas fa-bookmark unsave-btn"></i>
+                                    </div>
+                                </form>
+                            {% for saved in saved_memos %}
+                                {% if saved.id == memo.id %}
+                                <form class="memo-unsave-form" action="/{{account_owner.user_id}}/{{logged_user.user_id}}/{{memo.id}}/memoUnSave/" method="POST">
+                                    {% csrf_token %}
+                                    <div class="memo-unsave-wrap-savedmemo">
+                                        <i class="fas fa-bookmark unsave-btn"></i>
+                                    </div>
+                                </form>
+                                {% endif %}
+                            {% endfor %}
+                            </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>    
+
+    <div class="right">
+        <!-- new memo button -->
+        {% if account_owner.user_id == logged_user.user_id %}
+        <div class="btn-blue go-back-dashboard"><i class="fas fa-arrow-left"></i></div>  
+        <a href="/{{account_owner.user_id}}/newmemo/" class="btn-blue add-memo"><i class="fas fa-pencil-alt"></i></a>
+        {% endif %}
+    </div>
+
+    </div>
+</div> <!-- this tag connects to base html <div class="dash_frame"> )-->
+{% block javascript %}
+    <script src="{% static 'js/saveMemo.js' %}"></script>
+{% endblock %}
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends 'base2.html' %}
+{% block title %} @{{account_owner.user_id}} {% endblock %}
+{% block content %}
+{% load static %}
+    <div class="left">
+        
+    </div>
+    <div class="middle">
+        <div class="search-wrap">
+            <form action="/{{account_owner.user_id}}/search/" method="POST" id="search">
+                {% csrf_token %}
+            <div class="search_section">
+                    <input type="text" name="search" class="search_bar" placeholder="memo keyword">
+                    <input type="hidden" name="search_preview" value="/{{account_owner.user_id}}/search_preview/">
+                    <button><i class="fas fa-search"></i></button>
+            </div>
+
+            </form>
+            <div class="search_preview"></div>
+
+        </div>
+
+        <div class="memo_list deleted">
+            <div class="tag_frame search_tag">
+                <div class="dm_result">
+                    <span>Direct Messages</span><!--<span class="delete_exp">RESTORE or</span> <span class="delete_exp">DELETE permanently</span>-->
+                </div>
+                <div class="list_tag search_result_tag">
+                    <span class="dm-count">received</span><span class="result_num">{{dms_got.count}}</span> <span class="result_found">{% if dms_got.count == 1 or dms_got.count == 0 %} message {%else %} messages{% endif %}</span>
+                </div>
+            </div>
+
+            <div class="dm-list-wrap">
+                <div class="dm-list-title">Received</div>
+                <div class="wrapper recent-memo dm-list">
+                    {% for dm in dms_got reversed%}                    
+                    <div class="result-items-set">
+                            <div class="dm_item_frame">
+                                <div class="dm-alert-wrap">
+                                    {% if dm.if_to_checked == "no" %}
+                                    <div class="dm-alert-new">new</div>
+                                    {% endif %}
+                                    {% if dm.if_to_reply_checked == "no" %}
+                                    <div class="dm-alert-reply"><i class="fas fa-comments"></i></div>
+                                    {% endif %}
+                                </div>                              
+                                <div><a href="/{{account_owner.user_id}}/{{dm.id}}/check_dm"><span class="list_keyword">{{ dm.from_user_id }}</span> | {{ dm.dm_msg|truncatechars:30 }}</a></div><div>{{dm.created_at|truncatechars:11}}</div>
+                            </div>
+                            <div class="tab_buttons-wrap">
+                                <form action="/{{account_owner.user_id}}/{{dm.id}}/dm_delete/" id="tab_delete" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="tab_item" value="{{memo.id}}">
+                                    <i class="fas fa-trash-alt tab_delete_perm"></i>
+                                </form>
+                            </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="dm-list-wrap">
+                <div class="dm-list-title">Sent</div>
+                <div class="wrapper recent-memo dm-list">
+                    {% for dm in dms_sent reversed%}                
+                    <div class="result-items-set">
+                            <div class="dm_item_frame">
+                                <div class="dm-alert-wrap">
+                                    {% if dm.if_from_reply_checked == "no" %}                                 
+                                        <div class="dm-alert-reply"><i class="fas fa-comments"></i></div>
+                                    {% endif %}
+                                </div>  
+                                <div><a href="/{{account_owner.user_id}}/{{dm.id}}/check_dm"><span class="list_keyword">{{ dm.from_user_id }}</span> | {{ dm.dm_msg|truncatechars:30 }}</a></div><div>{{dm.created_at|truncatechars:11}}</div>
+                            
+                            </div>
+                            <div class="tab_buttons-wrap">
+                                <form action="/{{account_owner.user_id}}/{{dm.id}}/dm_delete/" id="tab_delete" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="tab_item" value="{{memo.id}}">
+                                    <i class="fas fa-trash-alt tab_delete_perm"></i>
+                                </form>
+                            </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+
+    </div>    
+
+    <div class="right">
+        <!-- new memo button -->
+        <div class="btn-blue go-back-dashboard"><i class="fas fa-arrow-left"></i></div>  
+        {% if account_owner.user_id == logged_user.user_id %}
+        <!-- <a href="/{{account_owner.user_id}}" class="btn-blue go-back-dashboard"><i class="fas fa-arrow-left"></i></a>   -->
+        <a href="/{{account_owner.user_id}}/newmemo/" class="btn-blue add-memo"><i class="fas fa-pencil-alt"></i></a>
+        {% endif %}
+    </div>
+
+    </div>
+</div> <!-- this tag connects to base html <div class="dash_frame"> )-->
+    
+{% endblock %}

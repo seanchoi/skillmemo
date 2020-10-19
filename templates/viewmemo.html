@@ -1,0 +1,593 @@
+{% extends 'base2.html' %}
+{% block title %} @{{account_owner.user_id}} {% endblock %}
+{% block content %}
+{% load static %}
+    <div class="left">
+            
+    </div>
+    <div class="middle">
+        <div class="middle-wrapper">
+                <span class="view_keyword">| {{the_memo.keyword}} |</span>
+                <div class="subject_input view_subject">{{the_memo.subject}}</div>
+                <span class="view_status">
+                    {% if the_memo.disclose == "public" %}
+                        <span class="status">{{the_memo.disclose}}</span>
+                    {% elif the_memo.disclose == "unlisted" %}
+                        <span class="status unlisted">{{the_memo.disclose}}</span>
+                    {% else %}
+                        <span class="status private">{{the_memo.disclose}}</span>
+                    {% endif %}
+                    {% if account_owner.user_id == logged_user.user_id %}
+                    created: {{the_memo.created_at}} | updated: {{the_memo.updated_at}}
+                    {% endif %}              
+                </span>
+            
+            <!-- YouTube video 01 frame -->
+            {% if the_memo.video01 %}
+                <div class="video_button-wrap">
+                    <span class="bigsize-btn01"><i class="fas fa-expand-alt"></i></span>
+                    <div class="video_off01">
+                        <i class="fas fa-video-slash"></i>
+                    </div>
+                </div>          
+            
+                <iframe id="ytplayer01" type="text/html"
+                src="https://www.youtube.com/embed/{{the_memo.video01}}"
+                frameborder="0" allowfullscreen></iframe>
+
+                <div class="bigscreen-wrap" id="bigscreen-wrap">
+                    <div class="bigscreen">
+                        <i class="fas fa-times-circle v01"></i>
+                        <iframe class="bigvideo01" id="ytplayer01" type="text/html" src="https://www.youtube.com/embed/{{the_memo.video01}}" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+                
+
+            {% endif %}
+            <div class="topblock-wrap">
+            {% if the_memo.image01 %}
+                <div class="slides-container">                    
+                        {% if the_memo.style_first == "slider" %}
+                            <div id="slider">
+                                <a class="control_next">></a>
+                                <a class="control_prev"><</a>
+                                <ul class="first_ul">
+                                {% if the_memo.image04 %}
+                                    <li><img class="slider_img" src="{{ the_memo.image01.url }}"></li>
+                                    <li><img class="slider_img" src="{{ the_memo.image02.url }}"></li>
+                                    <li><img class="slider_img" src="{{ the_memo.image03.url }}"></li>
+                                    <li><img class="slider_img" src="{{ the_memo.image04.url }}"></li>
+                                {% elif the_memo.image03 %}
+                                    <li><img class="slider_img" src="{{ the_memo.image01.url }}"></li>
+                                    <li><img class="slider_img" src="{{ the_memo.image02.url }}"></li>
+                                    <li><img class="slider_img" src="{{ the_memo.image03.url }}"></li>
+                                {% elif the_memo.image02 %}
+                                    <li><img class="slider_img" src="{{ the_memo.image01.url }}"></li>
+                                    <li><img class="slider_img" src="{{ the_memo.image02.url }}"></li>
+                                {% else %}
+                                    <li><img class="slide only_one" src="{{ the_memo.image01.url }}"></li>
+                                {% endif %}
+                                </ul>  
+                            </div>                
+                                                                
+                        {% elif the_memo.style_first == "01" %}
+                        <div class="slides">  
+                            {% if the_memo.image04 %}
+                            <img class="slide slide_top" src="{{ the_memo.image01.url }}">
+                            <img class="slide slide_bottom_one_third" src="{{ the_memo.image02.url }}">
+                            <img class="slide slide_bottom_one_third" src="{{ the_memo.image03.url }}">
+                            <img class="slide slide_bottom_one_third" src="{{ the_memo.image04.url }}">
+
+                            {% elif the_memo.image03 %}
+                            <img class="slide slide_top" src="{{ the_memo.image01.url }}">
+                            <img class="slide" src="{{ the_memo.image02.url }}">
+                            <img class="slide" src="{{ the_memo.image03.url }}">
+                            
+                            {% elif the_memo.image02 %}
+                            <img class="slide" src="{{ the_memo.image01.url }}">
+                            <img class="slide" src="{{ the_memo.image02.url }}">
+
+                            {% else %}
+                            <img class="slide only_one" src="{{ the_memo.image01.url }}">
+                            {% endif %}
+                        </div>
+
+                        {% elif the_memo.style_first == "02" %}
+                        <div class="slides">  
+                            {% if the_memo.image04 %}
+                            <img class="slide slide_top" src="{{ the_memo.image01.url }}">
+                            <img class="slide slide_bottom_one_third" src="{{ the_memo.image02.url }}">
+                            <img class="slide slide_bottom_one_third" src="{{ the_memo.image03.url }}">
+                            <img class="slide slide_bottom_one_third" src="{{ the_memo.image04.url }}">
+
+                            {% elif the_memo.image03 %}
+                            <img class="slide slide_top" src="{{ the_memo.image01.url }}">
+                            <img class="slide" src="{{ the_memo.image02.url }}">
+                            <img class="slide" src="{{ the_memo.image03.url }}">
+                            
+                            {% elif the_memo.image02 %}
+                            <img class="slide slide_top" src="{{ the_memo.image01.url }}">
+                            <img class="slide slide_top" src="{{ the_memo.image02.url }}">
+
+                            {% else %}
+                            <img class="slide only_one" src="{{ the_memo.image01.url }}">
+                            {% endif %}  
+                        </div>  
+
+                        {% elif the_memo.style_first == "03" %}
+                        <div class="slides">  
+                            {% if the_memo.image04 %}
+                            <div class="circle_frame">
+                                <img class="slide slide_circle " src="{{ the_memo.image01.url }}">
+                            </div>
+                            <div class="circle_frame">
+                                <img class="slide slide_circle " src="{{ the_memo.image02.url }}">
+                            </div>
+                            <div class="circle_frame">
+                                <img class="slide slide_circle " src="{{ the_memo.image03.url }}">
+                            </div>
+                            <div class="circle_frame">
+                                <img class="slide slide_circle " src="{{ the_memo.image04.url }}">
+                            </div>
+    
+                            {% elif the_memo.image03 %}
+                            <div class="circle_frame">
+                                <img class="slide slide_circle " src="{{ the_memo.image01.url }}">
+                            </div>
+                            <div class="circle_frame">
+                                <img class="slide slide_circle " src="{{ the_memo.image02.url }}">
+                            </div>
+                            <div class="circle_frame">
+                                <img class="slide slide_circle " src="{{ the_memo.image03.url }}">
+                            </div>
+                            
+                            {% elif the_memo.image02 %}
+                            <div class="circle_frame">
+                                <img class="slide slide_circle " src="{{ the_memo.image01.url }}">
+                            </div>
+                            <div class="circle_frame">
+                                <img class="slide slide_circle " src="{{ the_memo.image01.url }}">
+                            </div>
+    
+                            {% else %}
+                            <div class="circle_frame_only_one">
+                                <img class="slide only_one slide_circle" src="{{ the_memo.image01.url }}">
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        {% else %}
+                        <div class="slides">  
+                            {% if the_memo.image04 %}
+                            <img class="slide" src="{{ the_memo.image01.url }}">
+                            <img class="slide" src="{{ the_memo.image02.url }}">
+                            <img class="slide" src="{{ the_memo.image03.url }}">
+                            <img class="slide" src="{{ the_memo.image04.url }}">
+
+                            {% elif the_memo.image03 %}
+                            <img class="slide" src="{{ the_memo.image01.url }}">
+                            <img class="slide" src="{{ the_memo.image02.url }}">
+                            <img class="slide" src="{{ the_memo.image03.url }}">
+                            
+                            {% elif the_memo.image02 %}
+                            <img class="slide" src="{{ the_memo.image01.url }}">
+                            <img class="slide" src="{{ the_memo.image02.url }}">
+
+                            {% else %}
+                            <img class="slide only_one" src="{{ the_memo.image01.url }}">
+                            {% endif %}                        
+                        </div>
+                        {% endif %}
+            </div>
+            {% endif %}
+
+            <!-- image 01 frame -->
+            <!-- {% if the_memo.image01 %}
+
+                <div class="view_image">
+                    <img class="image" src="{{ the_memo.image01.url }}">
+                </div>
+
+            {% endif %} -->
+
+                <pre class="content_input view_content" wrap="soft">{{the_memo.content}}</pre>
+                {% if the_memo.content_code %}
+                <div class="view_code_editor">
+                    <textarea name="content_code" class="code CodeMirror">{{the_memo.content_code}}</textarea>
+                    <input type="hidden" class="language" value="{{the_memo.language}}">
+                </div>
+                {% endif %}
+
+                {% if the_memo.desc%}
+                <div class="section-deco"></div>
+                <pre class="desc view_desc" wrap="soft">{{the_memo.desc}}</pre> 
+                {% endif %}
+            </div>
+
+            <!-- step 2 block -->
+            {% if the_memo.content_2nd %}
+            <div class="block-wrap">
+            <div class="subject_input view_subject">{{the_memo.subject_2nd}}</div>
+            
+            <!-- YouTube video 02 frame -->
+            {% if the_memo.video02 %}
+                <!-- <span class="bigsize-btn02"><i class="fas fa-expand-alt"></i></span> -->
+                <div class="video_off02">
+                    <i class="fas fa-video-slash"></i>
+                </div>        
+                <iframe id="ytplayer02" type="text/html"
+                src="https://www.youtube.com/embed/{{the_memo.video02}}"
+                frameborder="0" allowfullscreen></iframe>
+            {% endif %}
+           
+            {% if the_memo.image05 %}
+            <div class="slides-container">               
+                    {% if the_memo.style_second == "slider" %}
+                        <div id="slider02">
+                            <a class="control_next02">></a>
+                            <a class="control_prev02"><</a>
+                            <ul class="second_ul">
+                            {% if the_memo.image08 %}
+                                <li><img class="slider_img" src="{{ the_memo.image05.url }}"></li>
+                                <li><img class="slider_img" src="{{ the_memo.image06.url }}"></li>
+                                <li><img class="slider_img" src="{{ the_memo.image07.url }}"></li>
+                                <li><img class="slider_img" src="{{ the_memo.image08.url }}"></li>
+                            {% elif the_memo.image07 %}
+                                <li><img class="slider_img" src="{{ the_memo.image05.url }}"></li>
+                                <li><img class="slider_img" src="{{ the_memo.image06.url }}"></li>
+                                <li><img class="slider_img" src="{{ the_memo.image07.url }}"></li>
+                            {% elif the_memo.image06 %}
+                                <li><img class="slider_img" src="{{ the_memo.image05.url }}"></li>
+                                <li><img class="slider_img" src="{{ the_memo.image06.url }}"></li>
+                            {% else %}
+                                <li><img class="slide only_one" src="{{ the_memo.image05.url }}"></li>
+                            {% endif %}
+                            </ul>  
+                        </div>    
+
+                    {% elif the_memo.style_second == "01" %}
+                    <div class="slides">  
+                        {% if the_memo.image08 %}
+                        <img class="slide slide_top" src="{{ the_memo.image05.url }}">
+                        <img class="slide slide_bottom_one_third" src="{{ the_memo.image06.url }}">
+                        <img class="slide slide_bottom_one_third" src="{{ the_memo.image07.url }}">
+                        <img class="slide slide_bottom_one_third" src="{{ the_memo.image08.url }}">
+
+                        {% elif the_memo.image07 %}
+                        <img class="slide slide_top" src="{{ the_memo.image05.url }}">
+                        <img class="slide" src="{{ the_memo.image06.url }}">
+                        <img class="slide" src="{{ the_memo.image07.url }}">
+                        
+                        {% elif the_memo.image06 %}
+                        <img class="slide" src="{{ the_memo.image05.url }}">
+                        <img class="slide" src="{{ the_memo.image06.url }}">
+
+                        {% else %}
+                        <img class="slide only_one" src="{{ the_memo.image05.url }}">
+                        {% endif %}
+                    </div>
+
+                    {% elif the_memo.style_second == "02" %}
+                    <div class="slides">  
+                        {% if the_memo.image08 %}
+                        <img class="slide slide_top" src="{{ the_memo.image05.url }}">
+                        <img class="slide slide_bottom_one_third" src="{{ the_memo.image06.url }}">
+                        <img class="slide slide_bottom_one_third" src="{{ the_memo.image07.url }}">
+                        <img class="slide slide_bottom_one_third" src="{{ the_memo.image08.url }}">
+
+                        {% elif the_memo.image07 %}
+                        <img class="slide slide_top" src="{{ the_memo.image05.url }}">
+                        <img class="slide" src="{{ the_memo.image06.url }}">
+                        <img class="slide" src="{{ the_memo.image07.url }}">
+                        
+                        {% elif the_memo.image06 %}
+                        <img class="slide slide_top" src="{{ the_memo.image05.url }}">
+                        <img class="slide slide_top" src="{{ the_memo.image06.url }}">
+
+                        {% else %}
+                        <img class="slide only_one" src="{{ the_memo.image05.url }}">
+                        {% endif %}  
+                    </div>  
+
+                    {% elif the_memo.style_second == "03" %}
+                    <div class="slides">  
+                        {% if the_memo.image08 %}
+                        <div class="circle_frame">
+                            <img class="slide slide_circle " src="{{ the_memo.image05.url }}">
+                        </div>
+                        <div class="circle_frame">
+                            <img class="slide slide_circle " src="{{ the_memo.image06.url }}">
+                        </div>
+                        <div class="circle_frame">
+                            <img class="slide slide_circle " src="{{ the_memo.image07.url }}">
+                        </div>
+                        <div class="circle_frame">
+                            <img class="slide slide_circle " src="{{ the_memo.image08.url }}">
+                        </div>
+
+                        {% elif the_memo.image07 %}
+                        <div class="circle_frame">
+                            <img class="slide slide_circle " src="{{ the_memo.image05.url }}">
+                        </div>
+                        <div class="circle_frame">
+                            <img class="slide slide_circle " src="{{ the_memo.image06.url }}">
+                        </div>
+                        <div class="circle_frame">
+                            <img class="slide slide_circle " src="{{ the_memo.image07.url }}">
+                        </div>
+                        
+                        {% elif the_memo.image06 %}
+                        <div class="circle_frame">
+                            <img class="slide slide_circle " src="{{ the_memo.image05.url }}">
+                        </div>
+                        <div class="circle_frame">
+                            <img class="slide slide_circle " src="{{ the_memo.image06.url }}">
+                        </div>
+
+                        {% else %}
+                        <div class="circle_frame_only_one">
+                            <img class="slide only_one slide_circle" src="{{ the_memo.image05.url }}">
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    {% else %}
+                    <div class="slides">  
+                        {% if the_memo.image08 %}
+                        <img class="slide" src="{{ the_memo.image05.url }}">
+                        <img class="slide" src="{{ the_memo.image06.url }}">
+                        <img class="slide" src="{{ the_memo.image07.url }}">
+                        <img class="slide" src="{{ the_memo.image08.url }}">
+
+                        {% elif the_memo.image07 %}
+                        <img class="slide" src="{{ the_memo.image05.url }}">
+                        <img class="slide" src="{{ the_memo.image06.url }}">
+                        <img class="slide" src="{{ the_memo.image07.url }}">
+                        
+                        {% elif the_memo.image06 %}
+                        <img class="slide" src="{{ the_memo.image05.url }}">
+                        <img class="slide" src="{{ the_memo.image06.url }}">
+
+                        {% else %}
+                        <img class="slide only_one" src="{{ the_memo.image05.url }}">
+                        {% endif %}                        
+                    </div>
+                    {% endif %}
+        </div>
+        {% endif %}
+
+
+
+                <pre class="content_input view_content" wrap="soft">{{the_memo.content_2nd}}</pre>
+                {% if the_memo.desc_2nd %}
+                <div class="section-deco"></div>
+                <pre class="desc view_desc" wrap="soft">{{the_memo.desc_2nd}}</pre>
+                {% endif %}
+            </div>
+            {% endif %}
+
+
+            <!-- step 3 block-->
+            {% if the_memo.content_3rd %}
+            <div class="block-wrap">
+                <div class="subject_input view_subject">{{the_memo.subject_3rd}}</div>
+                {% if the_memo.video03 %}
+                <!-- <span class="bigsize-btn03"><i class="fas fa-expand-alt"></i></span> -->
+                <div class="video_off03">
+                    <i class="fas fa-video-slash"></i>
+                </div>        
+                <iframe id="ytplayer03" type="text/html"
+                src="https://www.youtube.com/embed/{{hte_memo.video03}}"
+                frameborder="0" allowfullscreen></iframe>
+
+                <!-- <div class="bigscreen-wrap3" id="bigscreen-wrap3">
+                    <div class="bigscreen">
+                        <i class="fas fa-times-circle v03"></i>
+                        <iframe class="bigvideo03" id="ytplayer03" type="text/html" src="https://www.youtube.com/embed/{{video03}}" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div> -->
+            {% endif %}
+            {% if the_memo.image09 %}
+            <div class="slides-container">
+                <div class="slides">
+                {% if the_memo.style_third == "01" %}            
+                    {% if the_memo.image10 %}
+                    <img class="slide slide_top" src="{{ the_memo.image09.url }}">
+                    <img class="slide slide_top" src="{{ the_memo.image10.url }}">
+
+                    {% else %}
+                    <img class="slide only_one" src="{{ the_memo.image09.url }}">
+                    {% endif %}
+                {% elif the_memo.style_third == "02" %}
+                    {% if the_memo.image10 %}
+                    <div class="circle_frame">
+                        <img class="slide slide_circle " src="{{ the_memo.image09.url }}">
+                    </div>
+                    <div class="circle_frame">
+                        <img class="slide slide_circle " src="{{ the_memo.image10.url }}">
+                    </div>
+                    {%else %}
+                    <div class="circle_frame_only_one">
+                        <img class="slide only_one slide_circle" src="{{ the_memo.image05.url }}">
+                    </div>
+                    {% endif %}
+                {% else %}
+                    <div class="slides">                                
+                        {% if the_memo.image10 %}
+                        <img class="slide" src="{{ the_memo.image09.url }}">
+                        <img class="slide" src="{{ the_memo.image10.url }}">
+
+                        {% else %}
+                        <img class="slide only_one" src="{{ the_memo.image09.url }}">
+                        {% endif %}                        
+                    </div>                           
+                {% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+
+
+                <pre class="content_input view_content" wrap="soft">{{the_memo.content_3rd}}</pre>
+                {% if the_memo.desc%}  
+                <div class="section-deco"></div>              
+                <pre class="desc view_desc" wrap="soft">{{the_memo.desc_3rd}}</pre> 
+                {% endif %}
+            </div>
+            {% endif %}
+
+            <!-- comment section -->
+            {% if the_memo.comment_on == "on" %}
+                <form action="/{{account_owner.user_id}}/{{the_memo.id}}/comment/" method="POST">
+                    {% csrf_token %}
+                <div class="comment-wrap">
+                {% if logged_user %}
+                    <div class="comment_by-wrap">
+                        <div class="comment_ring-wrap">
+                            <div class="comment_pic-frame">                                
+                                {% if not logged_user.profile_pic %}
+                                <img class="comment_pic" src="{% static 'img/profile_frame.png' %}">                                
+                                {% else %}
+                                <img class="comment_pic" src="{{logged_user.profile_pic.url}}">
+                                {% endif %}                                
+                            </div>
+                            <img class="comment_ring" src="{% static 'img/comment_ring.png' %}">
+                        </div>
+                        <div class="comment_by">{{logged_user.first_name}} {{logged_user.last_name}}</div>
+                        <input type="hidden" name="name" value="{{logged_user.first_name}} {{logged_user.last_name}}">
+                        {% if logged_user.profile_pic %}
+                            <input type="hidden" name="reply_by_profile_pic" value="{{logged_user.profile_pic.url}}"> 
+                        {% else %}                      
+                        <input type="hidden" name="reply_by_profile_pic" value=""> 
+                        {% endif %} 
+                        <input type="hidden" name="reply_by_dashboard" value="{{logged_user.user_id}}">        
+                    </div>
+
+                    <textarea type="text" class="content_input comment_area" name="content" required></textarea>
+                    <button class="btn-blue comment-btn">leave a comment</button>
+
+                {%else%}
+                    <div class="comment_by-wrap">
+                        <div class="comment_pic-frame">
+                            <img class="comment_pic" src="{% static 'img/profile_frame.png'%}">
+                        </div>
+                        <input class="subject_input comment_name" type="text" name="name" placeholder="your name" required>
+                    </div>
+                   
+                    <textarea type="text" class="content_input comment_area" name="content" required></textarea>
+                    <input type="hidden" name="reply_by_profile_pic" value="">
+                    <input type="hidden" name="reply_by_dashboard" value="">
+                    <button class="btn-blue comment-btn">leave a comment</button>
+                {% endif %}
+                </div>
+                </form>
+            {% endif %}
+
+            <!-- comment display -->
+            {% if comments %}            
+                {% for comment in comments reversed%} 
+                <form action="/{{account_owner.user_id}}/{{the_memo.id}}/{{comment.id}}/deletecomm/" id="comment_info">
+                    {% csrf_token%}
+                    <div class="comment-wrap display">
+                        <div class="comment_by-wrap">  
+                                
+                            {% if comment.reply_by_dashboard %}
+                            <a href="/{{comment.reply_by_dashboard}}/">
+                                <div class="comment_ring-wrap">                                    
+                                    <div class="comment_pic-frame">                                                                                                          
+                                        {% if comment.reply_by_profile_pic %}
+                                        <img class="comment_pic" src="{{comment.reply_by_profile_pic}}">
+                                        {% else %}
+                                        <img class="comment_pic" src="{% static 'img/profile_frame.png'%}">
+                                        {% endif %}                                        
+                                    </div>
+                                    <img class="comment_ring" src="{% static 'img/comment_ring.png' %}">
+                                </div>
+                            </a>
+                            {% else %}
+                            <div class="comment_pic-frame">  
+                                <img class="comment_pic no_proile" src="{% static 'img/profile_frame.png'%}">
+                            </div>
+                            {% endif %}                               
+                                
+                            <div class="comment_by">{{comment.name}} <span class="comment_dt">- {{comment.created_at}}</span></div>
+                        </div>                    
+                        {% if comment.reply_by_dashboard == logged_user.user_id or account_owner.user_id == logged_user.user_id%}
+                            <div class="comment_delete-wrap">
+                                <i class="fas fa-minus-circle comment_delete_btn"></i>
+                            </div>
+                        {% endif %}
+                        <pre type="text" wrap="hard" class="content_input comment_area list">{{comment.content}}</pre>
+                    </div>
+                </form>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>    
+    <div class="right">
+    {% if account_owner.user_id != logged_user.user_id %}
+            <form class="memo-save-form view-save-btns" id="memo-save-form" action="/{{account_owner.user_id}}/{{logged_user.user_id}}/{{the_memo.id}}/memoSave/" method="POST">
+                {% csrf_token %}
+                <div class="memo-save-wrap-viewmemo">
+                    <i class="far fa-bookmark save-btn"></i>
+                </div>
+            </form>
+            <form class="memo-unsave-form-ajax view-save-btns" id="memo-unsave-form" action="/{{account_owner.user_id}}/{{logged_user.user_id}}/{{the_memo.id}}/memoUnSave/" method="POST">
+                {% csrf_token %}
+                <div class="memo-unsave-wrap-viewmemo">
+                    <i class="fas fa-bookmark unsave-btn-viewmemo"></i>
+                </div>
+            </form>
+        {% for saved in saved_memos %}
+            {% if saved.id == the_memo.id %}
+            <form class="memo-unsave-form view-save-btns" d="memo-unsave-form" action="/{{account_owner.user_id}}/{{logged_user.user_id}}/{{the_memo.id}}/memoUnSave/" method="POST">
+                {% csrf_token %}
+                <div class="memo-unsave-wrap-viewmemo">
+                    <i class="fas fa-bookmark unsave-btn-viewmemo"></i>
+                </div>
+            </form>
+            {% endif %}
+        {% endfor %}
+
+    {% endif %}
+        <div class="btn-blue go-back-dashboard"><i class="fas fa-arrow-left"></i></div>  
+        <!-- <a href="/{{account_owner.user_id}}" class="btn-blue go-back-dashboard"><i class="fas fa-arrow-left"></i></a> -->
+        {% if account_owner.user_id == logged_user.user_id %}
+        
+        <a href="/{{account_owner.user_id}}/newmemo/" class="btn-blue add-memo"><i class="fas fa-pencil-alt"></i></a>
+        <a href="/{{account_owner.user_id}}/{{the_memo.id}}/editmemo/" class="btn-blue add-memo edit"><i class="fas fa-wrench"></i></a>
+        {% endif %}
+    </div>
+
+    </div>
+</div> <!-- this tag connects to base html <div class="dash_frame"> )-->
+
+{% block script %}
+    <!-- code editor script -->
+    <script src=" {% static 'plugin/codemirror/lib/codemirror.js' %}"></script>
+    <script src=" {% static 'js/code_default.js' %}"></script>
+    <script src=" {% static 'plugin/codemirror/addon/edit/closetag.js' %}"></script>
+    <script src=" {% static 'plugin/codemirror/addon/mode/loadmode.js' %}"></script>
+    <script src=" {% static 'plugin/codemirror/addon/edit/closebrackets.js' %}"></script>
+    <script src=" {% static 'plugin/codemirror/addon/comment/comment.js' %}"></script>
+    <script src=" {% static 'plugin/codemirror/addon/display/autorefresh.js' %}"></script>
+    <!-- code editor supporting language -->
+    <script src=" {% static 'plugin/codemirror/mode/javascript/javascript.js' %}"></script>
+    <script src=" {% static 'plugin/codemirror/mode/htmlmixed/htmlmixed.js' %}"></script>
+    <script src=" {% static 'plugin/codemirror/mode/css/css.js' %}"></script>
+    <script src=" {% static 'plugin/codemirror/mode/python/python.js' %}"></script>
+    <script src=" {% static 'plugin/codemirror/mode/swift/swift.js' %}"></script>
+    <script src=" {% static 'plugin/codemirror/mode/sass/sass.js' %}"></script>
+    <script src=" {% static 'plugin/codemirror/mode/ruby/ruby.js' %}"></script>
+    <script src=" {% static 'plugin/codemirror/mode/php/php.js' %}"></script>
+        <!-- code editor css -->
+    <link rel="stylesheet" href="{% static 'plugin/codemirror/lib/codemirror.css' %}">
+    <link rel="stylesheet" href="{% static 'plugin/codemirror/theme/cobalt.css' %}">
+
+    <script src=" {% static 'js/slider.js' %}"></script>
+    <script src=" {% static 'js/saveMemo.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/slider.css' %}">
+
+{% endblock %}
+
+{% endblock %}

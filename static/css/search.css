@@ -1,0 +1,124 @@
+/*  search_result */
+.search_result-wrap {
+    margin-top:20px;
+    position: relative;
+}
+.tag-wrapper {
+    width:100%;
+    height:130px;
+    margin-bottom: 10px;
+    position: relative;
+}
+.tag_frame {
+    display: flex;
+    justify-content:space-between;
+}
+.result_tag-wrap {
+    width:100%;
+    height:fit-content;
+    position: absolute;
+    box-sizing: border-box;
+}
+.search_result_tag {
+    font-weight:600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 50%;
+    font-size:18px;
+    margin:10px;
+    line-height: 24px;
+    box-sizing: border-box;
+    width:110px;
+    height:110px;
+}
+.search_result_info {
+    font-weight:600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    font-size:18px;
+    margin:10px;
+    line-height: 24px;
+    box-sizing: border-box;
+}
+.search_result_info > span {
+    margin-right:10px;
+}
+.result_num {
+    font-size:30px;
+}
+.result_found {
+    font-size:16px;
+}
+.result_item_frame {
+    width: 70%;
+    height: 40px;
+    padding: 5px 15px 5px 15px;
+    margin-bottom:5px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    border-radius:15px;
+    font-size:16px;
+    transition: 400ms ease-in-out;
+    justify-content: space-between;
+}
+.result_item_frame:hover {
+    background-color: rgb(221, 245, 255);
+    transition: 400ms ease-in-out;
+    
+}
+.public_search {
+    font-size: 12px;
+}
+.deleted{
+    margin-top:30px;
+}
+
+.searched_word {
+    font-size: 24px;
+
+}
+.search-in-category {
+    font-size:16px;
+    color: #aeaeae;
+}
+
+/* deleted page */
+.deleted_result_info {
+    font-weight:600;
+    /* display: flex;
+    justify-content: 
+    align-items: center;
+    flex-direction: column; */
+    font-size:18px;
+    margin-top:30px;
+    margin-left:10px;
+    line-height: 24px;
+    box-sizing: border-box;
+    vertical-align: middle;
+}
+.delete_exp {
+     font-size: 14px;
+     font-weight: 300;
+     color: #aeaeae;
+     /* margin-left:10px; */
+     display: block;
+ }
+ .crumb_result {
+     display: flex;
+     flex-direction: column;
+ }
+ .result-items-set {
+     width:100%;
+     display: flex;
+     flex-direction: row;
+     align-items: center;
+ }
+ .deleted_tag{
+     align-items: center;
+ }

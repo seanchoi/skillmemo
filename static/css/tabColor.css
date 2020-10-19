@@ -1,0 +1,110 @@
+/* SPRING */
+.spring01 {
+    background-color:#ABCA98;
+    color:white;
+}
+.spring02 {
+    background-color:#B0D99E; 
+    color:white;
+}
+.spring03 {
+    background-color:#F6EB99; 
+    color:#aeaeae;;
+}
+.spring04 {
+    background-color:#F9FCF0; 
+    color:#aeaeae;;
+}
+.spring05 {
+    background-color:#EBBFCC; 
+    color:white; 
+}
+
+/* SUMMER */
+.summer01 {
+    background-color:#2c61d5; 
+    color:white;
+}
+.summer02 {
+    background-color:#568ff2; 
+    color:white;
+}
+.summer03 {
+    background-color:#40b3ff; 
+    color:white;
+}
+.summer04 {
+    background-color:#5de1ff; 
+    color:white;
+}
+.summer05 {
+    background-color:#b2f7ff; 
+    color:black;
+}
+
+/* AUTUMN */
+.autumn01 {
+    background-color:#463F3A; 
+    color:white;
+}
+.autumn02 {
+    background-color:#8A817C; 
+    color:white;
+}
+.autumn03 {
+    background-color:#BCB8B1; 
+    color:#1F1300;
+}
+.autumn04 {
+    background-color:#F4F3EE; 
+    color:#1F1300;
+}
+.autumn05 {
+    background-color:#E0AFA0; 
+    color:#1F1300;
+}
+
+/* WINTER */
+.winter01 {
+    background-color:#FFFFFF; 
+    color:#aeaeae;;
+}
+.winter02 {
+    background-color:#e7e7ff; 
+    color:#aeaeae;
+}
+.winter03 {
+    background-color:#f5f5f5; 
+    color:#aeaeae;;
+}
+.winter04 {
+    background-color:#ffefef; 
+    color:#aeaeae;;
+}
+.winter05 {
+    background-color:#fefff0; 
+    color:#aeaeae;;
+}
+
+/* STUDY */
+.study01 {
+    background-color:#0D1821; 
+    color:white;
+}
+.study02 {
+    background-color:#344966; 
+    color:white;
+}
+.study03 {
+    background-color:#B4CDED; 
+    color:black;
+}
+.study04 {
+    background-color:#e1f1ff; 
+    color:#8c8c8c;
+}
+.study05 {
+    background-color:#cdcdcd; 
+    color:#8c8c8c;
+}
+

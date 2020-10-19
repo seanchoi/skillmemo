@@ -1,0 +1,318 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% block title %} | new memo {% endblock %}
+
+{% block content %}
+
+    <div class="left">
+            
+    </div>
+    <div class="middle">
+        <div class="middle-wrapper">
+            <form action="/{{account_owner.user_id}}/newmemo/" method="POST" enctype="multipart/form-data">
+                    {%csrf_token %}
+                <div id="section1">       
+                    <input type="text" name="subject" class="subject_input" placeholder="memo title:" required>
+                <textarea name="content" class="content_input" wrap="soft" placeholder="put your memo..." required></textarea>
+                
+                <!-- code editor -->
+                <div class="code_editor_btn">
+                    <i class="fas fa-plus-circle"></i>/ <i class="fas fa-minus-circle"></i> <span><i class="fas fa-code"></i></span>
+                </div>
+                <div class="code_editor-wrap">
+                    <textarea name="content_code" class="code"></textarea>
+                    <div class="lan_select-wrap">
+                        <select name="language" class="language">
+                            <option value="">language</option>
+                            <option value="javascript">JavaScript</option>
+                            <option value="python">Python</option>
+                            <option value="swift">Swift</option>
+                            <option value="ruby">Ruby</option>
+                            <option value="html">HTML</option>
+                            <option value="css">CSS</option>
+                            <option value="sass">SASS</option>
+                        </select>
+                    </div>
+                </div>
+
+                <textarea name="desc" class="desc" placeholder="description (optional)" rows="8"></textarea>
+            
+
+                    <!-- image upload model -->
+                    <div class="upload_images-btns">
+          
+                        <div type="button" class="upload_images_ajax">
+                        select images
+                        </div>
+                        
+                        <input type="hidden" name="next" value="/{{account_owner.user_id}}/clear/">
+                        <div class="clear_images">
+                            clear selection
+                        </div>
+
+                        
+                        <input id="fileupload" type="file" name="files" multiple accept="image/png, .jpeg, .jpg, .gif"
+                            style="display: none;"
+                            data-url="/{{account_owner.user_id}}/section1_image_upload/"
+                            data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}' />
+                    </div>
+                    <div class="image_desc"> * up to 4 images(4MB) </div>
+
+                    <div class="image_style-wrap">
+                        <div class="upload_img-wrap">
+                        {% for img in section01_images reversed%}  
+                            {% if img.user == account_owner.user_id %}             
+                            <div class="upload_img_circle">
+                                <img class="upload_img" src="{{img.files.url }}">
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+    
+                        <div class="style_options-wrap">
+                            <div class="style-wrap">
+                                <img src="{% static 'img/collage_style_none.png' %}">
+                            </div>
+                            <div class="style-wrap">
+                                <label for="style01" class="style_01" ><img src="{% static 'img/collage_style_slider.png' %}"></label>
+                                <input type="radio" class="col_style" name="style" id="style01" value="slider">
+                            </div>
+                            <div class="style-wrap">
+                                <label for="style01" class="style_01" ><img src="{% static 'img/collage_style01.png' %}"></label>
+                                <input type="radio" class="col_style" name="style" id="style01" value="01">
+                            </div>
+                            <div class="style-wrap">
+                                <label for="style03" class="style_01" ><img src="{% static 'img/collage_style03.png' %}"></label>
+                                <input type="radio" class="col_style" name="style" id="style03" value="02">
+                            </div>
+                            <div class="style-wrap">
+                                <label for="style04" class="style_01" ><img src="{% static 'img/collage_style04.png' %}"></label>
+                                <input type="radio" class="col_style" name="style" id="style04" value="03">
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+
+                <!-- YouTube URL -->
+                <div class="media_frame">
+                    <input type="text" name="video01" class="video_url" placeholder="YouTube URL: (optional)">
+                </div>   
+            </div>
+            
+            <div id="section2">
+                <div class="more_content">
+                    <div class="add_2nd">
+                        <i class="fas fa-plus-circle"></i>/ <i class="fas fa-minus-circle"></i> <span class="add_btb_title">add step 2 content (optional)</span>
+                    </div>
+                    <div class="content_2nd-wrap">
+                        <input type="text" name="subject_2nd" class="subject_input" placeholder="step 2 title: (optional)">
+                        <textarea name="content_2nd" class="content_input more_content_section" warp="soft" placeholder="step2 content (optional)"></textarea>
+                        <textarea name="desc_2nd" class="desc" placeholder="description (optional)" rows="8"></textarea>
+                        <div class="media_frame">
+                            <input type="text" name="video02" class="video_url" placeholder="YouTube URL: (optional)">
+                        </div>
+
+
+                        <!-- image upload model -->
+                        <div class="upload_images-btns">
+            
+                            <div type="button" class="upload_images_ajax_second">
+                            select images
+                            </div>
+                            <input type="hidden" name="next" value="/{{account_owner.user_id}}/clear02/">
+                            <div class="clear_images02">
+                                clear selection
+                            </div>
+                            
+                            <input id="fileupload02" type="file" name="files" multiple accept="image/png, .jpeg, .jpg, .gif"
+                                style="display: none;"
+                                data-url="/{{account_owner.user_id}}/section2_image_upload/"
+                                data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+                        </div>
+
+                        <div class="image_desc"> * up to 4 images(4MB)</div>
+
+
+                        
+                        <div class="image_style-wrap">
+                            <div class="upload_img-wrap">
+                                {% for img in section02_images reversed%}  
+                                    {% if img.user == account_owner.user_id %}
+                                    <div class="upload_img_circle">             
+                                        <img  class="upload_img" src="{{img.files.url }}">
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+
+                            <div class="style_options-wrap">
+                                <div class="style-wrap">
+                                    <img src="{% static 'img/collage_style_none.png' %}">
+                                </div>
+                                <div class="style-wrap">
+                                    <label for="style_2nd_slider" class="style_01" ><img src="{% static 'img/collage_style_slider.png' %}"></label>
+                                    <input type="radio" class="col_style" name="style" id="style_2nd_slider" value="slider">
+                                </div>
+                                <div class="style-wrap">
+                                    <label for="style_2nd_01" class="style_01" ><img src="{% static 'img/collage_style01.png' %}"></label>
+                                    <input type="radio" class="col_style" name="style_second" id="style_2nd_01" value="01">
+                                </div>
+                                <div class="style-wrap">
+                                    <label for="style_2nd_03" class="style_01" ><img src="{% static 'img/collage_style03.png' %}"></label>
+                                    <input type="radio" class="col_style" name="style_second" id="style_2nd_03" value="02">
+                                </div>
+                                <div class="style-wrap">
+                                    <label for="style_2nd_04" class="style_01" ><img src="{% static 'img/collage_style04.png' %}"></label>
+                                    <input type="radio" class="col_style" name="style_second" id="style_2nd_04" value="03">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+   
+                </div>
+            </div>
+            <div id="section3">
+                <div class="more_content">
+                    <div class="add_3rd">
+                        <i class="fas fa-plus-circle"></i>/ <i class="fas fa-minus-circle"></i> <span class="add_btb_title">add step 3 content (optional)</span>
+                    </div>
+                    <div class="content_3rd-wrap">
+                        <input type="text" name="subject_3rd" class="subject_input" placeholder="step 3 title: (optional)">
+                        <textarea name="content_3rd" class="content_input second" warp="soft" placeholder="step3 content(optional)"></textarea>
+                        <textarea name="desc_3rd" class="desc" placeholder="description (optional)" rows="8"></textarea>
+                        <div class="media_frame">
+                            <input type="text" name="video03" class="video_url" placeholder="YouTube URL: (optional)">
+                        </div>
+                        
+                        <!-- image upload model -->
+                        <div class="upload_images-btns">
+
+                            <div type="button" class="upload_images_ajax_third">
+                            select images
+                            </div>
+                            <input type="hidden" name="next" value="/{{account_owner.user_id}}/clear03/">
+                            <div class="clear_images03">
+                                clear selection
+                            </div>
+                            
+                            <input id="fileupload03" type="file" name="files" multiple accept="image/png, .jpeg, .jpg, .gif
+                                style="display: none;"
+                                data-url="/{{account_owner.user_id}}/section3_image_upload/"
+                                data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+                        </div>
+
+                        <div class="image_desc"> * up to 2 images(2MB)</div>
+
+                        <div class="image_style-wrap">
+                            <div class="upload_img-wrap">
+                                {% for img in section03_images reversed%}  
+                                    {% if img.user == account_owner.user_id %} 
+                                    <div class="upload_img_circle">               
+                                    <img  class="upload_img" src="{{img.files.url }}">
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+
+                            <div class="style_options-wrap">
+                                <div class="style-wrap">
+                                    <img src="{% static 'img/collage_style_none.png' %}">
+                                </div>
+
+                                <div class="style-wrap">
+                                    <label for="style_3rd_03" class="style_01" ><img src="{% static 'img/collage_style03.png' %}"></label>
+                                    <input type="radio" class="col_style" name="style_third" id="style_3rd_03" value="01">
+                                </div>
+                                <div class="style-wrap">
+                                    <label for="style_3rd_04" class="style_01" ><img src="{% static 'img/collage_style04.png' %}"></label>
+                                    <input type="radio" class="col_style" name="style_third" id="style_3rd_04" value="02">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+                <!-- <div class="media_frame">
+                    <input type="text" name="cloud_link" class="video_url" placeholder="Clould File URL: (optional)">
+                </div>   -->
+                <div class="memo_keyword_frame">
+                <div class="memo_keyword">
+                    <input type="text" name="keyword" class="keyword" placeholder="keyword (optional)">
+                    <select name="tab_name" class="tap">                                                       
+                            <option value="" selected>no tab (optional)</option>                            
+                            <option value="{{account_owner.tab01}}">{{account_owner.tab01}}</option>                        
+                            <option value="{{account_owner.tab02}}">{{account_owner.tab02}}</option>                        
+                            <option value="{{account_owner.tab01}}">{{account_owner.tab03}}</option>                        
+                            <option value="{{account_owner.tab04}}">{{account_owner.tab04}}</option>                        
+                            <option value="{{account_owner.tab05}}">{{account_owner.tab05}}</option>                                                            
+                    </select>
+                </div>
+                </div>
+
+                <div class="disclose-wrap">
+                    <div class="memo_disclose_option"> 
+                        <select name="disclose" class="disclose_option">
+                            <option value="public" selected>Public</option>
+                            <option value="unlisted">Unlisted</option>
+                            <option value="private">Private</option>
+                        </select>
+                        <div class="comment_option">
+                            comment: 
+                            <select class="comment" name="comment_on">
+                                <option value="on" selected>on</option>
+                                <option value="off">off</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="memo-create-wrap">
+                    <div class="create_memo">
+                        <button class="btn-blue memo-create">post-it</button>
+                    </div>
+                </div>
+                </form>
+            
+
+        </div>    
+    <div class="right">
+        <!-- new memo button -->
+        <div class="btn-blue go-back-dashboard"><i class="fas fa-arrow-left"></i></div>  
+        
+        <!-- <a href="/{{account_owner.user_id}}/" class="btn-blue go-back-dashboard"><i class="fas fa-arrow-left"></i></a>   -->
+        <!-- <a href="/{{account_owner.user_id}}/newmemo/" class="btn-blue add-memo"><i class="fas fa-pencil-alt"></i></a> -->
+        
+
+    </div>
+</div> <!-- this tag connects to base html <div class="dash_frame"> )-->
+    {% block script %}
+    <script src="{% static 'js/jquery.ui.widget.js' %}"></script>
+    <script src="{% static 'js/jquery.fileupload.js' %}"></script>
+    <script src="{% static 'js/image_upload.js' %}"></script>
+    <!-- code editor script -->
+    <script src=" {% static 'plugin/codemirror/lib/codemirror.js' %}"></script>
+    <script src=" {% static 'js/code_default.js' %}"></script>
+    <script src=" {% static 'plugin/codemirror/addon/edit/closetag.js' %}"></script>
+    <script src=" {% static 'plugin/codemirror/addon/mode/loadmode.js' %}"></script>
+    <script src=" {% static 'plugin/codemirror/addon/edit/closebrackets.js' %}"></script>
+    <script src=" {% static 'plugin/codemirror/addon/comment/comment.js' %}"></script>
+    <script src=" {% static 'plugin/codemirror/addon/display/autorefresh.js' %}"></script>
+    <!-- code editor supporting language -->
+    <script src=" {% static 'plugin/codemirror/mode/javascript/javascript.js' %}"></script>
+    <script src=" {% static 'plugin/codemirror/mode/htmlmixed/htmlmixed.js' %}"></script>
+    <script src=" {% static 'plugin/codemirror/mode/css/css.js' %}"></script>
+    <script src=" {% static 'plugin/codemirror/mode/python/python.js' %}"></script>
+    <script src=" {% static 'plugin/codemirror/mode/swift/swift.js' %}"></script>
+    <script src=" {% static 'plugin/codemirror/mode/sass/sass.js' %}"></script>
+    <script src=" {% static 'plugin/codemirror/mode/ruby/ruby.js' %}"></script>
+    <script src=" {% static 'plugin/codemirror/mode/php/php.js' %}"></script>
+
+    <!-- code editor css -->
+    <link rel="stylesheet" href="{% static 'plugin/codemirror/lib/codemirror.css' %}">
+    <link rel="stylesheet" href="{% static 'plugin/codemirror/theme/cobalt.css' %}">
+{% endblock %}
+{% endblock %}

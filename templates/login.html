@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="form_wrapper">
+    <div class="register">
+        <h3>It's a skill time!</h3>
+        <form action="/login/" method="POST" id="login_form">
+            {% csrf_token %}
+            <div class="label">
+              <span>ID</span> 
+              <span>Password</span> 
+            </div>
+            <div class="input">
+                <div id="login_id_msg"></div>
+                <input type="text" name="user_id" id="login_id">
+                <input type="password" name="password">
+            </div>
+            <button class="btn-blue btn-post">LOGIN</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

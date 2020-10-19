@@ -1,0 +1,128 @@
+{% extends 'base2.html' %}
+{% block title %} @{{account_owner.user_id}} {% endblock %}
+{% block content %}
+{% load static %}
+    <div class="left">
+        
+    </div>
+    <div class="middle">
+        <div class="search-wrap">
+            <form action="/{{account_owner.user_id}}/search/" method="POST" id="search">
+                {% csrf_token %}
+            <div class="search_section">
+                    <input type="text" name="search" class="search_bar" placeholder="memo keyword">
+                    <input type="hidden" name="search_preview" value="/{{account_owner.user_id}}/search_preview/">
+                    <button><i class="fas fa-search"></i></button>
+            </div>
+
+            </form>
+            <div class="search_preview"></div>
+
+        </div>
+
+        <div class="dm-check-wrapper">
+            <div class="dm-sender-info">
+                <div class="dm_check_title">  
+                    <a href="/{{sender.user_id}}/">               
+                        {% if sender.profile_pic %}                       
+                            <div class="navbar_profile_outer-wrap">
+                                <div class="navbar_profile_pic">
+                                <img src="{{sender.profile_pic.url}}">                     
+                                </div>
+                                <img class="profile_ring" src="{% static 'img/navbar_profile_ring.png' %}">
+                            </div>
+                            {% else %}
+                                <img class="no_navbar_profile" src="{% static 'img/profile_frame.png' %}">
+                            {% endif %}
+                    </a>
+                        
+                        {% if sender.brand_name %}
+                        <div class="nav_brand_name">{{ sender.brand_name}}</div>
+                        {% else %}
+                        <div class="dm-from_name">{{ sender.first_name }} {{sender.last_name}} ({{sender.user_id}})</div>
+                        {% endif %}                                         
+                </div>
+                <span>{{dm.created_at}}</span>                
+            </div>
+
+            <div class="wrapper recent-memo">                
+                <pre wrap="hard" >{{dm.dm_msg}}</pre>
+                
+            </div>
+
+            <form action="/{{account_owner.user_id}}/{{dm.id}}/dm_delete/" method="POST">
+                {% csrf_token %}                
+                <button class="btn-blue dm-cancel dm-delete-btn">delete DM</button>
+            </form>   
+            
+            <div class="dm-conversation-wrap">
+                {% for dm in dmReply %} 
+                    {% if dm.reply_user_id == account_owner.user_id %}                   
+                        <div class="dm-reply-children-right">
+                            <div class="dm-reply-child-right-wrap">
+                                <span class="dm-replied-title-right">{{dm.reply_name}}</span>                            
+                                <pre class="dm-replied-msg" wrap="hard">{{dm.reply_msg}}</pre>
+                                <span class="dm-replied-time-right">{{dm.created_at}}</span>                                                    
+                            </div>
+                        </div>                                    
+                    {% else %}                   
+                        <div class="dm-reply-children-left">
+                            <div class="dm-reply-child-left-wrap">
+                                <span class="dm-replied-title">{{dm.reply_name}}</span>                    
+                                <pre class="dm-replied-msg" wrap="hard">{{dm.reply_msg}}</pre>
+                                <span class="dm-replied-time-left">{{dm.created_at}}</span>                               
+                            </div>                    
+                        </div>                    
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <form action="/dmReplyProcess/{{dm.id}}/{{account_owner.user_id}}/reply_dm/" method="POST">
+                {%csrf_token%}
+                <div class="dm-reply-wrap">
+                    <div class="dm-reply-container">
+                        <div class="dm-reply-to">Reply To: 
+                            {% if dm.to_user_id == account_owner.user_id %}    
+                            <span class="dm-reply-to-user">@{{dm.from_user_id}}</span>
+                            {% else %}
+                            <span class="dm-reply-to-user">@{{dm.to_user_id}}</span>
+                            {% endif %}
+                        </div>                        
+                        <textarea id="end" name="reply_msg" class="dm-reply-msg" required maxlength="250" placeholder="up to 250 characters"></textarea>        
+                        <input type="hidden" name="parent_dm_id" value="{{dm.id}}">
+                        {% if dm.to_user_id == account_owner.user_id %}
+                        <input type="hidden" name="reply_user_id" value="{{dm.to_user_id}}">
+                        {% else %}
+                        <input type="hidden" name="reply_user_id" value="{{dm.from_user_id}}">
+                        {% endif %}
+                        <div class="dm-send-wrap">                   
+                            <button class="btn-blue dm-reply-btn">send DM</button> 
+                        </div>
+                    </div>         
+                </div>                
+            </form>
+
+        </div>
+        <!-- <script>
+            function scrollTo(hash) {
+                location.hash = "#" + hash;
+            }
+        </script> -->
+
+    </div>    
+
+    <div class="right">
+        <!-- new memo button -->
+        <div class="btn-blue go-back-dashboard"><i class="fas fa-arrow-left"></i></div>  
+        {% if account_owner.user_id == logged_user.user_id %}
+        <!-- <a href="/{{account_owner.user_id}}/messages/" class="btn-blue go-back-dashboard"><i class="fas fa-arrow-left"></i></a>   -->
+        <a href="/{{account_owner.user_id}}/newmemo/" class="btn-blue add-memo"><i class="fas fa-pencil-alt"></i></a>
+        {% endif %}
+    </div>
+
+    </div>
+</div> <!-- this tag connects to base html <div class="dash_frame"> )-->
+    {% block javascript %}
+        <script src="{% static 'js/dmScroll.js' %}"></script>
+    {% endblock %}
+    
+{% endblock %}

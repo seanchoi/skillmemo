@@ -1,0 +1,48 @@
+  .hljs {
+    padding: 15px 20px;
+    line-height: 1.3;
+  }
+  .tingle-demo {
+    display: none;
+  }
+  /* .footer {
+    text-align: center;
+  } */
+  /* tags
+  -------------------------------------------------------------- */
+  /* .tag {
+    display: inline-block;
+    padding: .1em .5em;
+    border-radius: 4px;
+    color: #fff;
+    vertical-align: middle;
+    font-size: 1.3rem;
+  }
+  .tag--warning {
+    background-color: #f39c12;
+  } */
+  /* animations
+  -------------------------------------------------------------- */
+  @keyframes github {
+    0% {
+      top: 220px;
+      transform: rotate(180deg);
+    }
+    100% {
+      top: 0;
+      transform: rotate(0);
+    }
+  }
+  /* responsive
+  -------------------------------------------------------------- */
+  @media (max-width: 540px) {
+    .container {
+      width: 90%;
+    }
+    .btn {
+      display: block;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+  
+  }

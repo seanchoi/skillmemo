@@ -1,0 +1,907 @@
+{% extends 'base2.html' %}
+{% block title %} | edit memo {% endblock %}
+{% block content %}
+{% load static %}
+    <div class="left">
+            
+    </div>
+    <div class="middle">
+        <div class="middle-wrapper">
+            <form action="/{{account_owner.user_id}}/{{the_memo.id}}/editmemo/" method="POST" enctype="multipart/form-data">
+                    {%csrf_token %}
+            <div id="section1">
+                <input type="text" name="subject" class="subject_input" value="{{the_memo.subject}}" required>
+                   
+                {% if the_memo.video01 %}
+                <!-- YouTube video frame -->
+                    <iframe id="ytplayer" type="text/html"
+                    src="https://www.youtube.com/embed/{{the_memo.video01}}"
+                    frameborder="0" allowfullscreen></iframe>
+                    <div class="media_frame">
+                        <input type="text" name="video01" class="video_url" placeholder="Change YouTube Video...">
+                    </div>  
+                {% else %}
+                    <div class="media_frame">
+                        <input type="text" name="video01" class="video_url" placeholder="YouTube URL: (optional)">
+                    </div>
+                {% endif %}  
+                    
+                <!-- image display styles - firt section -->
+                {% if the_memo.image01 %}
+                <div class="slides-container">                    
+                        {% if the_memo.style_first == "slider" %}
+                            <div id="slider">
+                                <a class="control_next">></a>
+                                <a class="control_prev"><</a>
+                                <ul class="first_ul">
+                                {% if the_memo.image04 %}
+                                    <li><img class="slider_img" src="{{ the_memo.image01.url }}"></li>
+                                    <li><img class="slider_img" src="{{ the_memo.image02.url }}"></li>
+                                    <li><img class="slider_img" src="{{ the_memo.image03.url }}"></li>
+                                    <li><img class="slider_img" src="{{ the_memo.image04.url }}"></li>
+                                {% elif the_memo.image03 %}
+                                    <li><img class="slider_img" src="{{ the_memo.image01.url }}"></li>
+                                    <li><img class="slider_img" src="{{ the_memo.image02.url }}"></li>
+                                    <li><img class="slider_img" src="{{ the_memo.image03.url }}"></li>
+                                {% elif the_memo.image02 %}
+                                    <li><img class="slider_img" src="{{ the_memo.image01.url }}"></li>
+                                    <li><img class="slider_img" src="{{ the_memo.image02.url }}"></li>
+                                {% else %}
+                                    <li><img class="slide only_one" src="{{ the_memo.image01.url }}"></li>
+                                {% endif %}
+                                </ul>  
+                            </div>                
+                                                                
+                        {% elif the_memo.style_first == "01" %}
+                        <div class="slides">  
+                            {% if the_memo.image04 %}
+                            <img class="slide slide_top" src="{{ the_memo.image01.url }}">
+                            <img class="slide slide_bottom_one_third" src="{{ the_memo.image02.url }}">
+                            <img class="slide slide_bottom_one_third" src="{{ the_memo.image03.url }}">
+                            <img class="slide slide_bottom_one_third" src="{{ the_memo.image04.url }}">
+
+                            {% elif the_memo.image03 %}
+                            <img class="slide slide_top" src="{{ the_memo.image01.url }}">
+                            <img class="slide" src="{{ the_memo.image02.url }}">
+                            <img class="slide" src="{{ the_memo.image03.url }}">
+                            
+                            {% elif the_memo.image02 %}
+                            <img class="slide" src="{{ the_memo.image01.url }}">
+                            <img class="slide" src="{{ the_memo.image02.url }}">
+
+                            {% else %}
+                            <img class="slide only_one" src="{{ the_memo.image01.url }}">
+                            {% endif %}
+                        </div>
+
+                        {% elif the_memo.style_first == "02" %}
+                        <div class="slides">  
+                            {% if the_memo.image04 %}
+                            <img class="slide slide_top" src="{{ the_memo.image01.url }}">
+                            <img class="slide slide_bottom_one_third" src="{{ the_memo.image02.url }}">
+                            <img class="slide slide_bottom_one_third" src="{{ the_memo.image03.url }}">
+                            <img class="slide slide_bottom_one_third" src="{{ the_memo.image04.url }}">
+
+                            {% elif the_memo.image03 %}
+                            <img class="slide slide_top" src="{{ the_memo.image01.url }}">
+                            <img class="slide" src="{{ the_memo.image02.url }}">
+                            <img class="slide" src="{{ the_memo.image03.url }}">
+                            
+                            {% elif the_memo.image02 %}
+                            <img class="slide slide_top" src="{{ the_memo.image01.url }}">
+                            <img class="slide slide_top" src="{{ the_memo.image02.url }}">
+
+                            {% else %}
+                            <img class="slide only_one" src="{{ the_memo.image01.url }}">
+                            {% endif %}  
+                        </div>  
+
+                        {% elif the_memo.style_first == "03" %}
+                        <div class="slides">  
+                            {% if the_memo.image04 %}
+                            <div class="circle_frame">
+                                <img class="slide slide_circle " src="{{ the_memo.image01.url }}">
+                            </div>
+                            <div class="circle_frame">
+                                <img class="slide slide_circle " src="{{ the_memo.image02.url }}">
+                            </div>
+                            <div class="circle_frame">
+                                <img class="slide slide_circle " src="{{ the_memo.image03.url }}">
+                            </div>
+                            <div class="circle_frame">
+                                <img class="slide slide_circle " src="{{ the_memo.image04.url }}">
+                            </div>
+    
+                            {% elif the_memo.image03 %}
+                            <div class="circle_frame">
+                                <img class="slide slide_circle " src="{{ the_memo.image01.url }}">
+                            </div>
+                            <div class="circle_frame">
+                                <img class="slide slide_circle " src="{{ the_memo.image02.url }}">
+                            </div>
+                            <div class="circle_frame">
+                                <img class="slide slide_circle " src="{{ the_memo.image03.url }}">
+                            </div>
+                            
+                            {% elif the_memo.image02 %}
+                            <div class="circle_frame">
+                                <img class="slide slide_circle " src="{{ the_memo.image01.url }}">
+                            </div>
+                            <div class="circle_frame">
+                                <img class="slide slide_circle " src="{{ the_memo.image01.url }}">
+                            </div>
+    
+                            {% else %}
+                            <div class="circle_frame_only_one">
+                                <img class="slide only_one slide_circle" src="{{ the_memo.image01.url }}">
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        {% else %}
+                        <div class="slides">  
+                            {% if the_memo.image04 %}
+                            <img class="slide" src="{{ the_memo.image01.url }}">
+                            <img class="slide" src="{{ the_memo.image02.url }}">
+                            <img class="slide" src="{{ the_memo.image03.url }}">
+                            <img class="slide" src="{{ the_memo.image04.url }}">
+
+                            {% elif the_memo.image03 %}
+                            <img class="slide" src="{{ the_memo.image01.url }}">
+                            <img class="slide" src="{{ the_memo.image02.url }}">
+                            <img class="slide" src="{{ the_memo.image03.url }}">
+                            
+                            {% elif the_memo.image02 %}
+                            <img class="slide" src="{{ the_memo.image01.url }}">
+                            <img class="slide" src="{{ the_memo.image02.url }}">
+
+                            {% else %}
+                            <img class="slide only_one" src="{{ the_memo.image01.url }}">
+                            {% endif %}                        
+                        </div>
+                        {% endif %}
+                </div>
+                
+                     <!-- image layout option when there's an image - first section -->
+                     <div class="style_options-wrap_edit">
+                        <div class="style-wrap">
+                            <label for="style01_none" class="style_01" ><img src="{% static 'img/collage_style_none.png' %}"></label>
+                            <input type="radio" class="col_style" name="style" id="style01_none" value="none">
+                        </div>
+                        <div class="style-wrap">
+                            <label for="style01_slider" class="style_01" ><img src="{% static 'img/collage_style_slider.png' %}"></label>
+                            <input type="radio" class="col_style" name="style" id="style01_slider" value="slider">
+                        </div>
+                        <div class="style-wrap">
+                            <label for="style01" class="style_01" ><img src="{% static 'img/collage_style01.png' %}"></label>
+                            <input type="radio" class="col_style" name="style" id="style01" value="01">
+                        </div>
+                        <div class="style-wrap">
+                            <label for="style03" class="style_01" ><img src="{% static 'img/collage_style03.png' %}"></label>
+                            <input type="radio" class="col_style" name="style" id="style03" value="02">
+                        </div>
+                        <div class="style-wrap">
+                            <label for="style04" class="style_01" ><img src="{% static 'img/collage_style04.png' %}"></label>
+                            <input type="radio" class="col_style" name="style" id="style04" value="03">
+                        </div>
+                    </div>
+
+                {% else %}
+
+                    <!-- image upload model showing when there's no image in memo-->
+                    <div class="upload_images-btns">
+
+                        <div type="button" class="upload_images_ajax">
+                        select images
+                        </div>
+                        
+                        <input type="hidden" name="next" value="/{{account_owner.user_id}}/clear/">
+                        <div class="clear_images">
+                            clear selection
+                        </div>
+
+                        
+                        <input id="fileupload" type="file" name="files" multiple
+                            style="display: none;"
+                            data-url="/{{account_owner.user_id}}/image_upload_first_section/"
+                            data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+                    </div>
+                    <div class="image_desc"> * up to 4 images</div>
+
+                    <div class="image_style-wrap">
+                        <div class="upload_img-wrap">
+                        {% for photo in images reversed%}  
+                            {% if photo.user == account_owner.user_id %}             
+                            <div class="upload_img_circle">
+                                <img class="upload_img" src="{{photo.files.url }}">
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+    
+                        <div class="style_options-wrap">
+                            <div class="style-wrap">
+                                <img src="{% static 'img/collage_style_none.png' %}">
+                            </div>
+                            <div class="style-wrap">
+                                <label for="style01" class="style_01" ><img src="{% static 'img/collage_style_slider.png' %}"></label>
+                                <input type="radio" class="col_style" name="style" id="style01" value="slider">
+                            </div>
+                            <div class="style-wrap">
+                                <label for="style01" class="style_01" ><img src="{% static 'img/collage_style01.png' %}"></label>
+                                <input type="radio" class="col_style" name="style" id="style01" value="01">
+                            </div>
+                            <div class="style-wrap">
+                                <label for="style03" class="style_01" ><img src="{% static 'img/collage_style03.png' %}"></label>
+                                <input type="radio" class="col_style" name="style" id="style03" value="02">
+                            </div>
+                            <div class="style-wrap">
+                                <label for="style04" class="style_01" ><img src="{% static 'img/collage_style04.png' %}"></label>
+                                <input type="radio" class="col_style" name="style" id="style04" value="03">
+                            </div>
+                        </div>
+                    </div>
+
+
+                {% endif %}
+            </div>
+           
+
+                <textarea name="content" class="content_input second" wrap="soft">{{the_memo.content}}</textarea>
+                <!-- if there's conde content -->
+                {% if the_memo.content_code %}
+                    <div class="view_code_editor">
+                        <textarea name="content_code" class="code CodeMirror">{{the_memo.content_code}}</textarea>
+                        <input type="hidden" class="language" value="{{the_memo.language}}">
+                        <div class="lan_select-wrap">
+                            <select name="language" class="language">
+                                
+                                <option 
+                                    {% if the_memo.language %}    
+                                        value="{{the_memo.language}}">{{the_memo.language}}
+                                    {% else %}
+                                        value="">Language
+                                    {% endif %}
+                                </option>
+
+                                <option value="javascript">JavaScript</option>
+                                <option value="python">Python</option>
+                                <option value="swift">Swift</option>
+                                <option value="ruby">Ruby</option>
+                                <option value="html">HTML</option>
+                                <option value="css">CSS</option>
+                                <option value="sass">SASS</option>
+                            </select>
+                        </div>
+                    </div>
+                {% else %}
+                    <!-- if there's no code content -->
+                    <div class="code_editor_btn">
+                        <i class="fas fa-plus-circle"></i>/ <i class="fas fa-minus-circle"></i> <span><i class="fas fa-code"></i></span>
+                    </div>
+                    <div class="code_editor-wrap">
+                        <textarea name="content_code" class="code"></textarea>
+                        <div class="lan_select-wrap">
+                            <select name="language" class="language">
+                                <option value="">language</option>
+                                <option value="javascript">JavaScript</option>
+                                <option value="python">Python</option>
+                                <option value="swift">Swift</option>
+                                <option value="ruby">Ruby</option>
+                                <option value="html">HTML</option>
+                                <option value="css">CSS</option>
+                                <option value="sass">SASS</option>
+                            </select>
+                        </div>
+                    </div>
+                {% endif %}                
+                <textarea name="desc" class="desc" rows="8">{{the_memo.desc}}</textarea>
+
+<!-- second section start -->
+            <div id="section2">
+                <div class="more_content">
+                    {% if not the_memo.content_2nd %}
+                        <div class="add_2nd">
+                            <i class="fas fa-plus-circle"></i>/ <i class="fas fa-minus-circle"></i> <span class="add_btb_title">step 2 content (optional)</span>
+                        </div>
+                        <div class="content_2nd-wrap">
+                            <input type="text" name="subject_2nd" class="subject_input" placeholder="step 2 sbuject (optional)">
+                            
+                            {% if the_memo.video02 is None %}
+                                <input type="text" name="video02" class="video_url" placeholder="YouTube URL: (optional)">
+                            {%else %}
+                                <input type="text" name="video02" class="video_url" value="{{the_memo.video02}}" placeholder="YouTube URL: (optional)">
+                            {% endif %}
+                            <!-- image upload model -->
+                    
+                                <div class="upload_images-btns">
+                    
+                                    <div type="button" class="upload_images_ajax_second">
+                                    select images
+                                    </div>
+                                    <input type="hidden" name="next" value="/{{account_owner.user_id}}/clear02/">
+                                    <div class="clear_images02">
+                                        clear selection
+                                    </div>
+                                    
+                                    <input id="fileupload02" type="file" name="files" multiple
+                                        style="display: none;"
+                                        data-url="/{{account_owner.user_id}}/image_upload_second_section/"
+                                        data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+                                </div>
+
+                                <div class="image_desc"> * up to 4 images</div>
+                                
+                                <div class="image_style-wrap">
+                                    <div class="upload_img-wrap">
+                                        {% for photo in images02 reversed%}  
+                                            {% if photo.user == account_owner.user_id %}
+                                            <div class="upload_img_circle">             
+                                                <img  class="upload_img" src="{{photo.files.url }}">
+                                            </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+
+                                    <div class="style_options-wrap">
+                                        <div class="style-wrap">
+                                            <img src="{% static 'img/collage_style_none.png' %}">
+                                        </div>
+                                        <div class="style-wrap">
+                                            <label for="style_2nd_slider" class="style_01" ><img src="{% static 'img/collage_style_slider.png' %}"></label>
+                                            <input type="radio" class="col_style" name="style" id="style_2nd_slider" value="slider">
+                                        </div>
+                                        <div class="style-wrap">
+                                            <label for="style_2nd_01" class="style_01" ><img src="{% static 'img/collage_style01.png' %}"></label>
+                                            <input type="radio" class="col_style" name="style_second" id="style_2nd_01" value="01">
+                                        </div>
+                                        <div class="style-wrap">
+                                            <label for="style_2nd_03" class="style_01" ><img src="{% static 'img/collage_style03.png' %}"></label>
+                                            <input type="radio" class="col_style" name="style_second" id="style_2nd_03" value="02">
+                                        </div>
+                                        <div class="style-wrap">
+                                            <label for="style_2nd_04" class="style_01" ><img src="{% static 'img/collage_style04.png' %}"></label>
+                                            <input type="radio" class="col_style" name="style_second" id="style_2nd_04" value="03">
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                            <textarea name="content_2nd" class="content_input second" warp="soft"  placeholder="step 2 memo (optional)"></textarea>
+                            <textarea name="desc_2nd" class="desc" rows="8"  placeholder="step 2 description (option)"></textarea>
+                        </div>
+                    {% else %}
+                        <div class="add_2nd_open">
+                            <i class="fas fa-plus-circle"></i>/ <i class="fas fa-minus-circle"></i> <span class="add_btb_title">step 2 content (optional)</span>
+                        </div>
+                        <div class="content_2nd-wrap_open">
+                            <input type="text" name="subject_2nd" class="subject_input" value="{{the_memo.subject_2nd}}">
+                            <!-- YouTube video frame -->
+                            {% if the_memo.video02 %}                        
+                                <iframe id="ytplayer" type="text/html"
+                                src="https://www.youtube.com/embed/{{hte_memo.video02}}"
+                                frameborder="0" allowfullscreen></iframe>
+                            {% endif %}
+                            <div class="media_frame">
+                                {% if the_memo.video02 is None %}
+                                    <input type="text" name="video02" class="video_url" placeholder="YouTube URL: (optional)">
+                                {%else %}
+                                    <input type="text" name="video02" class="video_url" placeholder="Change YouTube Video..." placeholder="YouTube URL: (optional)">
+                                {% endif %}
+                            </div>
+
+                        <!-- image display second section -->
+                        {% if the_memo.image05 %}
+                            <div class="slides-container">               
+                                    {% if the_memo.style_second == "slider" %}
+                                    <div id="slider02">
+                                        <a class="control_next02">></a>
+                                        <a class="control_prev02"><</a>
+                                        <ul class="second_ul">
+                                        {% if the_memo.image08 %}
+                                            <li><img class="slider_img" src="{{ the_memo.image05.url }}"></li>
+                                            <li><img class="slider_img" src="{{ the_memo.image06.url }}"></li>
+                                            <li><img class="slider_img" src="{{ the_memo.image07.url }}"></li>
+                                            <li><img class="slider_img" src="{{ the_memo.image08.url }}"></li>
+                                        {% elif the_memo.image07 %}
+                                            <li><img class="slider_img" src="{{ the_memo.image05.url }}"></li>
+                                            <li><img class="slider_img" src="{{ the_memo.image06.url }}"></li>
+                                            <li><img class="slider_img" src="{{ the_memo.image07.url }}"></li>
+                                        {% elif the_memo.image06 %}
+                                            <li><img class="slider_img" src="{{ the_memo.image05.url }}"></li>
+                                            <li><img class="slider_img" src="{{ the_memo.image06.url }}"></li>
+                                        {% else %}
+                                            <li><img class="slide only_one" src="{{ the_memo.image05.url }}"></li>
+                                        {% endif %}
+                                        </ul>  
+                                    </div>    
+                
+                                    {% elif the_memo.style_first == "01" %}
+                                    <div class="slides">  
+                                        {% if the_memo.image08 %}
+                                        <img class="slide slide_top" src="{{ the_memo.image05.url }}">
+                                        <img class="slide slide_bottom_one_third" src="{{ the_memo.image06.url }}">
+                                        <img class="slide slide_bottom_one_third" src="{{ the_memo.image07.url }}">
+                                        <img class="slide slide_bottom_one_third" src="{{ the_memo.image08.url }}">
+                
+                                        {% elif the_memo.image07 %}
+                                        <img class="slide slide_top" src="{{ the_memo.image05.url }}">
+                                        <img class="slide" src="{{ the_memo.image06.url }}">
+                                        <img class="slide" src="{{ the_memo.image07.url }}">
+                                        
+                                        {% elif the_memo.image06 %}
+                                        <img class="slide" src="{{ the_memo.image05.url }}">
+                                        <img class="slide" src="{{ the_memo.image06.url }}">
+                
+                                        {% else %}
+                                        <img class="slide only_one" src="{{ the_memo.image05.url }}">
+                                        {% endif %}
+                                    </div>
+                
+                                    {% elif the_memo.style_first == "02" %}
+                                    <div class="slides">  
+                                        {% if the_memo.image08 %}
+                                        <img class="slide slide_top" src="{{ the_memo.image05.url }}">
+                                        <img class="slide slide_bottom_one_third" src="{{ the_memo.image06.url }}">
+                                        <img class="slide slide_bottom_one_third" src="{{ the_memo.image07.url }}">
+                                        <img class="slide slide_bottom_one_third" src="{{ the_memo.image08.url }}">
+                
+                                        {% elif the_memo.image07 %}
+                                        <img class="slide slide_top" src="{{ the_memo.image05.url }}">
+                                        <img class="slide" src="{{ the_memo.image06.url }}">
+                                        <img class="slide" src="{{ the_memo.image07.url }}">
+                                        
+                                        {% elif the_memo.image06 %}
+                                        <img class="slide slide_top" src="{{ the_memo.image05.url }}">
+                                        <img class="slide slide_top" src="{{ the_memo.image06.url }}">
+                
+                                        {% else %}
+                                        <img class="slide only_one" src="{{ the_memo.image05.url }}">
+                                        {% endif %}  
+                                    </div>  
+                
+                                    {% elif the_memo.style_first == "03" %}
+                                    <div class="slides">  
+                                        {% if the_memo.image08 %}
+                                        <div class="circle_frame">
+                                            <img class="slide slide_circle " src="{{ the_memo.image05.url }}">
+                                        </div>
+                                        <div class="circle_frame">
+                                            <img class="slide slide_circle " src="{{ the_memo.image06.url }}">
+                                        </div>
+                                        <div class="circle_frame">
+                                            <img class="slide slide_circle " src="{{ the_memo.image07.url }}">
+                                        </div>
+                                        <div class="circle_frame">
+                                            <img class="slide slide_circle " src="{{ the_memo.image08.url }}">
+                                        </div>
+                
+                                        {% elif the_memo.image07 %}
+                                        <div class="circle_frame">
+                                            <img class="slide slide_circle " src="{{ the_memo.image05.url }}">
+                                        </div>
+                                        <div class="circle_frame">
+                                            <img class="slide slide_circle " src="{{ the_memo.image06.url }}">
+                                        </div>
+                                        <div class="circle_frame">
+                                            <img class="slide slide_circle " src="{{ the_memo.image07.url }}">
+                                        </div>
+                                        
+                                        {% elif the_memo.image06 %}
+                                        <div class="circle_frame">
+                                            <img class="slide slide_circle " src="{{ the_memo.image05.url }}">
+                                        </div>
+                                        <div class="circle_frame">
+                                            <img class="slide slide_circle " src="{{ the_memo.image06.url }}">
+                                        </div>
+                
+                                        {% else %}
+                                        <div class="circle_frame_only_one">
+                                            <img class="slide only_one slide_circle" src="{{ the_memo.image05.url }}">
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                
+                                    {% else %}
+                                    <div class="slides">  
+                                        {% if the_memo.image08 %}
+                                        <img class="slide" src="{{ the_memo.image05.url }}">
+                                        <img class="slide" src="{{ the_memo.image06.url }}">
+                                        <img class="slide" src="{{ the_memo.image07.url }}">
+                                        <img class="slide" src="{{ the_memo.image08.url }}">
+                
+                                        {% elif the_memo.image07 %}
+                                        <img class="slide" src="{{ the_memo.image05.url }}">
+                                        <img class="slide" src="{{ the_memo.image06.url }}">
+                                        <img class="slide" src="{{ the_memo.image07.url }}">
+                                        
+                                        {% elif the_memo.image06 %}
+                                        <img class="slide" src="{{ the_memo.image05.url }}">
+                                        <img class="slide" src="{{ the_memo.image06.url }}">
+                
+                                        {% else %}
+                                        <img class="slide only_one" src="{{ the_memo.image05.url }}">
+                                        {% endif %}                        
+                                    </div>
+                                    {% endif %}
+                            </div>
+
+                            <!-- layout option - second section  -->
+                            <div class="style_options-wrap02_edit">
+                                <div class="style-wrap">
+                                    <label for="style_2nd_none" class="style_01" ><img src="{% static 'img/collage_style_none.png' %}"></label>
+                                    <input type="radio" class="col_style" name="style_second" id="style_2nd_none" value="none">
+                                </div>
+                                <div class="style-wrap">
+                                    <label for="style_2nd_slider" class="style_01" ><img src="{% static 'img/collage_style_slider.png' %}"></label>
+                                    <input type="radio" class="col_style" name="style_second" id="style_2nd_slider" value="slider">
+                                </div>
+                                <div class="style-wrap">
+                                    <label for="style_2nd_01" class="style_01" ><img src="{% static 'img/collage_style01.png' %}"></label>
+                                    <input type="radio" class="col_style" name="style_second" id="style_2nd_01" value="01">
+                                </div>
+                                <div class="style-wrap">
+                                    <label for="style_2nd_03" class="style_01" ><img src="{% static 'img/collage_style03.png' %}"></label>
+                                    <input type="radio" class="col_style" name="style_second" id="style_2nd_03" value="02">
+                                </div>
+                                <div class="style-wrap">
+                                    <label for="style_2nd_04" class="style_01" ><img src="{% static 'img/collage_style04.png' %}"></label>
+                                    <input type="radio" class="col_style" name="style_second" id="style_2nd_04" value="03">
+                                </div>
+                            </div>
+
+                        {% else %}
+                            <!-- image upload model for second section-->
+                            <div class="upload_images-btns">
+                
+                                <div type="button" class="upload_images_ajax_second">
+                                select images
+                                </div>
+                                <input type="hidden" name="next" value="/{{account_owner.user_id}}/clear02/">
+                                <div class="clear_images02">
+                                    clear selection
+                                </div>
+                                
+                                <input id="fileupload02" type="file" name="files" multiple
+                                    style="display: none;"
+                                    data-url="/{{account_owner.user_id}}/image_upload_second_section/"
+                                    data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+                            </div>
+
+                            <div class="image_desc"> * up to 4 images</div>
+
+
+                            
+                            <div class="image_style-wrap">
+                                <div class="upload_img-wrap">
+                                    {% for photo in images02 reversed%}  
+                                        {% if photo.user == account_owner.user_id %}
+                                        <div class="upload_img_circle">             
+                                            <img  class="upload_img" src="{{photo.files.url }}">
+                                        </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+
+                                <div class="style_options-wrap">
+                                    <div class="style-wrap">
+                                        <img src="{% static 'img/collage_style_none.png' %}">
+                                    </div>
+                                    <div class="style-wrap">
+                                        <label for="style_2nd_slider" class="style_01" ><img src="{% static 'img/collage_style_slider.png' %}"></label>
+                                        <input type="radio" class="col_style" name="style" id="style_2nd_slider" value="slider">
+                                    </div>
+                                    <div class="style-wrap">
+                                        <label for="style_2nd_01" class="style_01" ><img src="{% static 'img/collage_style01.png' %}"></label>
+                                        <input type="radio" class="col_style" name="style_second" id="style_2nd_01" value="01">
+                                    </div>
+                                    <div class="style-wrap">
+                                        <label for="style_2nd_03" class="style_01" ><img src="{% static 'img/collage_style03.png' %}"></label>
+                                        <input type="radio" class="col_style" name="style_second" id="style_2nd_03" value="02">
+                                    </div>
+                                    <div class="style-wrap">
+                                        <label for="style_2nd_04" class="style_01" ><img src="{% static 'img/collage_style04.png' %}"></label>
+                                        <input type="radio" class="col_style" name="style_second" id="style_2nd_04" value="03">
+                                    </div>
+                                </div>
+                            </div>
+                        
+                        {% endif %}
+
+                            <textarea name="content_2nd" class="content_input second" warp="soft">{{the_memo.content_2nd}}</textarea>
+                            <textarea name="desc_2nd" class="desc" rows="8">{{the_memo.desc_2nd}}</textarea>
+
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+<!-- 3rd section starts -->
+            <div id="section3">
+                <div class="more_content">
+                    {% if not the_memo.content_3rd %}
+                        <div class="add_3rd">
+                            <i class="fas fa-plus-circle"></i>/ <i class="fas fa-minus-circle"></i> <span class="add_btb_title">step 3 content(option)</span>
+                        </div>
+                        <div class="content_3rd-wrap">
+                            <input type="text" name="subject_3rd" class="subject_input" placeholder="step 3 sbuject (optional)">
+                            {% if the_memo.video03 is None %}
+                                <input type="text" name="video03" class="video_url" placeholder="YouTube URL: (optional)">
+                            {%else %}
+                                <input type="text" name="video03" class="video_url" value="{{the_memo.video03}}" placeholder="YouTube URL: (optional)">
+                            {% endif %}
+                            
+                            <!-- image upload model -->
+                                <div class="upload_images-btns">
+
+                                    <div type="button" class="upload_images_ajax_third">
+                                    select images
+                                    </div>
+                                    <input type="hidden" name="next" value="/{{account_owner.user_id}}/clear03/">
+                                    <div class="clear_images03">
+                                        clear selection
+                                    </div>
+                                    
+                                    <input id="fileupload03" type="file" name="files" multiple
+                                        style="display: none;"
+                                        data-url="/{{account_owner.user_id}}/image_upload_third_section/"
+                                        data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+                                </div>
+
+                                <div class="image_desc"> * up to 2 images</div>
+
+                                <div class="image_style-wrap">
+                                    <div class="upload_img-wrap">
+                                        {% for photo in images03 reversed%}  
+                                            {% if photo.user == account_owner.user_id %} 
+                                            <div class="upload_img_circle">               
+                                            <img  class="upload_img" src="{{photo.files.url }}">
+                                            </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+
+                                    <div class="style_options-wrap">
+                                        <div class="style-wrap">
+                                            <img src="{% static 'img/collage_style_none.png' %}">
+                                        </div>
+
+                                        <div class="style-wrap">
+                                            <label for="style_3rd_03" class="style_01" ><img src="{% static 'img/collage_style03.png' %}"></label>
+                                            <input type="radio" class="col_style" name="style_third" id="style_3rd_03" value="01">
+                                        </div>
+                                        <div class="style-wrap">
+                                            <label for="style_3rd_04" class="style_01" ><img src="{% static 'img/collage_style04.png' %}"></label>
+                                            <input type="radio" class="col_style" name="style_third" id="style_3rd_04" value="02">
+                                        </div>
+                                    </div>
+                                </div>
+                             
+                            <textarea name="content_3rd" class="content_input second" warp="soft" placeholder="step 3 content (optional)"></textarea>
+                            <textarea name="desc_3rd" class="desc" rows="8" placeholder="step 3 description (option)"></textarea>
+
+                        </div>
+                    {% else %}
+                        <div class="add_3rd_open">
+                            <i class="fas fa-plus-circle"></i>/ <i class="fas fa-minus-circle"></i> <span class="add_btb_title">step 3 content(option)</span>
+                        </div>
+                        <div class="content_3rd-wrap_open">
+                            <input type="text" name="subject_3rd" class="subject_input" value="{{the_memo.subject_3rd}}">
+                            <!-- YouTube video frame -->
+                            {% if the_memo.video03 %}                     
+                                <iframe id="ytplayer" type="text/html"
+                                src="https://www.youtube.com/embed/{{the_memo.video03}}"
+                                frameborder="0" allowfullscreen></iframe>
+                            {% endif %}
+                            <div class="media_frame">
+                                {% if the_memo.video03 is None %}
+                                    <input type="text" name="video03" class="video_url" placeholder="YouTube URL: (optional)">
+                                {%else %}
+                                    <input type="text" name="video03" class="video_url" placeholder="Change YouTube Video..." placeholder="YouTube URL: (optional)">
+                                {% endif %}
+                            </div>
+
+                            <!-- layout third section -->
+                        {% if the_memo.style.image09 %}
+                            <div class="slides-container">
+                                <div class="slides">
+                                {% if the_memo.style_third == "01" %}            
+                                    {% if the_memo.image10 %}
+                                    <img class="slide slide_top" src="{{ the_memo.image09.url }}">
+                                    <img class="slide slide_top" src="{{ the_memo.image10.url }}">
+                
+                                    {% else %}
+                                    <img class="slide only_one" src="{{ the_memo.image09.url }}">
+                                    {% endif %}
+                                {% elif the_memo.style_third == "02" %}
+                                    {% if the_memo.image10 %}
+                                    <div class="circle_frame">
+                                        <img class="slide slide_circle " src="{{ the_memo.image09.url }}">
+                                    </div>
+                                    <div class="circle_frame">
+                                        <img class="slide slide_circle " src="{{ the_memo.image10.url }}">
+                                    </div>
+                                    {%else %}
+                                    <div class="circle_frame_only_one">
+                                        <img class="slide only_one slide_circle" src="{{ the_memo.image05.url }}">
+                                    </div>
+                                    {% endif %}
+                                {% else %}
+                                    <div class="slides">                                
+                                        {% if the_memo.image10 %}
+                                        <img class="slide" src="{{ the_memo.image09.url }}">
+                                        <img class="slide" src="{{ the_memo.image10.url }}">
+                
+                                        {% else %}
+                                        <img class="slide only_one" src="{{ the_memo.image09.url }}">
+                                        {% endif %}                        
+                                    </div>                           
+                                {% endif %}
+                                </div>
+                            </div>
+
+                            <!-- layout option -->
+                            <div class="style_options-wrap03_edit">
+                                <div class="style-wrap">
+                                    <label for="style_3rd_none" class="style_01" ><img src="{% static 'img/collage_style_none.png' %}"></label>
+                                    <input type="radio" class="col_style" name="style_third" id="style_3rd_none" value="none">
+                                </div>
+
+                                <div class="style-wrap">
+                                    <label for="style_3rd_03" class="style_01" ><img src="{% static 'img/collage_style03.png' %}"></label>
+                                    <input type="radio" class="col_style" name="style_third" id="style_3rd_03" value="01">
+                                </div>
+                                <div class="style-wrap">
+                                    <label for="style_3rd_04" class="style_01" ><img src="{% static 'img/collage_style04.png' %}"></label>
+                                    <input type="radio" class="col_style" name="style_third" id="style_3rd_04" value="02">
+                                </div>
+                            </div>
+                        {% else %}
+                        <!-- image upload model -->
+                            <div class="upload_images-btns">
+
+                                <div type="button" class="upload_images_ajax_third">
+                                select images
+                                </div>
+                                <input type="hidden" name="next" value="/{{account_owner.user_id}}/clear03/">
+                                <div class="clear_images03">
+                                    clear selection
+                                </div>
+                                
+                                <input id="fileupload03" type="file" name="files" multiple
+                                    style="display: none;"
+                                    data-url="/{{account_owner.user_id}}/image_upload_third_section/"
+                                    data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+                            </div>
+
+                            <div class="image_desc"> * up to 2 images</div>
+
+                            <div class="image_style-wrap">
+                                <div class="upload_img-wrap">
+                                    {% for photo in images03 reversed%}  
+                                        {% if photo.user == account_owner.user_id %} 
+                                        <div class="upload_img_circle">               
+                                        <img  class="upload_img" src="{{photo.files.url }}">
+                                        </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+
+                                <div class="style_options-wrap">
+                                    <div class="style-wrap">
+                                        <img src="{% static 'img/collage_style_none.png' %}">
+                                    </div>
+
+                                    <div class="style-wrap">
+                                        <label for="style_3rd_03" class="style_01" ><img src="{% static 'img/collage_style03.png' %}"></label>
+                                        <input type="radio" class="col_style" name="style_third" id="style_3rd_03" value="01">
+                                    </div>
+                                    <div class="style-wrap">
+                                        <label for="style_3rd_04" class="style_01" ><img src="{% static 'img/collage_style04.png' %}"></label>
+                                        <input type="radio" class="col_style" name="style_third" id="style_3rd_04" value="02">
+                                    </div>
+                                </div>
+                            </div>
+
+                        {% endif %}
+
+
+                            <textarea name="content_3rd" class="content_input second" warp="soft">{{the_memo.content_3rd}}</textarea>
+                            <textarea name="desc_3rd" class="desc" rows="8">{{the_memo.desc_3rd}}</textarea>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+   
+                <div class="memo_keyword_frame">
+                <div class="memo_keyword">
+                    <input type="text" name="keyword" class="keyword" value="{{the_memo.keyword}}">
+                    <select name="tab_name" class="tap">
+                            <option value="{{the_memo.tab_name}}" selected>{% if not emo.tab_name %}no tab {% else %}{{memo.tab_name}}{% endif %}</option>
+                            <option value="">no tab</option>
+                            <option value="{{account_owner.tab01}}">{{account_owner.tab01}}</option>
+                            <option value="{{account_owner.tab02}}">{{account_owner.tab02}}</option>
+                            <option value="{{account_owner.tab03}}">{{account_owner.tab03}}</option>                      
+                            <option value="{{account_owner.tab04}}">{{account_owner.tab04}}</option> 
+                            <option value="{{account_owner.tab05}}">{{account_owner.tab05}}</option>
+                                                                       
+                    </select>
+                </div>
+                </div>
+
+                <div class="disclose-wrap">
+                    <div class="memo_disclose_option"> 
+                        <select name="disclose" class="disclose_option">
+                            <option value="{{the_memo.disclose}}" selected>{{the_memo.disclose}}</option>
+                            {% if the_memo.disclose == "public" %}
+                                <option value="unlisted">unlisted</option>
+                                <option value="private">private</option>
+                            {% elif the_memo.disclose == "unlisted" %}
+                                <option value="public">public</option>
+                                <option value="private">private</option>
+                            {% elif the_memo.disclose == "private" %}
+                                <option value="public">public</option>
+                                <option value="unlisted">unlisted</option>
+                            {% endif %}
+                        </select>
+                        <div class="comment_option">comment:
+                            <select class="comment" name="comment_on">
+                                {% if the_memo.comment_on == "on" %}
+                                    <option value="on" selected>on</option>
+                                    <option value="off">off</option>
+                                {% else  %}
+                                    <option value="on">on</option>
+                                    <option value="off" selected>off</option>
+                                {% endif %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="memo-create-wrap">
+                    <button class="btn-blue memo-create">update</button>
+                </div>
+                <div class="slide_down">
+                </div>
+        </div>
+    </div>
+    
+    <div class="right">
+        <div class="sidebtn-wrap">
+            <div class="btn-blue go-back-dashboard"><i class="fas fa-arrow-left"></i></div>  
+            <!-- <i class="fas fa-chevron-up up"></i> -->
+            <button class="btn-blue update-side"><i class="fas fa-swatchbook"></i></button>
+            <!-- <a href="/{{account_owner.user_id}}/{{the_memo.id}}/permanend_delete/" class="btn-blue delete4ever"><i class="fas fa-trash-alt"></i></a> -->
+        </div>
+    </div>
+
+</form>
+    </div>
+</div> <!-- this tag connects to base html <div class="dash_frame"> )-->
+{% block script %}
+<script src="{% static 'js/jquery.ui.widget.js' %}"></script>
+<script src="{% static 'js/jquery.fileupload.js' %}"></script>
+<script src="{% static 'js/image_upload.js' %}"></script>
+<!-- code editor script -->
+<script src=" {% static 'plugin/codemirror/lib/codemirror.js' %}"></script>
+<script src=" {% static 'js/code_default.js' %}"></script>
+<script src=" {% static 'plugin/codemirror/addon/edit/closetag.js' %}"></script>
+<script src=" {% static 'plugin/codemirror/addon/mode/loadmode.js' %}"></script>
+<script src=" {% static 'plugin/codemirror/addon/edit/closebrackets.js' %}"></script>
+<script src=" {% static 'plugin/codemirror/addon/comment/comment.js' %}"></script>
+<script src=" {% static 'plugin/codemirror/addon/display/autorefresh.js' %}"></script>
+<!-- code editor supporting language -->
+<script src=" {% static 'plugin/codemirror/mode/javascript/javascript.js' %}"></script>
+<script src=" {% static 'plugin/codemirror/mode/htmlmixed/htmlmixed.js' %}"></script>
+<script src=" {% static 'plugin/codemirror/mode/css/css.js' %}"></script>
+<script src=" {% static 'plugin/codemirror/mode/python/python.js' %}"></script>
+<script src=" {% static 'plugin/codemirror/mode/swift/swift.js' %}"></script>
+<script src=" {% static 'plugin/codemirror/mode/sass/sass.js' %}"></script>
+<script src=" {% static 'plugin/codemirror/mode/ruby/ruby.js' %}"></script>
+<script src=" {% static 'plugin/codemirror/mode/php/php.js' %}"></script>
+    <!-- code editor css -->
+<link rel="stylesheet" href="{% static 'plugin/codemirror/lib/codemirror.css' %}">
+<link rel="stylesheet" href="{% static 'plugin/codemirror/theme/cobalt.css' %}">
+
+<script src=" {% static 'js/slider.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/slider.css' %}">
+
+{% endblock %}
+{% endblock %}

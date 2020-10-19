@@ -1,0 +1,189 @@
+{% extends "base2.html" %}
+{% block title %} @{{account_owner.user_id}} {% endblock %}
+{% block content %}
+{% load static %}
+        <div class="left">
+
+        </div>
+
+        <div class="middle">
+
+                <div class="settings">
+                    <div class="content-justify">
+                    <h3>Account Settings</h3>
+                    <span class="channel_id">@{{account_owner.user_id}}</span>
+                        <form action="/{{account_owner.user_id}}/settings/" method="POST" id="settings" enctype="multipart/form-data">
+                        {% csrf_token %}        
+                            <div class="settings_form-wrap">
+
+                                <div class="settings_input">
+                                    <div class="label settings_label">
+                                        <span>Profile Picture</span>
+                                        <span>First Name</span>
+                                        <span>Brand Name</span>
+                                        <span>Description</span>
+                                        <span>Email</span>
+                                        <span>Password</span>
+                                        <span>Confirm</span>
+                                    </div>
+                                    <div class="input settings_input_width">
+                                        <div class="file-btn-wrap profile-pic">
+                                            <label for="uploader" class="image_label"><i class="fas fa-upload"></i>image upload</label>
+                                            <span class="delete_img"><a id="image01" href="/{{account_owner.user_id}}/profile_pic_delete/"><i class="fas fa-trash-alt prof_pic_delete"></i></a></span>
+                                            <input type="file" name="profile_pic" id="uploader" accept="image/png, .jpeg, .jpg, image/gif">
+                                        </div>
+                                        <input type="text" name="first_name" value="{{account_owner.first_name}}">
+                                        <input tyep="text" name="brand_name" 
+                                        {% if account_owner.brand_name %}
+                                        value="{{account_owner.brand_name}}"
+                                        {% else %}
+                                        placeholder="user's name will not be displayed"
+                                        {% endif %}
+                                        >
+                                        <input tyep="text" name="brand_desc" 
+                                        {% if account_owner.brand_desc %}
+                                        value="{{account_owner.brand_desc}}"
+                                        {% else %}
+                                        placeholder="only shown in search"
+                                        {% endif %}
+                                        >
+                                        <input type="text" name="email" value="{{account_owner.email}}">
+                                        <input type="password" name="password" placeholder="{{account_owner.password}}">
+                                        <input type="password" name="confirm" placeholder="{{account_owner.password}}">
+                                    </div>
+                                </div>
+
+                                <div class="settings_input view_option-wrap">
+                                    <div class="viewoption-wrap">
+                                        <div class="label settings_label_view">
+                                            <span>Dashboard View</span>
+                                            <span>Tabs View</span>
+                                        </div>                    
+                                        <div class="input settings_view_mode">
+                                            <select class="view_mode_option" name="view_mode">
+                                                <option selected value="{{account_owner.view_mode}}">{{account_owner.view_mode}}</option>
+                                                <option value="study mode">Study Mode</option>
+                                                <option value="social media mode">Social Media Mode</option>
+                                            </select>
+                                            <select class="view_mode_option" name="tab_view">
+                                                <option selected value="{{account_owner.tab_view}}">{{account_owner.tab_view}}</option>
+                                                <option value="on">On</option>
+                                                <option value="off">Off</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="settings_input">
+                                    <div class="label settings_label">
+                                        <span>Tab #1</span>
+                                        <span>Tab #2</span>
+                                        <span>Tab #3</span>
+                                        <span>Tab #4</span>
+                                        <span>Tab #5</span>
+                                        <span>Theme</span>
+                                    </div>
+                                    <div class="input settings_input_width si_right">
+                                        
+                                        <input type="text" name="tab01" {% if tabs.tab01 %} value="{{tabs.tab01}}" {% else %} value="Tab #1" {% endif %}>
+                                        <input type="text" name="tab02" {% if tabs.tab02 %} value="{{tabs.tab02}}" {% else %} value="Tab #2" {% endif %}>
+                                        <input type="text" name="tab03" {% if tabs.tab03 %} value="{{tabs.tab03}}" {% else %} value="Tab #3" {% endif %}>
+                                        <input type="text" name="tab04" {% if tabs.tab04 %} value="{{tabs.tab04}}" {% else %} value="Tab #4" {% endif %}>
+                                        <input type="text" name="tab05" {% if tabs.tab05 %} value="{{tabs.tab05}}" {% else %} value="Tab #5" {% endif %}>
+                                        <select class="tab_theme" name="tab_theme">
+                                            <option selected value="{{account_owner.tab_theme}}">{{account_owner.tab_theme}}</option>
+                                            <option value="study">Study</option>
+                                            <option value="spring">Spring</option>
+                                            <option value="summer">Summer</option>
+                                            <option value="autumn">Autumn</option>
+                                            <option value="winter">Winter</option>
+                                        </select>
+                                    </div>
+                                </div> 
+                                <div class="settings-btn-wrap">                        
+                                    <div class="btn-settings account-delete">terminate</div>
+                                    <button class="btn-settings">update</button>  
+                                </div>
+
+                            </div>   
+                        </form>
+                        <form action="/{{account_owner.user_id}}/delete_account/" method="POST">
+                            {% csrf_token %}
+
+                            <!-- confirmation box-->
+                            <div class="modal-background-settings">
+                            <div class="delete-modal">
+                                <div class="delete-modal-message">
+                                    <h1>Are you sure?</h1>
+                                    <p>All contents will be permanently deleted and can not be recovered.</p>
+                                </div>
+                                <div class="delete-modal-btn-wrap">
+                                    <div class="btn-blue delete-modal-btn-cancel">cancel</div>
+                                    <button class="btn-blue delete-modal-btn-confirm">confirm</button>
+                                </div>
+                            </div>
+                            </div>
+
+                        </form>                           
+                    </div>
+                </div>
+
+        </div>
+        <div class="right">
+            <div class="btn-blue go-back-dashboard"><i class="fas fa-arrow-left"></i></div>  
+            {% if account_owner.user_id == logged_user.user_id %}
+            <!-- <a href="/{{account_owner.user_id}}" class="btn-blue go-back-dashboard"><i class="fas fa-arrow-left"></i></a>   -->
+            <a href="/{{account_owner.user_id}}/newmemo/" class="btn-blue add-memo"><i class="fas fa-pencil-alt"></i></a>
+            {% endif %}
+    
+        </div>
+    </div>
+</div> 
+{% block javascript %}
+<!-- <script src="{% static 'js/modals.js' %}"></script> -->
+<!-- <script src="{% static 'js/modal/tingle.js' %}"></script>
+<link rel="stylesheet" href="{% static 'js/modal/tingle.css' %}">
+<link rel="stylesheet" href="{% static 'css/modal.css' %}"> -->
+{% endblock %}
+<!-- 
+<script type="text/javascript">
+var modalTinyNoFooter = new tingle.modal({
+    onClose: function() {
+        console.log('close');
+    },
+    onOpen: function() {
+        console.log('open');
+    },
+    beforeOpen: function() {
+        console.log('before open');
+    },
+    beforeClose: function() {
+        console.log('before close');
+        return true;
+    },
+    cssClass: ['class1', 'class2']
+});
+var modalButtonOnly = new tingle.modal({
+    closeMethods: [],
+    footer: true,
+    stickyFooter: true
+});
+var btn5 = document.querySelector('.modal-open');
+btn5.addEventListener('click', function(){
+    modalButtonOnly.open();
+});
+modalButtonOnly.setContent(document.querySelector('.delete-account').innerHTML);
+
+modalButtonOnly.addFooterBtn('I agree', 'tingle-btn tingle-btn--primary tingle-btn--pull-right', function(){
+    $.ajax({
+        method:"POST",
+        url:"/{{account_owner.user_id}}/delete_account/",
+    })    
+});
+modalButtonOnly.addFooterBtn('Cancel', 'tingle-btn tingle-btn--default tingle-btn--pull-right', function(){
+    modalButtonOnly.close();
+});
+</script>
+<script type="text/javascript" src="{% static 'js/modal.js' %}"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+{% endblock %} -->

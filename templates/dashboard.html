@@ -1,0 +1,1385 @@
+{% extends 'base2.html' %}
+{% block title %} @{{account_owner.user_id}} {% endblock %}
+{% block content %}
+{% load static %}
+    <div class="left">
+        
+    </div>
+    <div class="middle">
+        <div class="search-wrap">
+            <form action="/{{account_owner.user_id}}/search/" method="POST" id="search">
+                {% csrf_token %}
+            <div class="search_section">
+                    <input type="text" name="search" class="search_bar" placeholder="by subject, '@' user or '!' keyword" required>
+                    <input type="hidden" name="search_preview" value="/{{account_owner.user_id}}/search_preview/">
+                    <button><i class="fas fa-search"></i></button>
+            </div>
+            </form>
+            <div class="search_preview"></div>
+        </div>
+<!-- visitor's view -->
+<!-- dashboard memo media view -->
+{% if not logged_user or not account_owner %}
+    {% if account_owner.view_mode == "social media mode"%}
+            <div class="d_view_options">
+                <div class="d_view_btn-wrap">
+                    <div class="list_btn_from_media">
+                        <img src="{% static 'img/d_view_list.png' %}">
+                    </div>
+                    <div class="media_btn_from_media">
+                        <img src="{% static 'img/d_view_media.png' %}">
+                    </div>
+                </div>
+            </div>
+            <div class="media_view_from_media">
+                {% for memo in account_owner_public_memos reversed %}
+                <div class="m_view">
+                    {% if memo.video01 %}
+                        <div class="m_view_keyword_frame">
+                            <iframe class="m_view_video_frame" id="ytplayer02" type="text/html"
+                            src="https://www.youtube.com/embed/{{memo.video01}}"
+                            frameborder="0" allowfullscreen></iframe>
+                            <div class="m_view_keyword-wrap_video"> 
+                                <div 
+                                {% if memo.content_code %}
+                                    class="m_view_keyword"
+                                {% elif memo.video01 %}
+                                    class="m_view_keyword_video"
+                                {% else %}
+                                    class="m_view_keyword_image"
+                                {% endif %}
+                                >{{memo.keyword}}</div>
+                                <img class="m_view_keyword_ring profile_ring" 
+                                {% if memo.content_code %}
+                                src="{% static 'img/keyword_ring_code.png' %}"
+                                {% else %}
+                                src="{% static 'img/keyword_ring_video.png' %}"
+                                {% endif %}
+                                >
+                            </div>
+                            <a href="/{{account_owner.user_id}}/{{memo.id}}/">
+                                <div 
+                                {% if memo.content_code %}
+                                class="m_sub_cont-wrap with_media black"                            
+                                {% else %}
+                                class="m_sub_cont-wrap with_media"
+                                {% endif %}
+                                >
+                                    <div {%if memo.content_code %} class="m_view_subject white" {% else %}class="m_view_subject" {% endif %}>
+                                        {{memo.subject}}
+                                    </div>
+                                    <div class="m_view_content">
+                                        {{memo.content|truncatechars:300}}
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% elif memo.image01 %}
+                        <div class="m_view_keyword_frame">
+                            <div class="m_view_img_frame">
+                                <img class="m_view_img" src="{{memo.image01.url}}">
+                            </div>      
+                            <div class="m_view_keyword-wrap">        
+                                <div 
+                                {% if memo.content_code %}
+                                    class="m_view_keyword"
+                                {% elif memo.video01 %}
+                                    class="m_view_keyword_video"
+                                {% else %}
+                                    class="m_view_keyword_image"
+                                {% endif %}
+                                >{{memo.keyword}}</div>
+                                <img class="m_view_keyword_ring profile_ring" 
+                                {% if memo.content_code %}
+                                src="{% static 'img/keyword_ring_code.png' %}"                
+                                {% endif %}
+                                >                   
+                            </div>
+                            <a href="/{{account_owner.user_id}}/{{memo.id}}/">
+                                <div 
+                                {% if memo.content_code %}
+                                class="m_sub_cont-wrap with_media black"                            
+                                {% else %}
+                                class="m_sub_cont-wrap with_media"
+                                {% endif %}
+                                >
+                                    <div class="m_view_subject {% if memo.content_code %} white {% endif %}">
+                                        {{memo.subject}}
+                                    </div>
+                            
+                                    <div class="m_view_content">
+                                        {{memo.content|truncatechars:300}}
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% else %}
+                        <a href="/{{account_owner.user_id}}/{{memo.id}}/">
+                            <div class="m_view_keyword_frame_none">
+                                <div class="m_sub_cont-wrap">                                
+                                    <div class="m_view_keyword-wrap_none">                        
+                                        <div class="m_view_keyword_none"><i class="fas fa-paperclip"></i></div>
+                                        <img class="m_view_keyword_ring" src="{% static 'img/keyword_ring_none.png' %}">                    
+                                    </div>
+                                    | {{memo.keyword}} | <br/><br/>
+                                    <div class="m_view_subject">
+                                        {{memo.subject}}
+                                    </div>
+                                    <div class="m_view_content">
+                                        {{memo.content|truncatechars:300}}
+                                    </div>
+                                </div>
+                            </div>
+                        </a>                    
+                    {% endif %}
+                </div>
+                {% endfor %}  
+            </div>        
+            
+            <div class="list_view_from_media">
+                <div class="memo_list">
+                    <div class="tag_frame">
+                        <div class="list_tag">
+                            Recent Memos
+                        </div>
+                    </div>
+                    <div class="wrapper recent-memo">            
+                        {% for memo in account_owner_public_memos reversed%}
+                            <div class="tab-items-set">
+                                <div class="memo_frame ">
+                                <a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword">{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:40 }}</a>
+                                </div>
+                            </div>
+                        {% endfor %}                    
+                    </div>
+                </div>
+                <!-- <div class="memo_list_monthover">
+                    <div class="btn_tag_frame">
+                        <div class="list_tag">
+                            Over 15 days
+                        </div>
+                    </div>
+                    <div class="wrapper recent-memo">    
+                            {% for memo in over_time_public_memos reversed%}
+                                <div class="tab-items-set">
+                                    <div class="memo_frame ">
+                                    <a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword">{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:40 }}</a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                    </div> -->
+                </div>
+            </div>       
+    {% else %}
+    <!-- visitor's view -->
+    <!-- dashboard memo list view -->
+            <div class="d_view_options">
+                <div class="d_view_btn-wrap">
+                    <div class="list_btn_from_list">
+                        <img src="{% static 'img/d_view_list.png' %}">
+                    </div>
+                    <div class="media_btn_from_list">
+                        <img src="{% static 'img/d_view_media.png' %}">
+                    </div>
+                </div>
+            </div>
+            <div class="media_view_from_list">      
+                {% for memo in account_owner_public_memos reversed %}                
+                <div class="m_view">
+                    {% if memo.video01 %}
+                    <div class="m_view_keyword_frame">
+                        <iframe class="m_view_video_frame" id="ytplayer02" type="text/html"
+                        src="https://www.youtube.com/embed/{{memo.video01}}"
+                        frameborder="0" allowfullscreen></iframe>
+                        <div class="m_view_keyword-wrap_video">                                
+                            <div 
+                            {% if memo.content_code %}
+                                class="m_view_keyword"
+                            {% elif memo.video01 %}
+                                class="m_view_keyword_video"
+                            {% else %}
+                                class="m_view_keyword_image"
+                            {% endif %}
+                            >{{memo.keyword}}</div>
+                            <img class="m_view_keyword_ring profile_ring" 
+                            {% if memo.content_code %}
+                            src="{% static 'img/keyword_ring_code.png' %}"
+                            {% else %}
+                            src="{% static 'img/keyword_ring_video.png' %}"
+                            {% endif %}
+                            >
+                        </div>
+                        <a href="/{{account_owner.user_id}}/{{memo.id}}/">
+                            <div 
+                            {% if memo.content_code %}
+                            class="m_sub_cont-wrap with_media black"                            
+                            {% else %}
+                            class="m_sub_cont-wrap with_media"
+                            {% endif %}
+                            >
+                                <div {%if memo.content_code %} class="m_view_subject white" {% else %}class="m_view_subject" {% endif %}>
+                                    {{memo.subject}}
+                                </div>
+                                <div class="m_view_content">
+                                    {{memo.content|truncatechars:300}}
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% elif memo.image01 %}
+                        <div class="m_view_keyword_frame">
+                            <div class="m_view_img_frame">
+                                <img class="m_view_img" src="{{memo.image01.url}}">
+                            </div>      
+                        <div class="m_view_keyword-wrap">                            
+                            <div 
+                            {% if memo.content_code %}
+                                class="m_view_keyword"
+                            {% elif memo.video01 %}
+                                class="m_view_keyword_video"
+                            {% else %}
+                                class="m_view_keyword_image"
+                            {% endif %}
+                            >{{memo.keyword}}</div>
+                            <img class="m_view_keyword_ring profile_ring" 
+                            {% if memo.content_code %}
+                            src="{% static 'img/keyword_ring_code.png' %}"                
+                            {% endif %}
+                            >               
+                        </div>                
+                            <a href="/{{account_owner.user_id}}/{{memo.id}}/">
+                                <div 
+                                {% if memo.content_code %}
+                                class="m_sub_cont-wrap with_media black"                            
+                                {% else %}
+                                class="m_sub_cont-wrap with_media"
+                                {% endif %}
+                                >
+                                    <div class="m_view_subject {% if memo.content_code %} white {% endif %}">
+                                        {{memo.subject}}
+                                    </div>
+                            
+                                    <div class="m_view_content">
+                                        {{memo.content|truncatechars:300}}
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% else %}
+                        <a href="/{{account_owner.user_id}}/{{memo.id}}/">
+                            <div class="m_view_keyword_frame_none">
+                                <div class="m_sub_cont-wrap">                                
+                                    <div class="m_view_keyword-wrap_none">                        
+                                        <div class="m_view_keyword_none"><i class="fas fa-paperclip"></i></div>
+                                        <img class="m_view_keyword_ring" src="{% static 'img/keyword_ring_none.png' %}">                    
+                                    </div>
+                                    | {{memo.keyword}} | <br/><br/>
+                                    <div class="m_view_subject">
+                                        {{memo.subject}}
+                                    </div>
+                                    <div class="m_view_content">
+                                        {{memo.content|truncatechars:300}}
+                                    </div>
+                                </div>
+                            </div>
+                        </a>                
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>            
+            <div class="list_view_from_list">
+                <div class="memo_list">
+                    <div class="tag_frame">
+                        <div class="list_tag">
+                            Recent Memos
+                        </div>
+                    </div>
+                    <div class="wrapper recent-memo">        
+                        {% for memo in account_owner_public_memos reversed %}
+                            <div class="tab-items-set">
+                                <div class="memo_frame ">
+                                <a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword">{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:40 }}</a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <!-- <div class="memo_list_monthover">
+                    <div class="btn_tag_frame">
+                        <div class="list_tag">
+                            Over 15 days
+                        </div>
+                    </div>
+                    <div class="wrapper recent-memo">
+                            {% for memo in over_time_public_memos reversed%}
+                                <div class="tab-items-set">
+                                    <div class="memo_frame ">
+                                    <a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword">{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:40 }}</a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                    </div>
+                </div> -->
+            </div>
+    {% endif %}    
+<!-- logged user view -->
+<!-- dashboard memo media view -->
+{% elif account_owner.user_id != logged_user.user_id %}
+    {% if account_owner.view_mode == "social media mode"%}           
+            <div class="d_view_options">
+                <div class="d_view_btn-wrap">
+                    <div class="list_btn_from_media">                   
+                        <img src="{% static 'img/d_view_list.png' %}">
+                    </div>
+                    <div class="media_btn_from_media">
+                        <img src="{% static 'img/d_view_media.png' %}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="media_view_from_media">
+                {% for memo in account_owner_public_memos reversed %}
+                <div class="m_view">
+                        {% if memo.video01 %}
+                        <div class="m_view_keyword_frame">
+
+                            <form class="memo-save-form" action="/{{account_owner.user_id}}/{{logged_user.user_id}}/{{memo.id}}/memoSave/" method="POST">
+                                {% csrf_token %}
+                                <div class="memo-save-wrap">
+                                    <i class="far fa-bookmark save-btn"></i>
+                                </div>
+                            </form>
+                            <form class="memo-unsave-form-ajax" action="/{{account_owner.user_id}}/{{logged_user.user_id}}/{{memo.id}}/memoUnSave/" method="POST">
+                                {% csrf_token %}
+                                <div class="memo-unsave-wrap">
+                                    <i class="fas fa-bookmark unsave-btn"></i>
+                                </div>
+                            </form>
+                        {% for saved in saved_memos %}
+                            {% if saved.id == memo.id %}
+                            <form class="memo-unsave-form" action="/{{account_owner.user_id}}/{{logged_user.user_id}}/{{memo.id}}/memoUnSave/" method="POST">
+                                {% csrf_token %}
+                                <div class="memo-unsave-wrap">
+                                    <i class="fas fa-bookmark unsave-btn"></i>
+                                </div>
+                            </form>
+                            {% endif %}
+                        {% endfor %}
+
+                        <iframe class="m_view_video_frame" id="ytplayer02" type="text/html"
+                        src="https://www.youtube.com/embed/{{memo.video01}}"
+                        frameborder="0" allowfullscreen></iframe>
+                        <div class="m_view_keyword-wrap_video">                            
+                            <div 
+                            {% if memo.content_code %}
+                                class="m_view_keyword"
+                            {% elif memo.video01 %}
+                                class="m_view_keyword_video"
+                            {% else %}
+                                class="m_view_keyword_image"
+                            {% endif %}
+                            >{{memo.keyword}}</div>
+                            <img class="m_view_keyword_ring profile_ring" 
+                            {% if memo.content_code %}
+                            src="{% static 'img/keyword_ring_code.png' %}"
+                            {% else %}
+                            src="{% static 'img/keyword_ring_video.png' %}"
+                            {% endif %}
+                            >
+                        </div>
+                        <a href="/{{account_owner.user_id}}/{{memo.id}}/">
+                            <div 
+                            {% if memo.content_code %}
+                            class="m_sub_cont-wrap with_media black"                            
+                            {% else %}
+                            class="m_sub_cont-wrap with_media"
+                            {% endif %}
+                            >
+                                <div {%if memo.content_code %} class="m_view_subject white" {% else %}class="m_view_subject" {% endif %}>
+                                    {{memo.subject}}
+                                </div>
+                                <div class="m_view_content">
+                                    {{memo.content|truncatechars:300}}
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% elif memo.image01 %}
+                        <div class="m_view_keyword_frame">
+                                                    
+                            <form class="memo-save-form" action="/{{account_owner.user_id}}/{{logged_user.user_id}}/{{memo.id}}/memoSave/" method="POST">
+                                {% csrf_token %}
+                                <div class="memo-save-wrap">
+                                    <i class="far fa-bookmark save-btn"></i>
+                                </div>
+                            </form>
+                            <form class="memo-unsave-form-ajax" action="/{{account_owner.user_id}}/{{logged_user.user_id}}/{{memo.id}}/memoUnSave/" method="POST">
+                                {% csrf_token %}
+                                <div class="memo-unsave-wrap">
+                                    <i class="fas fa-bookmark unsave-btn"></i>
+                                </div>
+                            </form>
+                        {% for saved in saved_memos %}
+                            {% if saved.id == memo.id %}
+                            <form class="memo-unsave-form" action="/{{account_owner.user_id}}/{{logged_user.user_id}}/{{memo.id}}/memoUnSave/" method="POST">
+                                {% csrf_token %}
+                                <div class="memo-unsave-wrap">
+                                    <i class="fas fa-bookmark unsave-btn"></i>
+                                </div>
+                            </form>
+                            {% endif %}
+                        {% endfor %}
+
+                        <div class="m_view_img_frame">
+                            <img class="m_view_img" src="{{memo.image01.url}}">
+                        </div> 
+                        <div class="m_view_keyword-wrap">                            
+                            <div 
+                            {% if memo.content_code %}
+                                class="m_view_keyword"
+                            {% elif memo.video01 %}
+                                class="m_view_keyword_video"
+                            {% else %}
+                                class="m_view_keyword_image"
+                            {% endif %}
+                            >{{memo.keyword}}</div>
+                            <img class="m_view_keyword_ring profile_ring" 
+                            {% if memo.content_code %}
+                            src="{% static 'img/keyword_ring_code.png' %}"                
+                            {% endif %}
+                            >                   
+                        </div>                
+                            <a href="/{{account_owner.user_id}}/{{memo.id}}/">
+                                <div 
+                                {% if memo.content_code %}
+                                class="m_sub_cont-wrap with_media black"                            
+                                {% else %}
+                                class="m_sub_cont-wrap with_media"
+                                {% endif %}
+                                >
+                                    <div {%if memo.content_code %} class="m_view_subject white" {% else %}class="m_view_subject" {% endif %}>
+                                        {{memo.subject}}
+                                    </div>
+                            
+                                    <div class="m_view_content">
+                                        {{memo.content|truncatechars:300}}
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% else %}
+
+                            <div class="m_view_keyword_frame_none">
+
+                                    <form class="memo-save-form" action="/{{account_owner.user_id}}/{{logged_user.user_id}}/{{memo.id}}/memoSave/" method="POST">
+                                        {% csrf_token %}
+                                        <div class="memo-save-wrap">
+                                            <i class="far fa-bookmark save-btn"></i>
+                                        </div>
+                                    </form>
+                                    <form class="memo-unsave-form-ajax" action="/{{account_owner.user_id}}/{{logged_user.user_id}}/{{memo.id}}/memoUnSave/" method="POST">
+                                        {% csrf_token %}
+                                        <div class="memo-unsave-wrap">
+                                            <i class="fas fa-bookmark unsave-btn"></i>
+                                        </div>
+                                    </form>
+                                {% for saved in saved_memos %}
+                                    {% if saved.id == memo.id %}
+                                    <form class="memo-unsave-form" action="/{{account_owner.user_id}}/{{logged_user.user_id}}/{{memo.id}}/memoUnSave/" method="POST">
+                                        {% csrf_token %}
+                                        <div class="memo-unsave-wrap">
+                                            <i class="fas fa-bookmark unsave-btn"></i>
+                                        </div>
+                                    </form>
+                                    {% endif %}
+                                {% endfor %}
+                        <a href="/{{account_owner.user_id}}/{{memo.id}}/">
+                                <div class="m_sub_cont-wrap">                                
+                                    <div class="m_view_keyword-wrap_none">                        
+                                        <div class="m_view_keyword_none"><i class="fas fa-paperclip"></i></div>
+                                        <img class="m_view_keyword_ring" src="{% static 'img/keyword_ring_none.png' %}">                    
+                                    </div>
+                                    | {{memo.keyword}} | <br/><br/>
+                                    <div {%if memo.content_code %} class="m_view_subject white" {% else %}class="m_view_subject" {% endif %}>
+                                        {{memo.subject}}
+                                    </div>
+                                    <div class="m_view_content">
+                                        {{memo.content|truncatechars:300}}
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    {% endif %}
+                </div>
+                {% endfor %}                
+            </div>
+
+            <div class="list_view_from_media">
+                <div class="memo_list">
+                    <div class="tag_frame">
+                        <div class="list_tag">
+                            Recent Memos
+                        </div>
+                    </div>
+                    <div class="wrapper recent-memo">            
+                        {% for memo in account_owner_public_memos reversed%}
+                            <div class="tab-items-set">
+                                <div class="memo_frame ">
+                                <a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword">{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:40 }}</a>
+                                </div>
+                            </div>
+                        {% endfor %}                    
+                    </div>
+                </div>
+
+                <!-- <div class="memo_list_monthover">
+                    <div class="btn_tag_frame">
+                        <div class="list_tag">
+                            Over 15 days
+                        </div>
+                    </div>
+                    <div class="wrapper recent-memo">    
+                            {% for memo in over_time_public_memos reversed%}
+                                <div class="tab-items-set">
+                                    <div class="memo_frame ">
+                                    <a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword">{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:40 }}</a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                    </div>
+                </div> -->
+            </div>
+    {% else %}
+<!-- logged user view -->
+<!-- dashboard memo list view -->
+            <div class="d_view_options">
+                <div class="d_view_btn-wrap">
+                    <div class="list_btn_from_list">
+                        <img src="{% static 'img/d_view_list.png' %}">
+                    </div>
+                    <div class="media_btn_from_list">
+                        <img src="{% static 'img/d_view_media.png' %}">
+                    </div>
+                </div>
+            </div>
+            <div class="media_view_from_list">      
+                {% for memo in account_owner_public_memos reversed %}
+                <div class="m_view">
+                    {% if memo.video01 %}
+                    <div class="m_view_keyword_frame">
+
+                        <form class="memo-save-form" action="/{{account_owner.user_id}}/{{logged_user.user_id}}/{{memo.id}}/memoSave/" method="POST">
+                            {% csrf_token %}
+                            <div class="memo-save-wrap">
+                                <i class="far fa-bookmark save-btn"></i>
+                            </div>
+                        </form>
+                        <form class="memo-unsave-form-ajax" action="/{{account_owner.user_id}}/{{logged_user.user_id}}/{{memo.id}}/memoUnSave/" method="POST">
+                            {% csrf_token %}
+                            <div class="memo-unsave-wrap">
+                                <i class="fas fa-bookmark unsave-btn"></i>
+                            </div>
+                        </form>
+                    {% for saved in saved_memos %}
+                        {% if saved.id == memo.id %}
+                        <form class="memo-unsave-form" action="/{{account_owner.user_id}}/{{logged_user.user_id}}/{{memo.id}}/memoUnSave/" method="POST">
+                            {% csrf_token %}
+                            <div class="memo-unsave-wrap">
+                                <i class="fas fa-bookmark unsave-btn"></i>
+                            </div>
+                        </form>
+                        {% endif %}
+                    {% endfor %}
+
+                        <iframe class="m_view_video_frame" id="ytplayer02" type="text/html"
+                        src="https://www.youtube.com/embed/{{memo.video01}}"
+                        frameborder="0" allowfullscreen></iframe>
+
+                        <div class="m_view_keyword-wrap_video">                            
+                            <div 
+                            {% if memo.content_code %}
+                                class="m_view_keyword"
+                            {% elif memo.video01 %}
+                                class="m_view_keyword_video"
+                            {% else %}
+                                class="m_view_keyword_image"
+                            {% endif %}
+                            >{{memo.keyword}}</div>
+                            <img class="m_view_keyword_ring profile_ring" 
+                            {% if memo.content_code %}
+                            src="{% static 'img/keyword_ring_code.png' %}"
+                            {% else %}
+                            src="{% static 'img/keyword_ring_video.png' %}"
+                            {% endif %}
+                            >
+                        </div>
+                        <a href="/{{account_owner.user_id}}/{{memo.id}}/">
+                            <div 
+                            {% if memo.content_code %}
+                            class="m_sub_cont-wrap with_media black"                            
+                            {% else %}
+                            class="m_sub_cont-wrap with_media"
+                            {% endif %}
+                            >
+                                <div {%if memo.content_code %} class="m_view_subject white" {% else %}class="m_view_subject" {% endif %}>
+                                    {{memo.subject}}
+                                </div>
+                                <div class="m_view_content">
+                                    {{memo.content|truncatechars:300}}
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    {% elif memo.image01 %}
+                        <div class="m_view_keyword_frame">                                                    
+
+                            <form class="memo-save-form" action="/{{account_owner.user_id}}/{{logged_user.user_id}}/{{memo.id}}/memoSave/" method="POST">
+                                {% csrf_token %}
+                                <div class="memo-save-wrap">
+                                    <i class="far fa-bookmark save-btn"></i>
+                                </div>
+                            </form>
+                            <form class="memo-unsave-form-ajax" action="/{{account_owner.user_id}}/{{logged_user.user_id}}/{{memo.id}}/memoUnSave/" method="POST">
+                                {% csrf_token %}
+                                <div class="memo-unsave-wrap">
+                                    <i class="fas fa-bookmark unsave-btn"></i>
+                                </div>
+                            </form>
+                        {% for saved in saved_memos %}
+                            {% if saved.id == memo.id %}
+                            <form class="memo-unsave-form" action="/{{account_owner.user_id}}/{{logged_user.user_id}}/{{memo.id}}/memoUnSave/" method="POST">
+                                {% csrf_token %}
+                                <div class="memo-unsave-wrap">
+                                    <i class="fas fa-bookmark unsave-btn"></i>
+                                </div>
+                            </form>
+                            {% endif %}
+                        {% endfor %}
+
+                        <div class="m_view_img_frame">
+                            <img class="m_view_img" src="{{memo.image01.url}}">
+                        </div>
+                        <div class="m_view_keyword-wrap">                            
+                            <div 
+                            {% if memo.content_code %}
+                                class="m_view_keyword"
+                            {% elif memo.video01 %}
+                                class="m_view_keyword_video"
+                            {% else %}
+                                class="m_view_keyword_image"
+                            {% endif %}
+                            >{{memo.keyword}}</div>
+                            <img class="m_view_keyword_ring profile_ring" 
+                            {% if memo.content_code %}
+                            src="{% static 'img/keyword_ring_code.png' %}"                
+                            {% endif %}
+                            >                  
+                        </div>
+                        <a href="/{{account_owner.user_id}}/{{memo.id}}/">
+                            <div 
+                            {% if memo.content_code %}
+                            class="m_sub_cont-wrap with_media black"                            
+                            {% else %}
+                            class="m_sub_cont-wrap with_media"
+                            {% endif %}
+                            >
+                                <div {%if memo.content_code %} class="m_view_subject white" {% else %}class="m_view_subject" {% endif %}>
+                                    {{memo.subject}}
+                                </div>
+                                <div class="m_view_content">
+                                    {{memo.content|truncatechars:300}}
+                                </div>
+                            </div>
+                        </a>
+
+                    </div>
+                    {% else %}
+                   
+                            <div class="m_view_keyword_frame_none">                            
+
+                                <form class="memo-save-form" action="/{{account_owner.user_id}}/{{logged_user.user_id}}/{{memo.id}}/memoSave/" method="POST">
+                                    {% csrf_token %}
+                                    <div class="memo-save-wrap">
+                                        <i class="far fa-bookmark save-btn"></i>
+                                    </div>
+                                </form>
+                                <form class="memo-unsave-form-ajax" action="/{{account_owner.user_id}}/{{logged_user.user_id}}/{{memo.id}}/memoUnSave/" method="POST">
+                                    {% csrf_token %}
+                                    <div class="memo-unsave-wrap">
+                                        <i class="fas fa-bookmark unsave-btn"></i>
+                                    </div>
+                                </form>
+                            {% for saved in saved_memos %}
+                                {% if saved.id == memo.id %}
+                                <form class="memo-unsave-form" action="/{{account_owner.user_id}}/{{logged_user.user_id}}/{{memo.id}}/memoUnSave/" method="POST">
+                                    {% csrf_token %}
+                                    <div class="memo-unsave-wrap">
+                                        <i class="fas fa-bookmark unsave-btn"></i>
+                                    </div>
+                                </form>
+                                {% endif %}
+                            {% endfor %}
+                        <a href="/{{account_owner.user_id}}/{{memo.id}}/">
+                                <div class="m_sub_cont-wrap">
+                                    <div class="m_view_keyword-wrap_none">                        
+                                        <div class="m_view_keyword_none"><i class="fas fa-paperclip"></i></div>
+                                        <img class="m_view_keyword_ring" src="{% static 'img/keyword_ring_none.png' %}">                    
+                                    </div>
+                                    | {{memo.keyword}} | <br/><br/>
+                                    <div class="m_view_subject">
+                                        {{memo.subject}}
+                                    </div>
+                                    <div class="m_view_content">
+                                        {{memo.content|truncatechars:300}}
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    {% endif %}             
+                </div>
+                {% endfor %}                
+            </div>
+            <div class="list_view_from_list">
+                <div class="memo_list">
+                    <div class="tag_frame">
+                        <div class="list_tag">
+                            Recent Memos
+                        </div>
+                    </div>
+                    <div class="wrapper recent-memo">        
+                        {% for memo in account_owner_public_memos reversed %}
+                            <div class="tab-items-set">
+                                <div class="memo_frame ">                
+                                <a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword">{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:40 }}</a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <!-- <div class="memo_list_monthover">
+                    <div class="btn_tag_frame">
+                        <div class="list_tag">
+                            Over 15 days
+                        </div>
+                    </div>
+                    <div class="wrapper recent-memo">
+                            {% for memo in over_time_public_memos reversed%}
+                                <div class="tab-items-set">
+                                    <div class="memo_frame ">
+                                    <a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword">{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:40 }}</a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                    </div>
+                </div> -->
+            </div>
+    {% endif %}
+{% else %} 
+<!-- account owner view -->
+<!-- dashboard memo media view -->
+    {% if account_owner.view_mode == "social media mode"%}
+                <div class="d_view_options">
+                    <div class="d_view_btn-wrap">
+                        <div class="list_btn_from_media">
+                            <img src="{% static 'img/d_view_list.png' %}">
+                        </div>
+                        <div class="media_btn_from_media">
+                            <img src="{% static 'img/d_view_media.png' %}">
+                        </div>
+                    </div>
+                </div>  
+        <div class="media_view_from_media">  
+            {% for memo in account_owner_memos reversed %}
+                <div class="m_view">
+                    {% if memo.tab_name != "TRASH" %}
+                        {% if memo.video01 %}
+                        <div class="m_view_keyword_frame">
+                            <iframe class="m_view_video_frame" id="ytplayer02" type="text/html"
+                            src="https://www.youtube.com/embed/{{memo.video01}}"
+                            frameborder="0" allowfullscreen></iframe>    
+                            <div class="m_view_keyword-wrap_video">                                
+                                <div 
+                                {% if memo.content_code %}
+                                    class="m_view_keyword"
+                                {% elif memo.video01 %}
+                                    class="m_view_keyword_video"
+                                {% else %}
+                                    class="m_view_keyword_image"
+                                {% endif %}
+                                >{{memo.keyword}}</div>
+                                <img class="m_view_keyword_ring profile_ring" 
+                                {% if memo.content_code %}
+                                src="{% static 'img/keyword_ring_code.png' %}"
+                                {% else %}
+                                src="{% static 'img/keyword_ring_video.png' %}"
+                                {% endif %}
+                                >
+                            </div>    
+                            <a href="/{{account_owner.user_id}}/{{memo.id}}/">
+                                <div 
+                                {% if memo.content_code %}
+                                class="m_sub_cont-wrap with_media black"                            
+                                {% else %}
+                                class="m_sub_cont-wrap with_media"
+                                {% endif %}
+                                >
+                                    <div {%if memo.content_code %} class="m_view_subject white" {% else %}class="m_view_subject" {% endif %}>
+                                        {{memo.subject}}
+                                    </div>
+                                    <div class="m_view_content">
+                                        {{memo.content|truncatechars:300}}
+                                    </div>
+                                </div>
+                            </a>
+
+                            <div class="dash-memo-option-wrap">
+                                <i class="fas fa-ellipsis-h memo-dash-option"></i>
+                                <div class="tab_buttons-wrap-media-dash">
+                        
+                                    <form action="/{{account_owner.user_id}}/{{memo.id}}/move_from_tab/" method="POST">
+                                        {% csrf_token %}
+                                        <select class="tab_select" name="move_to">
+                                        <option value="{{memo.tab_name}}" selected>{% if not emo.tab_name %}no tab {% else %}{{memo.tab_name}}{% endif %}</option>
+                                        <option value="">no tab</option>
+                                        <option value="{{account_owner.tab01}}">{{account_owner.tab01}}</option>
+                                        <option value="{{account_owner.tab02}}">{{account_owner.tab02}}</option>
+                                        <option value="{{account_owner.tab03}}">{{account_owner.tab03}}</option>
+                                        <option value="{{account_owner.tab04}}">{{account_owner.tab04}}</option>
+                                        <option value="{{account_owner.tab05}}">{{account_owner.tab05}}</option>
+                                        </select>
+                                        <i class="fas fa-sign-out-alt media_tab_move"></i>
+                                    </form>
+                                    <form action="/{{account_owner.user_id}}/{{memo.id}}/trash_from_tab/" id="tab_delete" method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="tab_item" value="{{memo.id}}">
+                                        <i class="fas fa-trash-alt tab_delete"></i>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    {% elif memo.image01 %}
+                            <div class="m_view_keyword_frame">
+                                <div class="m_view_img_frame">
+                                    <img class="m_view_img" src="{{memo.image01.url}}">
+                                </div>    
+                                <div class="m_view_keyword-wrap">                                
+                                    <div 
+                                    {% if memo.content_code %}
+                                        class="m_view_keyword"
+                                    {% elif memo.video01 %}
+                                        class="m_view_keyword_video"
+                                    {% else %}
+                                        class="m_view_keyword_image"
+                                    {% endif %}
+                                    >{{memo.keyword}}</div>
+                                    <img class="m_view_keyword_ring profile_ring" 
+                                    {% if memo.content_code %}
+                                    src="{% static 'img/keyword_ring_code.png' %}"                
+                                    {% endif %}
+                                    >                    
+                                </div>                    
+                                <a href="/{{account_owner.user_id}}/{{memo.id}}/">
+                                    <div 
+                                    {% if memo.content_code %}
+                                    class="m_sub_cont-wrap with_media black"                            
+                                    {% else %}
+                                    class="m_sub_cont-wrap with_media"
+                                    {% endif %}
+                                    >
+                                        <div {%if memo.content_code %} class="m_view_subject white" {% else %}class="m_view_subject" {% endif %}>
+                                            {{memo.subject}}
+                                        </div>
+                                
+                                        <div class="m_view_content">
+                                            {{memo.content|truncatechars:300}}
+                                        </div>
+                                    </div>
+                                </a>
+                                
+                                <div class="dash-memo-option-wrap">
+                                    <i class="fas fa-ellipsis-h memo-dash-option"></i>
+                                    <div class="tab_buttons-wrap-media-dash">
+                            
+                                        <form action="/{{account_owner.user_id}}/{{memo.id}}/move_from_tab/" method="POST">
+                                            {% csrf_token %}
+                                            <select class="tab_select" name="move_to">
+                                            <option value="{{memo.tab_name}}" selected>{% if not memo.tab_name %}no tab {% else %}{{memo.tab_name}}{% endif %}</option>
+                                            <option value="">no tab</option>
+                                            <option value="{{account_owner.tab01}}">{{account_owner.tab01}}</option>
+                                            <option value="{{account_owner.tab02}}">{{account_owner.tab02}}</option>
+                                            <option value="{{account_owner.tab03}}">{{account_owner.tab03}}</option>
+                                            <option value="{{account_owner.tab04}}">{{account_owner.tab04}}</option>
+                                            <option value="{{account_owner.tab05}}">{{account_owner.tab05}}</option>
+                                            </select>
+                                            <i class="fas fa-sign-out-alt media_tab_move"></i>
+                                        </form>
+                                        <form action="/{{account_owner.user_id}}/{{memo.id}}/trash_from_tab/" id="tab_delete" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="tab_item" value="{{memo.id}}">
+                                            <i class="fas fa-trash-alt tab_delete"></i>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+                        {% else %}   
+                          
+                            <div class="m_view_keyword_frame_none">
+                                <a href="/{{account_owner.user_id}}/{{memo.id}}/">
+                                    <div class="m_sub_cont-wrap">                                
+                                        <div class="m_view_keyword-wrap_none">                        
+                                            <div class="m_view_keyword_none"><i class="fas fa-paperclip"></i></div>
+                                            <img class="m_view_keyword_ring" src="{% static 'img/keyword_ring_none.png' %}">                    
+                                        </div>
+                                        | {{memo.keyword}} | <br/><br/>
+                                        <div class="m_view_subject">
+                                            {{memo.subject}}
+                                        </div>
+                                        <div class="m_view_content">
+                                            {{memo.content|truncatechars:300}}
+                                        </div>
+                                    </div>
+                                </a>
+                                    <div class="dash-memo-option-wrap">
+                                        <i class="fas fa-ellipsis-h memo-dash-option"></i>
+                                        <div class="tab_buttons-wrap-media-dash">
+                                
+                                            <form action="/{{account_owner.user_id}}/{{memo.id}}/move_from_tab/" method="POST">
+                                                {% csrf_token %}
+                                                <select class="tab_select" name="move_to">
+                                                <option value="{{memo.tab_name}}" selected>{% if not memo.tab_name %}no tab {% else %}{{memo.tab_name}}{% endif %}</option>
+                                                <option value="">no tab</option>
+                                                <option value="{{account_owner.tab01}}">{{account_owner.tab01}}</option>
+                                                <option value="{{account_owner.tab02}}">{{account_owner.tab02}}</option>
+                                                <option value="{{account_owner.tab03}}">{{account_owner.tab03}}</option>
+                                                <option value="{{account_owner.tab04}}">{{account_owner.tab04}}</option>
+                                                <option value="{{account_owner.tab05}}">{{account_owner.tab05}}</option>
+                                                </select>
+                                                <i class="fas fa-sign-out-alt media_tab_move"></i>
+                                            </form>
+                                            <form action="/{{account_owner.user_id}}/{{memo.id}}/trash_from_tab/" id="tab_delete" method="POST">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="tab_item" value="{{memo.id}}">
+                                                <i class="fas fa-trash-alt tab_delete"></i>
+                                            </form>
+                                        </div>
+                                    </div>
+                                
+                            </div>
+                                
+                          
+                        {% endif %}
+                    {% endif %}                
+                </div>
+            {% endfor %}
+        </div>
+
+                <div class="list_view_from_media">
+                    <div class="memo_list">
+                        <div class="tag_frame">
+                            <div class="list_tag">
+                                Recent Memos
+                            </div>
+                        </div>
+                        <div class="wrapper recent-memo">                
+                            {% for memo in account_owner_memos reversed%}
+                                <div class="tab-items-set">
+                                    {% if memo.tab_name == "TRASH" %}
+                                    <div class="memo_frame_condition">    
+                                        <a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword"><span class="condition_tag"><i class="fas fa-trash-alt"></i></span>{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:25 }}</a>   
+                                    {% elif memo.disclose == "unlisted" %}
+                                    <div class="memo_frame_condition">    
+                                        <a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword"><span class="condition_tag"><i class="fas fa-unlink"></i></span>{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:25 }}</a>   
+                                    {% elif memo.disclose == "private" %}
+                                    <div class="memo_frame_condition">    
+                                        <a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword"><span class="condition_tag"><i class="fas fa-lock"></i></span>{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:25 }}</a>                                           
+                                    {% else %}    
+                                    <div class="memo_frame ">
+                                        <a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword">{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:40 }}</a>
+                                    {% endif %}
+                                    </div>                                  
+                                    <div class="tab_buttons-wrap">
+                                        <form action="/{{account_owner.user_id}}/{{memo.id}}/move_from_tab/" method="POST">
+                                            {% csrf_token %}
+                                            <select class="tab_select" name="move_to">
+                                            <option value="{{memo.tab_name}}" selected>{% if not emo.tab_name %}no tab {% else %}{{memo.tab_name}}{% endif %}</option>
+                                            <option value="">no tab</option>
+                                            <option value="{{account_owner.tab01}}">{{account_owner.tab01}}</option>
+                                            <option value="{{account_owner.tab02}}">{{account_owner.tab02}}</option>
+                                            <option value="{{account_owner.tab03}}">{{account_owner.tab03}}</option>
+                                            <option value="{{account_owner.tab04}}">{{account_owner.tab04}}</option>
+                                            <option value="{{account_owner.tab05}}">{{account_owner.tab05}}</option>
+                                            </select>
+                                            <i class="fas fa-sign-out-alt list_tab_move"></i>
+                                        </form>
+                                        <form action="/{{account_owner.user_id}}/{{memo.id}}/trash_from_tab/" id="tab_delete" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="tab_item" value="{{memo.id}}">
+                                            <i class="fas fa-trash-alt tab_delete"></i>
+                                        </form>
+                                    </div>
+                                </div>
+                            {% endfor %}                    
+                        </div>
+                    </div>
+
+                    <div class="memo_list_monthover">
+                        <div class="btn_tag_frame">
+                            <div class="list_tag">
+                                Over 15 days
+                            </div>
+                        </div>
+                        <div class="wrapper recent-memo">
+        
+                                {% for memo in over_time_memos reversed%}
+                                    <div class="tab-items-set">
+                                        {% if memo.tab_name == "TRASH" %}
+                                        <div class="memo_frame_condition">    
+                                            <a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword"><span class="condition_tag"><i class="fas fa-trash-alt"></i></span>{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:25 }}</a>   
+                                        {% elif memo.disclose == "unlisted" %}
+                                        <div class="memo_frame_condition">    
+                                            <a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword"><span class="condition_tag"><i class="fas fa-unlink"></i></span>{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:25 }}</a>   
+                                        {% elif memo.disclose == "private" %}
+                                        <div class="memo_frame_condition">    
+                                            <a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword"><span class="condition_tag"><i class="fas fa-lock"></i></span>{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:25 }}</a>                                           
+                                        {% else %}    
+                                        <div class="memo_frame ">
+                                            <a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword">{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:40 }}</a>
+                                        {% endif %}
+                                        </div>
+                                        <div class="tab_buttons-wrap">
+                                        <form action="/{{account_owner.user_id}}/{{memo.id}}/move_from_tab/" method="POST">
+                                            {% csrf_token %}
+                                            <select class="tab_select" name="move_to">
+                                            <option value="{{memo.tab_name}}" selected>{% if not emo.tab_name %}no tab {% else %}{{memo.tab_name}}{% endif %}</option>
+                                            <option value="">no tab</option>
+                                            <option value="{{account_owner.tab01}}">{{account_owner.tab01}}</option>
+                                            <option value="{{account_owner.tab02}}">{{account_owner.tab02}}</option>
+                                            <option value="{{account_owner.tab03}}">{{account_owner.tab03}}</option>
+                                            <option value="{{account_owner.tab04}}">{{account_owner.tab04}}</option>
+                                            <option value="{{account_owner.tab05}}">{{account_owner.tab05}}</option>
+                                            </select>
+                                            <i class="fas fa-sign-out-alt list_tab_move"></i>
+                                        </form>
+                                        <form action="/{{account_owner.user_id}}/{{memo.id}}/trash_from_tab/" id="tab_delete" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="tab_item" value="{{memo.id}}">
+                                            <i class="fas fa-trash-alt tab_delete"></i>
+                                        </form>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                        </div>
+                    </div>
+                </div>
+        {% else %}
+<!-- account owner view -->
+<!-- dashboard memo list view -->
+                <div class="d_view_options">
+                    <div class="d_view_btn-wrap">
+                        <div class="list_btn_from_list">
+                            <img src="{% static 'img/d_view_list.png' %}">
+                        </div>
+                        <div class="media_btn_from_list">
+                            <img src="{% static 'img/d_view_media.png' %}">
+                        </div>
+                    </div>
+                </div>
+                <div class="media_view_from_list">      
+                {% for memo in account_owner_memos reversed %}
+                    {% if memo.tab_name != "TRASH" %}
+                    <div class="m_view">
+                        {% if memo.video01 %}
+                            <div class="m_view_keyword_frame">
+                                <iframe class="m_view_video_frame" id="ytplayer02" type="text/html"
+                                src="https://www.youtube.com/embed/{{memo.video01}}"
+                                frameborder="0" allowfullscreen></iframe>
+                                <div class="m_view_keyword-wrap_video">                                
+                                    <div 
+                                    {% if memo.content_code %}
+                                        class="m_view_keyword"
+                                    {% elif memo.video01 %}
+                                        class="m_view_keyword_video"
+                                    {% else %}
+                                        class="m_view_keyword_image"
+                                    {% endif %}
+                                    >{{memo.keyword}}</div>
+                                    <img class="m_view_keyword_ring profile_ring" 
+                                    {% if memo.content_code %}
+                                    src="{% static 'img/keyword_ring_code.png' %}"
+                                    {% else %}
+                                    src="{% static 'img/keyword_ring_video.png' %}"
+                                    {% endif %}
+                                    >
+                                </div>
+                                <a href="/{{account_owner.user_id}}/{{memo.id}}/">
+                                    <div 
+                                    {% if memo.content_code %}
+                                    class="m_sub_cont-wrap with_media black"                            
+                                    {% else %}
+                                    class="m_sub_cont-wrap with_media"
+                                    {% endif %}
+                                    >
+                                        <div {%if memo.content_code %} class="m_view_subject white" {% else %}class="m_view_subject" {% endif %}>
+                                            {{memo.subject}}
+                                        </div>
+                                        <div class="m_view_content">
+                                            {{memo.content|truncatechars:300}}
+                                        </div>
+                                    </div>
+                                </a>
+                                <div class="dash-memo-option-wrap">
+                                    <i class="fas fa-ellipsis-h memo-dash-option"></i>
+                                    <div class="tab_buttons-wrap-media-dash">
+                            
+                                        <form action="/{{account_owner.user_id}}/{{memo.id}}/move_from_tab/" method="POST">
+                                            {% csrf_token %}
+                                            <select class="tab_select" name="move_to">
+                                            <option value="{{memo.tab_name}}" selected>{% if not memo.tab_name %}no tab {% else %}{{memo.tab_name}}{% endif %}</option>
+                                            <option value="">no tab</option>
+                                            <option value="{{account_owner.tab01}}">{{account_owner.tab01}}</option>
+                                            <option value="{{account_owner.tab02}}">{{account_owner.tab02}}</option>
+                                            <option value="{{account_owner.tab03}}">{{account_owner.tab03}}</option>
+                                            <option value="{{account_owner.tab04}}">{{account_owner.tab04}}</option>
+                                            <option value="{{account_owner.tab05}}">{{account_owner.tab05}}</option>
+                                            </select>
+                                            <i class="fas fa-sign-out-alt media_tab_move"></i>
+                                        </form>
+                                        <form action="/{{account_owner.user_id}}/{{memo.id}}/trash_from_tab/" id="tab_delete" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="tab_item" value="{{memo.id}}">
+                                            <i class="fas fa-trash-alt tab_delete"></i>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        {% elif memo.image01 %}
+                            <div class="m_view_keyword_frame">
+                                <div class="m_view_img_frame">
+                                    <img class="m_view_img" src="{{memo.image01.url}}">
+                                </div>     
+                            <div class="m_view_keyword-wrap">
+                                <div 
+                                {% if memo.content_code %}
+                                    class="m_view_keyword"
+                                {% elif memo.video01 %}
+                                    class="m_view_keyword_video"
+                                {% else %}
+                                    class="m_view_keyword_image"
+                                {% endif %}
+                                >{{memo.keyword}}</div>
+                                <img class="m_view_keyword_ring profile_ring" 
+                                {% if memo.content_code %}
+                                src="{% static 'img/keyword_ring_code.png' %}"                
+                                {% endif %}
+                                >                   
+                            </div>
+                                <a href="/{{account_owner.user_id}}/{{memo.id}}/">
+                                    <div 
+                                    {% if memo.content_code %}
+                                    class="m_sub_cont-wrap with_media black"                            
+                                    {% else %}
+                                    class="m_sub_cont-wrap with_media"
+                                    {% endif %}
+                                    >
+                                        <div {%if memo.content_code %} class="m_view_subject white" {% else %}class="m_view_subject" {% endif %}>
+                                            {{memo.subject}}
+                                        </div>
+                                
+                                        <div class="m_view_content">
+                                            {{memo.content|truncatechars:300}}
+                                        </div>
+                                    </div>
+                                </a>
+                                <div class="dash-memo-option-wrap">
+                                    <i class="fas fa-ellipsis-h memo-dash-option"></i>
+                                    <div class="tab_buttons-wrap-media-dash">
+                            
+                                        <form action="/{{account_owner.user_id}}/{{memo.id}}/move_from_tab/" method="POST">
+                                            {% csrf_token %}
+                                            <select class="tab_select" name="move_to">
+                                            <option value="{{memo.tab_name}}" selected>{% if not memo.tab_name %}no tab {% else %}{{memo.tab_name}}{% endif %}</option>
+                                            <option value="">no tab</option>
+                                            <option value="{{account_owner.tab01}}">{{account_owner.tab01}}</option>
+                                            <option value="{{account_owner.tab02}}">{{account_owner.tab02}}</option>
+                                            <option value="{{account_owner.tab03}}">{{account_owner.tab03}}</option>
+                                            <option value="{{account_owner.tab04}}">{{account_owner.tab04}}</option>
+                                            <option value="{{account_owner.tab05}}">{{account_owner.tab05}}</option>
+                                            </select>
+                                            <i class="fas fa-sign-out-alt media_tab_move"></i>
+                                        </form>
+                                        <form action="/{{account_owner.user_id}}/{{memo.id}}/trash_from_tab/" id="tab_delete" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="tab_item" value="{{memo.id}}">
+                                            <i class="fas fa-trash-alt tab_delete"></i>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                        <div class="m_view_keyword_frame_none">
+                            <a href="/{{account_owner.user_id}}/{{memo.id}}/">
+                              
+                                    <div class="m_sub_cont-wrap">                                
+                                        <div class="m_view_keyword-wrap_none">                        
+                                            <div class="m_view_keyword_none"><i class="fas fa-paperclip"></i></div>
+                                            <img class="m_view_keyword_ring" src="{% static 'img/keyword_ring_none.png' %}">                    
+                                        </div>
+                                        | {{memo.keyword}} | <br/><br/>
+                                        <div class="m_view_subject">
+                                            {{memo.subject}}
+                                        </div>
+                                        <div class="m_view_content">
+                                            {{memo.content|truncatechars:300}}
+                                        </div>
+                                    </div>
+                                
+                            </a>
+
+                            <div class="dash-memo-option-wrap">
+                                <i class="fas fa-ellipsis-h memo-dash-option"></i>
+                                <div class="tab_buttons-wrap-media-dash">                        
+                                    <form action="/{{account_owner.user_id}}/{{memo.id}}/move_from_tab/" method="POST">
+                                        {% csrf_token %}
+                                        <select class="tab_select" name="move_to">
+                                        <option value="{{memo.tab_name}}" selected>{% if not memo.tab_name %}no tab {% else %}{{memo.tab_name}}{% endif %}</option>
+                                        <option value="">no tab</option>
+                                        <option value="{{account_owner.tab01}}">{{account_owner.tab01}}</option>
+                                        <option value="{{account_owner.tab02}}">{{account_owner.tab02}}</option>
+                                        <option value="{{account_owner.tab03}}">{{account_owner.tab03}}</option>
+                                        <option value="{{account_owner.tab04}}">{{account_owner.tab04}}</option>
+                                        <option value="{{account_owner.tab05}}">{{account_owner.tab05}}</option>
+                                        </select>
+                                        <i class="fas fa-sign-out-alt media_tab_move"></i>
+                                    </form>
+                                    <form action="/{{account_owner.user_id}}/{{memo.id}}/trash_from_tab/" id="tab_delete" method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="tab_item" value="{{memo.id}}">
+                                        <i class="fas fa-trash-alt tab_delete"></i>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                {% endfor %}
+                </div>
+                <div class="list_view_from_list">
+                    <div class="memo_list">
+                        <div class="tag_frame">
+                            <div class="list_tag">
+                                Recent Memos
+                            </div>
+                        </div>
+                        <div class="wrapper recent-memo">                         
+                            {% for memo in account_owner_memos reversed %}
+                                    <!-- <div class="memo_frame">
+                                    <span class="list_keyword"><a href="/{{account_owner.user_id}}/{{memo.id}}/">{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:40 }}</a>
+                                    </div> -->
+                                    <div class="tab-items-set">                                        
+                                        {% if memo.tab_name == "TRASH" %}
+                                        <div class="memo_frame_condition">    
+                                            <a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword"><span class="condition_tag"><i class="fas fa-trash-alt"></i></span>{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:25 }}</a>   
+                                        {% elif memo.disclose == "unlisted" %}
+                                        <div class="memo_frame_condition">    
+                                            <a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword"><span class="condition_tag"><i class="fas fa-unlink"></i></span>{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:25 }}</a>   
+                                        {% elif memo.disclose == "private" %}
+                                        <div class="memo_frame_condition">    
+                                            <a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword"><span class="condition_tag"><i class="fas fa-lock"></i></span>{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:25 }}</a>                                           
+                                        {% else %}    
+                                        <div class="memo_frame ">
+                                            <a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword">{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:40 }}</a>
+                                        {% endif %}
+                                        </div>
+                                        <div class="tab_buttons-wrap">
+                                          <form action="/{{account_owner.user_id}}/{{memo.id}}/move_from_tab/" method="POST">
+                                            {% csrf_token %}
+                                            <select class="tab_select" name="move_to">
+                                              <option value="{{memo.tab_name}}" selected>{{memo.tab_name}}</option>
+                                              <option value="">None</option>
+                                              <option value="{{account_owner.tab01}}">{{account_owner.tab01}}</option>
+                                              <option value="{{account_owner.tab02}}">{{account_owner.tab02}}</option>
+                                              <option value="{{account_owner.tab03}}">{{account_owner.tab03}}</option>
+                                              <option value="{{account_owner.tab04}}">{{account_owner.tab04}}</option>
+                                              <option value="{{account_owner.tab05}}">{{account_owner.tab05}}</option>
+                                            </select>
+                                            <i class="fas fa-sign-out-alt list_tab_move"></i>
+                                          </form>
+                                          <form action="/{{account_owner.user_id}}/{{memo.id}}/trash_from_tab/" id="tab_delete" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="tab_item" value="{{memo.id}}">
+                                            <i class="fas fa-trash-alt tab_delete"></i>
+                                          </form>
+                                        </div>
+                                      </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="memo_list_monthover">
+                        <div class="btn_tag_frame">
+                            <div class="list_tag">
+                                Over 15 days
+                            </div>
+                        </div>
+                        <div class="wrapper recent-memo">
+                                {% for memo in over_time_memos reversed%}
+                                <div class="tab-items-set">
+                                    {% if memo.tab_name == "TRASH" %}
+                                    <div class="memo_frame_condition">    
+                                        <a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword"><span class="condition_tag"><i class="fas fa-trash-alt"></i></span>{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:25 }}</a>   
+                                    {% elif memo.disclose == "unlisted" %}
+                                    <div class="memo_frame_condition">    
+                                        <a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword"><span class="condition_tag"><i class="fas fa-unlink"></i></span>{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:25 }}</a>   
+                                    {% elif memo.disclose == "private" %}
+                                    <div class="memo_frame_condition">    
+                                        <a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword"><span class="condition_tag"><i class="fas fa-lock"></i></span>{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:25 }}</a>                                           
+                                    {% else %}    
+                                    <div class="memo_frame ">
+                                        <a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword">{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:40 }}</a>
+                                    {% endif %}
+                                    </div>
+                                    <div class="tab_buttons-wrap">
+                                      <form action="/{{account_owner.user_id}}/{{memo.id}}/move_from_tab/" method="POST">
+                                        {% csrf_token %}
+                                        <select class="tab_select" name="move_to">
+                                          <option value="{{memo.tab_name}}" selected>{{memo.tab_name}}</option>
+                                          <option value="">None</option>
+                                          <option value="{{account_owner.tab01}}">{{account_owner.tab01}}</option>
+                                          <option value="{{account_owner.tab02}}">{{account_owner.tab02}}</option>
+                                          <option value="{{account_owner.tab03}}">{{account_owner.tab03}}</option>
+                                          <option value="{{account_owner.tab04}}">{{account_owner.tab04}}</option>
+                                          <option value="{{account_owner.tab05}}">{{account_owner.tab05}}</option>
+                                        </select>
+                                        <i class="fas fa-sign-out-alt tab_move"></i>
+                                      </form>
+                                      <form action="/{{account_owner.user_id}}/{{memo.id}}/trash_from_tab/" id="tab_delete" method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="tab_item" value="{{memo.id}}">
+                                        <i class="fas fa-trash-alt tab_delete"></i>
+                                      </form>
+                                    </div>
+                                  </div>
+                                {% endfor %}    
+                        </div>
+                    </div>
+                </div>        
+    {% endif %}            
+{% endif %}
+    </div>
+    <div class="right">
+        <!-- new memo button -->
+        <div class="btn-blue go-back-dashboard"><i class="fas fa-arrow-left"></i></div>    
+        {% if account_owner.user_id == logged_user.user_id %}
+        <a href="/{{account_owner.user_id}}/newmemo/" class="btn-blue add-memo"><i class="fas fa-pencil-alt"></i></a>
+        {% endif %}
+    </div>
+    </div>
+</div> <!-- this tag connects to base html <div class="dash_frame"> )-->
+{% block javascript %}
+    <script src="{% static 'js/saveMemo.js' %}"></script>
+{% endblock %}
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base2.html' %}
+{% block sidebar %}
+
+<div class="sidebar-sticky">
+    <div class="sidebar_left">
+        <div class="pic-wrap">            
+            <div class="pic_holder">
+                <img src="{% static 'img/profile_frame.png' %}">
+                <i class="fas fa-pen"></i>
+            </div>                    
+            <div class="account_info">
+                <span>Sean Choi</span>
+                <span>@ {{account_owner.user_id }}</span>
+            </div>
+        </div>
+        <div class="memo_count_box">
+            <span class="memo_count">{{account_owner_memos.count}}</span>
+            <span>TOTAL MEMOS</span>
+        </div>
+        <a class="btn-blue contact">
+        contact 
+        </a>
+        <div class="keyword_crumbs_title">
+            contributed keywords
+        </div>
+        <div class="keyword_crumbs">
+            {% for memo in account_owner_memos reversed %}
+                {% if not memo.keyword == "" %}
+                <div class="keyword_btn">
+                    <a href="/search/{{account_owner.user_id}}/{{memo.keyword}}" >{{ memo.keyword}}</a>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

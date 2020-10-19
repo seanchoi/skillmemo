@@ -1,0 +1,9 @@
+{% if found == True %}
+    <!-- <div class="check_error"><i class="fas fa-times-circle"></i>not available!</div> -->
+{% endif %}
+{% if found == False %}
+    <div class="check_error"><i class="fas fa-times-circle"></i>ID not found</div>
+{% endif %}
+{% if found == "required" %}
+    <div class="check_error"><i class="fas fa-times-circle"></i>required</div>
+{% endif %}

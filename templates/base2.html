@@ -1,0 +1,710 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js" integrity="sha256-lFA8dPmfmR4AQorTbla7C2W0aborhztLt0IQFLAVBTQ=" crossorigin="anonymous"></script>
+    <script src=" {% static 'js/tab_function.js' %}"></script>
+    <script src="https://kit.fontawesome.com/bdf130d6e6.js"></script>
+    <!-- skillmemo css -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/newmemo.css' %}">
+    <link rel="stylesheet" href="{% static 'css/viewmemo.css' %}">
+    <link rel="stylesheet" href="{% static 'css/editmemo.css' %}">
+    <link rel="stylesheet" href="{% static 'css/contact.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tab.css' %}">
+    <link rel="stylesheet" href="{% static 'css/settings.css' %}">
+    <link rel="stylesheet" href="{% static 'css/memoslide.css' %}">
+    <link rel="stylesheet" href="{% static 'css/search.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tabColor.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dm.css' %}">
+
+    <title>SKILL MEMO {% block title %}{% endblock %} </title>
+</head>
+<body>
+    <!-- top bar -->
+    <div class="navbar">
+        <!-- <div class="navbar_content_align"> -->
+        <a
+        {% if 'user_id' in request.session %} 
+        href="/{{logged_user.user_id}}"
+        {% else %}
+        href="/"
+        {% endif %}
+        ><img class="nav_logo" src="{% static 'img/logo.png' %}"><span>skillmemo</span></a>
+            {% if logged_user.user_id %}
+            <div class="navbar_right-wrap">
+                <div class="top_user_menu">
+                  <a href="/{{logged_user.user_id}}">memos</a>
+                </div>
+                <div class="menu_section">
+
+                    <div class="profile_link">
+                      <div class="notification-wrap">
+                
+                          {% if dms_notification_count != 0 %}
+                            <div class="dm-num"><i class="fas fa-envelope"></i></div>
+                          {% endif %}
+     
+                          {% if logged_user.profile_pic %}
+                          <div class="navbar_profile_outer-wrap">
+                            <div class="navbar_profile_pic">
+                              <img src="{{logged_user.profile_pic.url}}">                     
+                            </div>
+                            <img class="profile_ring" src="{% static 'img/navbar_profile_ring.png' %}">
+                          </div>
+                          {% else %}
+                            <img class="no_navbar_profile" src="{% static 'img/profile_frame.png' %}">
+                          {% endif %}
+                          
+                          {% if logged_user.brand_name %}
+                          <div class="nav_brand_name">{{ logged_user.brand_name}}</div>
+                          {% else %}
+                          <div>{{ logged_user.first_name}}</div>
+                          {% endif %}
+                        
+                      </div>
+                    </div>
+                    <!-- account menu -->
+                    <div class="account_menu-wrap">  
+                      <div class="menu-deco"></div>
+                      <div class="account_menu_frame">
+                        <div class="acct_menu_item"><a href="/{{logged_user.user_id}}/saved_memos/">Saved Memos</button></div>
+                        <div class="acct_menu_item"><a href="/{{logged_user.user_id}}/deleted_memos/">Recently Deleted</button></div>
+                        <div class="acct_menu_item"><a href="/{{logged_user.user_id}}/messages/">Messages</a>
+                          {% if dms_notification_count != 0 %}
+                          <div class="dm-num"><i class="fas fa-envelope"></i></div>
+                          {% endif %}
+                        </div>
+                        <div class="acct_menu_item"><a href="/{{logged_user.user_id}}/settings/">Account Settings</a></div>
+                        <a href="/logout/" class="btn-logout">logout</a>
+                      </div>
+                    </div>
+
+                </div>
+            </div>
+            {% else %}
+                <div class="register_button">
+                    <a href="/register" id="create_account" class="btn-register">create account</a>
+                    <a href="/login" id="login" class="btn-register">login</a>                
+                </div>
+            {% endif %}         
+
+    </div>
+    {% if logged_user %}
+    {% if logged_user.tab_view == "on" %}
+    <!-- TABS -->
+    <!-- tab#1 -->
+    <div class="tab-position1">    
+     
+      {% if logged_user.tab_theme == "study" %}
+        <div class="tab-tag num1 study01">
+      {% elif logged_user.tab_theme == "spring" %}
+        <div class="tab-tag num1 spring01">
+      {% elif logged_user.tab_theme == "summer" %}
+        <div class="tab-tag num1 summer01">
+      {% elif logged_user.tab_theme == "autumn" %}
+        <div class="tab-tag num1 autumn01">
+      {% else %}
+        <div class="tab-tag num1 winter01">
+      {% endif %}
+      
+        {% if logged_user.tab01 %}
+          <div class="tab-title">{{logged_user.tab01}}</div>
+        {% else %}
+          <div class="tab-title">Tab #1</div>
+        {% endif %}
+      </div>
+      <!-- tab#1 items -->
+      <div class="tab-toggle01">     
+        
+        {% if logged_user.tab_theme == "study" %}
+          <div class="tab-tag tag-close01 study01">
+        {% elif logged_user.tab_theme == "spring" %}
+          <div class="tab-tag tag-close01 spring01">
+        {% elif logged_user.tab_theme == "summer" %}
+        <div class="tab-tag tag-close01 summer01">
+        {% elif logged_user.tab_theme == "autumn" %}
+        <div class="tab-tag tag-close01 autumn01">
+        {% else %}
+        <div class="tab-tag tag-close01 winter01">
+        {% endif %}          
+        
+          {% if logged_user.tab01 %}
+            <div class="tab-title">{{logged_user.tab01}}</div>
+          {% else %}
+            <div class="tab-title">Tab #1</div>
+          {% endif %}
+        </div>
+        <div class="tab-items">        
+          <div class="overflow-frame">  
+
+            {% for item in tab01 reversed %}
+            <div class="tab-items-set">          
+              {% if item.disclose == "unlisted" %}
+              <div class="memo_frame tab_memo_frame">
+                <a href="/{{logged_user.user_id}}/{{item.id}}/"><span class="list_keyword"><div class="condition_tag"><i class="fas fa-unlink"></i></div>{{ item.keyword }}</span> | {{ item.subject|truncatechars:36 }}</a>
+              {% elif item.disclose == "private" %}
+              <div class="memo_frame tab_memo_frame">
+                <a href="/{{logged_user.user_id}}/{{item.id}}/"><span class="list_keyword"><div class="condition_tag"><i class="fas fa-lock"></i></div>{{ item.keyword }}</span> | {{ item.subject|truncatechars:36 }}</a>
+              {% else %}
+              <div class="memo_frame tab_memo_frame">
+                <a href="/{{logged_user.user_id}}/{{item.id}}/"><span class="list_keyword">{{ item.keyword }}</span> | {{ item.subject|truncatechars:40 }}</a>
+              {% endif %}
+              </div>
+              <div class="tab_buttons-wrap">
+                <form action="/{{logged_user.user_id}}/{{item.id}}/move_from_tab/" method="POST">
+                  {% csrf_token %}
+                  <select class="tab_select" name="move_to">
+                    <option value="{{item.tab_name}}" selected>{% if not emo.tab_name %}no tab {% else %}{{memo.tab_name}}{% endif %}</option>
+                    <option value="">no tab</option>
+                    <option value="{{logged_user.tab01}}">{{logged_user.tab01}}</option>
+                    <option value="{{logged_user.tab02}}">{{logged_user.tab02}}</option>
+                    <option value="{{logged_user.tab03}}">{{logged_user.tab03}}</option>
+                    <option value="{{logged_user.tab04}}">{{logged_user.tab04}}</option>
+                    <option value="{{logged_user.tab05}}">{{logged_user.tab05}}</option>
+                  </select>
+                  <i class="fas fa-sign-out-alt tab_move"></i>
+                </form>
+                <form action="/{{logged_user.user_id}}/{{item.id}}/trash_from_tab/" id="tab_delete" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="tab_item" value="{{item.id}}">
+                  <i class="fas fa-trash-alt tab_delete"></i>
+                </form>
+              </div>
+            </div>
+
+          {% endfor %}
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- tab#2 -->
+    <div class="tab-position2">
+      {% if logged_user.tab_theme == "study" %}
+        <div class="tab-tag num2 study02">
+      {% elif logged_user.tab_theme == "spring" %}
+        <div class="tab-tag num2 spring02">
+      {% elif logged_user.tab_theme == "summer" %}
+        <div class="tab-tag num2 summer02">
+      {% elif logged_user.tab_theme == "autumn" %}
+        <div class="tab-tag num2 autumn02">
+      {% else %}
+        <div class="tab-tag num2 winter02">
+      {% endif %}
+        {% if logged_user.tab02 %}
+          <div class="tab-title">{{logged_user.tab02}}</div>
+        {% else %}
+          <div class="tab-title">Tab #2</div>
+        {% endif %}
+      </div>
+      <!-- tab items -->
+      <div class="tab-toggle02">
+        
+        {% if logged_user.tab_theme == "study" %}
+          <div class="tab-tag tag-close02 study02">
+        {% elif logged_user.tab_theme == "spring" %}
+          <div class="tab-tag tag-close02 spring02">
+        {% elif logged_user.tab_theme == "summer" %}
+        <div class="tab-tag tag-close02 summer02">
+        {% elif logged_user.tab_theme == "autumn" %}
+        <div class="tab-tag tag-close02 autumn02">
+        {% else %}
+        <div class="tab-tag tag-close02 winter02">
+        {% endif %}
+          {% if logged_user.tab01 %}
+            <div class="tab-title">{{logged_user.tab02}}</div>
+          {% else %}
+            <div class="tab-title">Tab #2</div>
+          {% endif %}
+        </div>
+        <div class="tab-items">        
+          <div class="overflow-frame">  
+
+            {% for item in tab02 reversed %}
+
+            <div class="tab-items-set">
+              {% if item.disclose == "unlisted" %}
+              <div class="memo_frame tab_memo_frame">
+                <a href="/{{logged_user.user_id}}/{{item.id}}/"><span class="list_keyword"><div class="condition_tag"><i class="fas fa-unlink"></i></div>{{ item.keyword }}</span> | {{ item.subject|truncatechars:36 }}</a>
+              {% elif item.disclose == "private" %}
+              <div class="memo_frame tab_memo_frame">
+                <a href="/{{logged_user.user_id}}/{{item.id}}/"><span class="list_keyword"><div class="condition_tag"><i class="fas fa-lock"></i></div>{{ item.keyword }}</span> | {{ item.subject|truncatechars:36 }}</a>
+              {% else %}
+              <div class="memo_frame tab_memo_frame">
+                <a href="/{{logged_user.user_id}}/{{item.id}}/"><span class="list_keyword">{{ item.keyword }}</span> | {{ item.subject|truncatechars:40 }}</a>
+              {% endif %}
+              </div>
+              <div class="tab_buttons-wrap">
+                <form action="/{{logged_user.user_id}}/{{item.id}}/move_from_tab/" method="POST">
+                  {% csrf_token %}
+                  <select class="tab_select" name="move_to">
+                    <option value="{{item.tab_name}}" selected>{% if not emo.tab_name %}no tab {% else %}{{memo.tab_name}}{% endif %}</option>
+                    <option value="">no tab</option>
+                    <option value="{{logged_user.tab01}}">{{logged_user.tab01}}</option>
+                    <option value="{{logged_user.tab02}}">{{logged_user.tab02}}</option>
+                    <option value="{{logged_user.tab03}}">{{logged_user.tab03}}</option>
+                    <option value="{{logged_user.tab04}}">{{logged_user.tab04}}</option>
+                    <option value="{{logged_user.tab05}}">{{logged_user.tab05}}</option>
+                  </select>
+                  <i class="fas fa-sign-out-alt tab_move"></i>
+                </form>
+                <form action="/{{logged_user.user_id}}/{{item.id}}/trash_from_tab/" id="tab_delete" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="tab_item" value="{{item.id}}">
+                  <i class="fas fa-trash-alt tab_delete"></i>
+                </form>
+              </div>
+            </div>
+
+          {% endfor %}
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- tab#3 -->
+    <div class="tab-position3">
+
+      {% if logged_user.tab_theme == "study" %}
+        <div class="tab-tag num3 study03">
+      {% elif logged_user.tab_theme == "spring" %}
+        <div class="tab-tag num3 spring03">
+      {% elif logged_user.tab_theme == "summer" %}
+        <div class="tab-tag num3 summer03">
+      {% elif logged_user.tab_theme == "autumn" %}
+        <div class="tab-tag num3 autumn03">
+      {% else %}
+        <div class="tab-tag num3 winter03">
+      {% endif %}
+        {% if logged_user.tab03 %}
+          <div class="tab-title">{{logged_user.tab03}}</div>
+        {% else %}
+          <div class="tab-title">Tab #3</div>
+        {% endif %}
+      </div>
+      <!-- tab#3 items -->
+      <div class="tab-toggle03">
+        
+        {% if logged_user.tab_theme == "study" %}
+          <div class="tab-tag tag-close03 study03">
+        {% elif logged_user.tab_theme == "spring" %}
+          <div class="tab-tag tag-close03 spring03">
+        {% elif logged_user.tab_theme == "summer" %}
+        <div class="tab-tag tag-close03 summer03">
+        {% elif logged_user.tab_theme == "autumn" %}
+        <div class="tab-tag tag-close03 autumn03">
+        {% else %}
+        <div class="tab-tag tag-close03 winter03">
+        {% endif %}
+          {% if logged_user.tab03 %}
+            <div class="tab-title">{{logged_user.tab03}}</div>
+          {% else %}
+            <div class="tab-title">Tab #3</div>
+          {% endif %}
+        </div>
+        <div class="tab-items">        
+          <div class="overflow-frame">  
+
+            {% for item in tab03 reversed%}
+            <div class="tab-items-set">
+              {% if item.disclose == "unlisted" %}
+              <div class="memo_frame tab_memo_frame">
+                <a href="/{{logged_user.user_id}}/{{item.id}}/"><span class="list_keyword"><div class="condition_tag"><i class="fas fa-unlink"></i></div>{{ item.keyword }}</span> | {{ item.subject|truncatechars:36 }}</a>
+              {% elif item.disclose == "private" %}
+              <div class="memo_frame tab_memo_frame">
+                <a href="/{{logged_user.user_id}}/{{item.id}}/"><span class="list_keyword"><div class="condition_tag"><i class="fas fa-lock"></i></div>{{ item.keyword }}</span> | {{ item.subject|truncatechars:36 }}</a>
+              {% else %}
+              <div class="memo_frame tab_memo_frame">
+                <a href="/{{logged_user.user_id}}/{{item.id}}/"><span class="list_keyword">{{ item.keyword }}</span> | {{ item.subject|truncatechars:40 }}</a>
+              {% endif %}
+              </div>
+              <div class="tab_buttons-wrap">
+                <form action="/{{logged_user.user_id}}/{{item.id}}/move_from_tab/" method="POST">
+                  {% csrf_token %}
+                  <select class="tab_select" name="move_to">
+                    <option value="{{item.tab_name}}" selected>{% if not emo.tab_name %}no tab {% else %}{{memo.tab_name}}{% endif %}</option>
+                    <option value="">no tab</option>
+                    <option value="{{logged_user.tab01}}">{{logged_user.tab01}}</option>
+                    <option value="{{logged_user.tab02}}">{{logged_user.tab02}}</option>
+                    <option value="{{logged_user.tab03}}">{{logged_user.tab03}}</option>
+                    <option value="{{logged_user.tab04}}">{{logged_user.tab04}}</option>
+                    <option value="{{logged_user.tab05}}">{{logged_user.tab05}}</option>
+                  </select>
+                  <i class="fas fa-sign-out-alt tab_move"></i>
+                </form>
+                <form action="/{{logged_user.user_id}}/{{item.id}}/trash_from_tab/" id="tab_delete" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="tab_item" value="{{item.id}}">
+                  <i class="fas fa-trash-alt tab_delete"></i>
+                </form>
+              </div>
+            </div>
+
+          {% endfor %}
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  <!-- tab#4 -->
+  <div class="tab-position4">
+
+      {% if logged_user.tab_theme == "study" %}
+        <div class="tab-tag num4 study04">
+      {% elif logged_user.tab_theme == "spring" %}
+        <div class="tab-tag num4 spring04">
+      {% elif logged_user.tab_theme == "summer" %}
+        <div class="tab-tag num4 summer04">
+      {% elif logged_user.tab_theme == "autumn" %}
+        <div class="tab-tag num4 autumn04">
+      {% else %}
+        <div class="tab-tag num4 winter04">
+      {% endif %}
+      {% if logged_user.tab04 %}
+        <div class="tab-title">{{logged_user.tab04}}</div>
+      {% else %}
+        <div class="tab-title">Tab #4</div>
+      {% endif %}
+    </div>
+    <!-- tab#4 items -->
+    <div class="tab-toggle04">
+      
+        {% if logged_user.tab_theme == "study" %}
+          <div class="tab-tag tag-close04 study04">
+        {% elif logged_user.tab_theme == "spring" %}
+          <div class="tab-tag tag-close04 spring04">
+        {% elif logged_user.tab_theme == "summer" %}
+        <div class="tab-tag tag-close04 summer04">
+        {% elif logged_user.tab_theme == "autumn" %}
+        <div class="tab-tag tag-close04 autumn04">
+        {% else %}
+        <div class="tab-tag tag-close04 winter04">
+        {% endif %}
+        {% if logged_user.tab04 %}
+          <div class="tab-title">{{logged_user.tab04}}</div>
+        {% else %}
+          <div class="tab-title">Tab #4</div>
+        {% endif %}
+      </div>
+      <div class="tab-items">        
+        <div class="overflow-frame">  
+
+          {% for item in tab04 reversed%}
+          <div class="tab-items-set">
+            {% if item.disclose == "unlisted" %}
+            <div class="memo_frame tab_memo_frame">
+              <a href="/{{logged_user.user_id}}/{{item.id}}/"><span class="list_keyword"><div class="condition_tag"><i class="fas fa-unlink"></i></div>{{ item.keyword }}</span> | {{ item.subject|truncatechars:36 }}</a>
+            {% elif item.disclose == "private" %}
+            <div class="memo_frame tab_memo_frame">
+              <a href="/{{logged_user.user_id}}/{{item.id}}/"><span class="list_keyword"><div class="condition_tag"><i class="fas fa-lock"></i></div>{{ item.keyword }}</span> | {{ item.subject|truncatechars:36 }}</a>
+            {% else %}
+            <div class="memo_frame tab_memo_frame">
+              <a href="/{{logged_user.user_id}}/{{item.id}}/"><span class="list_keyword">{{ item.keyword }}</span> | {{ item.subject|truncatechars:40 }}</a>
+            {% endif %}
+            </div>
+            <div class="tab_buttons-wrap">
+              <form action="/{{logged_user.user_id}}/{{item.id}}/move_from_tab/" method="POST">
+                {% csrf_token %}
+                <select class="tab_select" name="move_to">
+                  <option value="{{item.tab_name}}" selected>{% if not emo.tab_name %}no tab {% else %}{{memo.tab_name}}{% endif %}</option>
+                  <option value="">no tab</option>
+                  <option value="{{logged_user.tab01}}">{{logged_user.tab01}}</option>
+                  <option value="{{logged_user.tab02}}">{{logged_user.tab02}}</option>
+                  <option value="{{logged_user.tab03}}">{{logged_user.tab03}}</option>
+                  <option value="{{logged_user.tab04}}">{{logged_user.tab04}}</option>
+                  <option value="{{logged_user.tab05}}">{{logged_user.tab05}}</option>
+                </select>
+                <i class="fas fa-sign-out-alt tab_move"></i>
+              </form>
+              <form action="/{{logged_user.user_id}}/{{item.id}}/trash_from_tab/" id="tab_delete" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="tab_item" value="{{item.id}}">
+                <i class="fas fa-trash-alt tab_delete"></i>
+              </form>
+            </div>
+          </div>
+
+        {% endfor %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- tag -->
+  <div class="tab-position5">
+
+    {% if logged_user.tab_theme == "study" %}
+      <div class="tab-tag num5 study05">
+    {% elif logged_user.tab_theme == "spring" %}
+      <div class="tab-tag num5 spring05">
+    {% elif logged_user.tab_theme == "summer" %}
+      <div class="tab-tag num5 summer05">
+    {% elif logged_user.tab_theme == "autumn" %}
+      <div class="tab-tag num5 autumn05">
+    {% else %}
+      <div class="tab-tag num5 winter05">
+    {% endif %}
+      {% if logged_user.tab05%}
+        <div class="tab-title tab05-color">{{logged_user.tab05}}</div>
+      {% else %}
+        <div class="tab-title tab05-color">Tab #5</div>
+      {% endif %}
+    </div>
+    <!-- tab items -->
+    <div class="tab-toggle05">
+      
+      {% if logged_user.tab_theme == "study" %}
+        <div class="tab-tag tag-close05 study05">
+      {% elif logged_user.tab_theme == "spring" %}
+        <div class="tab-tag tag-close05 spring05">
+      {% elif logged_user.tab_theme == "summer" %}
+        <div class="tab-tag tag-close05 summer05">
+      {% elif logged_user.tab_theme == "autumn" %}
+        <div class="tab-tag tag-close05 autumn05">
+      {% else %}
+        <div class="tab-tag tag-close05 winter05">
+      {% endif %}
+        {% if logged_user.tab05 %}
+          <div class="tab-title tab05-color">{{logged_user.tab05}}</div>
+        {% else %}
+          <div class="tab-title tab05-color">Tab #5</div>
+        {% endif %}
+      </div>
+      <div class="tab-items">        
+        <div class="overflow-frame">  
+
+          {% for item in tab05 reversed%}
+
+          <div class="tab-items-set">
+            {% if item.disclose == "unlisted" %}
+            <div class="memo_frame tab_memo_frame">
+              <a href="/{{logged_user.user_id}}/{{item.id}}/"><span class="list_keyword"><div class="condition_tag"><i class="fas fa-unlink"></i></div>{{ item.keyword }}</span> | {{ item.subject|truncatechars:36 }}</a>
+            {% elif item.disclose == "private" %}
+            <div class="memo_frame tab_memo_frame">
+              <a href="/{{logged_user.user_id}}/{{item.id}}/"><span class="list_keyword"><div class="condition_tag"><i class="fas fa-lock"></i></div>{{ item.keyword }}</span> | {{ item.subject|truncatechars:36 }}</a>
+            {% else %}
+            <div class="memo_frame tab_memo_frame">
+              <a href="/{{logged_user.user_id}}/{{item.id}}/"><span class="list_keyword">{{ item.keyword }}</span> | {{ item.subject|truncatechars:40 }}</a>
+            {% endif %}
+            </div>
+            <div class="tab_buttons-wrap">
+              <form action="/{{logged_user.user_id}}/{{item.id}}/move_from_tab/" method="POST">
+                {% csrf_token %}
+                <select class="tab_select" name="move_to">
+                  <option value="{{item.tab_name}}" selected>{% if not emo.tab_name %}no tab {% else %}{{memo.tab_name}}{% endif %}</option>
+                  <option value="">no tab</option>
+                  <option value="{{logged_user.tab01}}">{{logged_user.tab01}}</option>
+                  <option value="{{logged_user.tab02}}">{{logged_user.tab02}}</option>
+                  <option value="{{logged_user.tab03}}">{{logged_user.tab03}}</option>
+                  <option value="{{logged_user.tab04}}">{{logged_user.tab04}}</option>
+                  <option value="{{logged_user.tab05}}">{{logged_user.tab05}}</option>
+                </select>
+                <i class="fas fa-sign-out-alt tab_move"></i>
+              </form>
+              <form action="/{{logged_user.user_id}}/{{item.id}}/trash_from_tab/" id="tab_delete" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="tab_item" value="{{item.id}}">
+                <i class="fas fa-trash-alt tab_delete"></i>
+              </form>
+            </div>
+          </div>
+
+        {% endfor %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% endif %}
+
+    <div class="container">
+        <div class="dashframe">
+            <div class="dash_content_layout">
+        
+            <div class="sidebar-sticky">
+                <div class="sidebar_left">
+                    <div class="pic-wrap">            
+                        <div class="pic_holder">
+                            {% if account_owner.profile_pic %}
+                            <div class="profile_outer-wrap">
+                              <div class="profile_circle_frame">
+                                <img class="profile_pic" src="{{account_owner.profile_pic.url}}">                          
+                              </div>
+                              <img class="profile_ring" src="{% static 'img/profile_ring.png' %}">
+                            </div>
+                            {% else %}
+                            <div class="profile_outer-wrap">
+                              <div class="profile_circle_frame">
+                                <img class="profile_frame" src="{% static 'img/profile_frame.png' %}">                            
+                              </div>
+                              <img class="profile_ring" src="{% static 'img/profile_ring.png' %}">
+                            </div>
+                            {% endif %}
+                            {% if account_owner.user_id == logged_user.user_id %}
+                              <a href="/{{account_owner.user_id}}/settings/"><i class="fas fa-pen"></i></a>
+                            {% else %}
+                            {% endif %}
+                        </div>   
+                      </div>                 
+                        <div class="account_info">
+                            {% if account_owner.brand_name %}
+                            <span class="brand_name">{{account_owner.brand_name }}</span>
+                            <a href="/{{account_owner.user_id}}/"><span>@{{account_owner.user_id }}</span></a>
+                            {% else %}
+                            <span>{{account_owner.first_name}} {{account_owner.last_name}}</span>
+                            <a href="/{{account_owner.user_id}}/"><span>@{{account_owner.user_id }}</span></a>
+                            {% endif %}
+                        </div>
+                    
+                    <div class="memo_count_box">
+                        <span class="memo_count">                        
+                          {{account_owner_memos_count}}               
+                        </span>
+                        <span>
+                          {% if account_owner_memos_count == 0 or account_owner_memos_count == 1 %}
+                          TOTAL MEMO
+                          {% else %}
+                          TOTAL MEMOS
+                          {% endif %}
+
+                        </span>
+                    </div>
+                    {% if 'user_id' not in request.session %}
+                      <div class="btn-blue contact-inactive">
+                        contact
+                        <span class="please-login">login to contact</span>
+                      </div>
+                    {% else %}
+                      <a class="btn-blue contact">
+                      contact 
+                      </a>
+                    {% endif %}
+                    <div class="keyword_crumbs_title">
+                        memo keywords
+                    </div>
+                    <div class="keyword_crumbs">
+                        {% for crumb in crumbs reversed %}                    
+                        <div class="crumb_btn">
+                            <a href="/{{account_owner.user_id}}/search/{{crumb}}" > {{crumb}}</a>
+                        </div>
+                         
+                      {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+        <!-- DM box-->
+        <div class="modal-background">
+          <div class="dm-modal">
+
+              <div class="dm-title">Direct Message @{{account_owner.user_id}}</div>
+              <div class="dm-wrapper">
+                <div class="dm-left">
+                  <span class="input_title">To</span>
+                  <span class="input_title">From</span>
+                  <span class="input_title">message</span>
+                </div>
+                <div class="dm-right">
+                  <form action="/{{account_owner.user_id}}/send_dm/" method="POST" id="dm-form">
+                    {% csrf_token %}
+                    {% if account_owner.user_id == logged_user.user_id %}                
+                      <input type="text" name="to" class="user_search" id="user_search" placeholder="username">                  
+                    {% else %}
+                    <div class="dm-to">{{account_owner.first_name}} {{account_owner.last_name}}</div>
+                    <input type="hidden" name="to" value="{{account_owner.user_id}}">                    
+                    {% endif %}
+                    <div class="dm-from">{{logged_user.first_name}} {{logged_user.last_name}}</div>
+                    <input type="hidden" name="from_user_id" value="{{logged_user.user_id}}">
+                    <textarea class="dm-msg" name="dm_msg" rows="6" required></textarea>
+                    <div class="dm-send-wrap">
+                      <div class="btn-blue dm-cancel">Cancel</div>
+                      <button class="btn-blue dm-send">Send</button> 
+                    </div>
+                  </form>                 
+                  <div class="search_preview-dm"></div>  
+                </div>
+              </div>
+
+          </div>
+        </div>
+
+            <input type="hidden" id="options" value="right">
+        {% block content %}
+            {% block script %}
+            {% endblock %}
+        {% endblock %}
+
+    </div>
+    <!-- skillmemo js -->
+    <script src=" {% static 'js/dashboard.js' %}"></script>
+    <script src=" {% static 'js/newmemo.js' %}"></script>
+    <script src=" {% static 'js/editmemo.js' %}"></script>
+    <script src=" {% static 'js/viewmemo.js' %}"></script>
+    <script src=" {% static 'js/memoslide.js' %}"></script>
+    <script src=" {% static 'js/modals.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/dm.css' %}">
+
+    <!-- <script src="{% static 'js/modal/tingle.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'js/modal/tingle.css' %}"> -->
+    <!-- <link rel="stylesheet" href="{% static 'css/modal.css' %}"> -->
+
+
+    <!-- <script type="text/javascript">
+      var dmTinyNoFooter = new tingle.modal({
+          onClose: function() {
+              console.log('close');
+          },
+          onOpen: function() {
+              console.log('open');
+          },
+          beforeOpen: function() {
+              console.log('before open');
+          },
+          beforeClose: function() {
+              console.log('before close');
+              return true;
+          },
+          cssClass: ['class1', 'class2']
+      });
+      var dmButtonOnly = new tingle.modal({
+          closeMethods: [],
+          footer: true,
+          stickyFooter: true
+      });
+      var dmBtn = document.querySelector('.contact');
+      dmBtn.addEventListener('click', function(){
+          dmButtonOnly.open();
+      });
+      dmButtonOnly.setContent(document.querySelector('.dm-owner').innerHTML);
+      
+      dmButtonOnly.addFooterBtn('Send', 'tingle-btn tingle-btn--dm-send tingle-btn--pull-right', function(){
+          var data = $('#dm-form').serialize()
+          $.ajax({
+              method: "POST",
+              url: $('#dm-form').attr('action'),
+              data: data
+          })
+          dmButtonOnly.close();
+          location.reload();
+        });
+        dmButtonOnly.addFooterBtn('Cancel', 'tingle-btn tingle-btn--danger tingle-btn--pull-right', function(){
+            dmButtonOnly.close();
+            location.reload();
+        });
+      </script>
+      <script type="text/javascript" src="{% static 'js/modal.js' %}"></script>
+      <script>hljs.initHighlightingOnLoad();</script> -->
+</body>
+</html>

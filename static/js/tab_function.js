@@ -141,7 +141,7 @@ $(document).ready(function(){
             type:"POST",
             url: $(this).parent().attr('action'),
             data: data,
-            success: $(this).parent().parent().parent().parent().hide()
+            success: $(this).parent().parent().parent().hide()
         })          
     })
 

@@ -4,4 +4,4 @@ venv/
 db.sqlite3
 media/
 secret.json
-settings.py
+skillmemo/settings.py

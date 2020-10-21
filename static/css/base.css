@@ -548,14 +548,14 @@ input {
     /* IPAD */
 @media only screen and (max-width: 900px) {
 .account_menu-wrap {
-    right:15px;
+    right:5px;
     margin-left:0;    
 }
 }
 /* IPAD PRO */
 @media only screen and (min-width: 901px) and (max-width: 1024px) {
 .account_menu-wrap {
-    right:15px;
+    right:5px;
     margin-left:0;    
 }
 }

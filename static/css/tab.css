@@ -248,3 +248,17 @@
 .num6 {
     background-color: rgb(255, 133, 153);
 }
+
+
+/* IPAD */
+@media only screen and (max-width: 900px) {
+    .tab-wrap{
+        visibility: hidden;
+    }
+}
+
+@media only screen and (min-width: 901px) and (max-width: 1024px) {
+    .tab-wrap{
+        visibility: hidden;
+    }
+}

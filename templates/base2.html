@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="{% static 'css/search.css' %}">
     <link rel="stylesheet" href="{% static 'css/tabColor.css' %}">
     <link rel="stylesheet" href="{% static 'css/dm.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'css/screen-iphone.css' %}"> -->
 
     <title>SKILL MEMO {% block title %}{% endblock %} </title>
 </head>
@@ -63,7 +64,7 @@
                           {% if logged_user.brand_name %}
                           <div class="nav_brand_name">{{ logged_user.brand_name}}</div>
                           {% else %}
-                          <div>{{ logged_user.first_name}}</div>
+                          <div class="user_name">{{ logged_user.first_name}}</div>
                           {% endif %}
                         
                       </div>
@@ -654,57 +655,5 @@
     <script src=" {% static 'js/viewmemo.js' %}"></script>
     <script src=" {% static 'js/memoslide.js' %}"></script>
     <script src=" {% static 'js/modals.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'css/dm.css' %}">
-
-    <!-- <script src="{% static 'js/modal/tingle.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'js/modal/tingle.css' %}"> -->
-    <!-- <link rel="stylesheet" href="{% static 'css/modal.css' %}"> -->
-
-
-    <!-- <script type="text/javascript">
-      var dmTinyNoFooter = new tingle.modal({
-          onClose: function() {
-              console.log('close');
-          },
-          onOpen: function() {
-              console.log('open');
-          },
-          beforeOpen: function() {
-              console.log('before open');
-          },
-          beforeClose: function() {
-              console.log('before close');
-              return true;
-          },
-          cssClass: ['class1', 'class2']
-      });
-      var dmButtonOnly = new tingle.modal({
-          closeMethods: [],
-          footer: true,
-          stickyFooter: true
-      });
-      var dmBtn = document.querySelector('.contact');
-      dmBtn.addEventListener('click', function(){
-          dmButtonOnly.open();
-      });
-      dmButtonOnly.setContent(document.querySelector('.dm-owner').innerHTML);
-      
-      dmButtonOnly.addFooterBtn('Send', 'tingle-btn tingle-btn--dm-send tingle-btn--pull-right', function(){
-          var data = $('#dm-form').serialize()
-          $.ajax({
-              method: "POST",
-              url: $('#dm-form').attr('action'),
-              data: data
-          })
-          dmButtonOnly.close();
-          location.reload();
-        });
-        dmButtonOnly.addFooterBtn('Cancel', 'tingle-btn tingle-btn--danger tingle-btn--pull-right', function(){
-            dmButtonOnly.close();
-            location.reload();
-        });
-      </script>
-      <script type="text/javascript" src="{% static 'js/modal.js' %}"></script>
-      <script>hljs.initHighlightingOnLoad();</script> -->
 </body>
 </html>

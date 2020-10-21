@@ -16,10 +16,7 @@
                         <span class="status unlisted">{{the_memo.disclose}}</span>
                     {% else %}
                         <span class="status private">{{the_memo.disclose}}</span>
-                    {% endif %}
-                    {% if account_owner.user_id == logged_user.user_id %}
-                    created: {{the_memo.created_at}} | updated: {{the_memo.updated_at}}
-                    {% endif %}              
+                    {% endif %}        
                 </span>
             
             <!-- YouTube video 01 frame -->

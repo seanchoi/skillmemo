@@ -538,7 +538,10 @@ input {
         font-size: 12px;       
         background-color: white;
         border-radius: 15px;
-        box-shadow: 2px 2px 4px #dddddd;      
+        box-shadow: 2px 2px 4px #dddddd;   
+        display: flex;
+        justify-content: center;
+        align-self: center;   
         
     }
 

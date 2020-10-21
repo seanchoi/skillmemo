@@ -542,4 +542,12 @@ input {
         
     }
 
-   
+     /* IPAD */
+  @media only screen and (max-width: 900px) {
+
+  }
+
+    /* IPAD PRO */
+    @media only screen and (min-width: 901px) and (max-width: 1024px) {
+
+    }

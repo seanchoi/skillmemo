@@ -1,6 +1,14 @@
 
 .tabs-wrap {
-    position: sticky;
+    position: fixed;
+    top:10%;
+    transform: translate(0, -50%);
+    right:0;
+    z-index: 10;
+}
+.tabs-container {
+    position: relative;
+    z-index: 10;
 }
 .tab-items {
     width:650px;
@@ -136,30 +144,30 @@
 
 /* tap overlay position, z-index */
 .tab-position1 {
-    position: fixed;
-    z-index: 3;
-    top:110px;
+    position: absolute;
+    z-index: 10;
+    top:0px;
 }
 
 .tab-position2 {
-    position: fixed;
-    z-index: 3;
-    top:230px;
+    position: absolute;
+    z-index: 10;
+    top:120px;
 }
 .tab-position3 {
-    position: fixed;
-    z-index: 3;
-    top:350px;
+    position: absolute;
+    z-index: 10;
+    top:240px;
 }
 .tab-position4 {
-    position: fixed;
-    z-index: 3;
-    top:470px;
+    position: absolute;
+    z-index: 10;
+    top:360px;
 }
 .tab-position5 {
-    position: fixed;
-    z-index: 3;
-    top:590px;
+    position: absolute;
+    z-index: 10;
+    top:480px;
 }
 /* tab position & color */
 .num1 {
@@ -169,7 +177,7 @@
 .tab-toggle01 {
     position: fixed;
     right:0;
-    z-index: 3;
+    z-index: 10;
     display: flex;
     flex-direction: row;
 }
@@ -182,7 +190,7 @@
 .tab-toggle02 {
     position: fixed;
     right:0;
-    z-index: 3;
+    z-index: 10;
     display: flex;
     flex-direction: row;
 }
@@ -198,7 +206,7 @@
 .tab-toggle03 {
     position: fixed;
     right:0;
-    z-index: 3;
+    z-index: 10;
     display: flex;
     flex-direction: row;
 }
@@ -214,7 +222,7 @@
 .tab-toggle04 {
     position: fixed;
     right:0;
-    z-index: 3;
+    z-index: 10;
     display: flex;
     flex-direction: row;
 }
@@ -228,7 +236,7 @@
 .tab-toggle05 {
     position: fixed;
     right:0;
-    z-index: 3;
+    z-index: 10;
     display: flex;
     flex-direction: row;
 }

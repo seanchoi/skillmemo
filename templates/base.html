@@ -19,53 +19,10 @@
     <div class="navbar">
         <!-- <div class="navbar_content_align"> -->
         <a href="/"><img class="nav_logo" src="{% static 'img/logo_light.png' %}"><span>skillmemo</span></a>
-            {% if logged_user_id %}
-            <div class="navbar_right-wrap">
-                <div class="top_user_menu">
-                  <a href="/{{logged_user_id}}">memos</a>
-                </div>
-                <div class="menu_section">
-
-                    <div class="profile_link">
-                        {% if logged_user.profile_pic %}
-                        <div class="navbar_profile_outer-wrap">
-                          <div class="navbar_profile_pic">
-                            <img src="{{logged_user.profile_pic.url}}">                     
-                          </div>
-                          <img class="profile_ring" src="{% static 'img/navbar_profile_ring.png' %}">
-                        </div>
-                        {% else %}
-                          <img class="no_navbar_profile" src="{% static 'img/profile_frame.png' %}">
-                        {% endif %}
-                        
-                        {% if logged_user.brand_name %}
-                        <div>{{ logged_user.brand_name}}</div>
-                        {% else %}
-                        <div>{{ logged_user.first_name}}</div>
-                        {% endif %}
-
-                    </div>
-                    <!-- account menu -->
-                    <div class="account_menu-wrap">  
-                      <div class="menu-deco"></div>
-                      <div class="account_menu_frame">
-                        <div class="acct_menu_item"><a href="/{{logged_user.user_id}}/deleted_memos/">Rcently Deleted</a></div>
-                        <div class="acct_menu_item"><a href="/{{logged_user.user_id}}/settings/">Account Settings</a></div>
-                        <a href="/logout/" class="btn-logout">logout</a>
-                      </div>
-                    </div>
-
-                </div>
-            </div>
-            {% else %}
                 <div class="register_button">
                     <a href="/register" id="create_account" class="btn-register">create account</a>
                     <a href="/login" id="login" class="btn-register">login</a>                
-                </div>
-            {% endif %}
-            
-
-
+                </div> 
     </div>
 
     <div class="container base">

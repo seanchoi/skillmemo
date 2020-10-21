@@ -524,3 +524,18 @@ input {
         margin-bottom:20px;
         font-size:14px;
     }
+
+    .footer {
+        position: fixed;
+        left:10px;    
+        bottom:5px;
+        width:fit-content;
+        height:fit-content;
+        padding:5px;   
+        box-sizing: border-box;
+        color:#8c8c8c;      
+        font-size: 14px;                
+        
+    }
+
+   

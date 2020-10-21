@@ -573,7 +573,7 @@
                         <span class="memo_count">                        
                           {{account_owner_memos_count}}               
                         </span>
-                        <span>
+                        <span class="total-memo">
                           {% if account_owner_memos_count == 0 or account_owner_memos_count == 1 %}
                           TOTAL MEMO
                           {% else %}
@@ -592,6 +592,7 @@
                       contact 
                       </a>
                     {% endif %}
+                    {% if crumbs %}
                     <div class="keyword_crumbs_title">
                         memo keywords
                     </div>
@@ -603,6 +604,7 @@
                          
                       {% endfor %}
                     </div>
+                    {% endif %}
                 </div>
             </div>
 
@@ -647,6 +649,10 @@
             {% endblock %}
         {% endblock %}
 
+    </div>
+
+    <div class="footer">
+      <span>&copy2020 skillmemo.com | <a href="/skillmemo/contact/">contact</a></span>
     </div>
     <!-- skillmemo js -->
     <script src=" {% static 'js/dashboard.js' %}"></script>

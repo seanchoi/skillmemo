@@ -298,3 +298,11 @@ def savedMemo(request, user_id):
         else:
             context = OwnerContext(user_id, request.session['user_id']).owner_context
             return render(request, 'savedmemo.html', context)
+
+def contact(request, user_id):
+    if 'user_id' not in request.session:
+        context = VisitorContext(user_id).visitor_context
+        return render(request, 'contact.html', context)
+    else:
+        context = LoggedUserContext(user_id, request.session['user_id']).logged_user_context
+        return render(request,'contact.html', context)

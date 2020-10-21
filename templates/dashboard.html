@@ -17,6 +17,31 @@
             </form>
             <div class="search_preview"></div>
         </div>
+
+{% if logged_user.user_id == account_owner.user_id and not account_owner_memos%}
+
+        <div class="intro">
+            <span class="welcome-title">WELCOME! {{account_owner.first_name}}</span>
+            <span class="welcome-subtitle">SkillMemo Brief Manual</span>
+<pre class="manual" wrap="hard">
+    <i class="far fa-dot-circle"></i> with SkillMemo, You can
+    <i class="far fa-dot-circle"></i> add upto 3 memo sections
+    <i class="far fa-dot-circle"></i> upload upto 4 images in 1st and 2nd section 
+    <i class="far fa-dot-circle"></i> add YouTube video on each section
+    <i class="far fa-dot-circle"></i> organize memos in tabs for easy access
+    <i class="far fa-dot-circle"></i> name your own tabs 
+    <i class="far fa-dot-circle"></i> make memo privacy as public, unlisted, private
+    <i class="far fa-dot-circle"></i> search by '<span class="search-method">@</span>username' in the search bar
+    <i class="far fa-dot-circle"></i> search by any word in subject or '<span class="search-method">!</span>memo keyword'
+    <i class="far fa-dot-circle"></i> save other's memo and keep in your list
+    <i class="far fa-dot-circle"></i> send DM to other users
+    <i class="far fa-dot-circle"></i> upload your profile picture in <b>Account Settings</b>
+    <i class="far fa-dot-circle"></i> use screen size of ipad and up
+</pre>
+        <span class="welcome-end">Enjoy!</span>
+        <span class="welcome-thanks">SkillMemo</span>
+        </div>
+{% else %}
 <!-- visitor's view -->
 <!-- dashboard memo media view -->
 {% if not logged_user or not account_owner %}
@@ -1369,11 +1394,15 @@
                 </div>        
     {% endif %}            
 {% endif %}
+
+
+
+{% endif %}
     </div>
     <div class="right">
         <!-- new memo button -->
         <div class="btn-blue go-back-dashboard"><i class="fas fa-arrow-left"></i></div>    
-        {% if account_owner.user_id == logged_user.user_id %}
+        {% if account_owner.user_id == logged_user.user_id %}        
         <a href="/{{account_owner.user_id}}/newmemo/" class="btn-blue add-memo"><i class="fas fa-pencil-alt"></i></a>
         {% endif %}
     </div>

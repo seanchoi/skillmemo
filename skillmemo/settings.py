@@ -14,10 +14,10 @@ with open(BASE_DIR / 'secret.json') as f:
 # SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 # SECURE_HSTS_PRELOAD = True
 
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['3.23.70.201', 'www.skillmemo.com']
-# ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['3.23.70.201', 'www.skillmemo.com']
+ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
@@ -93,10 +93,10 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'static'
-# STATICFILES_DIRS = [
-#     BASE_DIR / 'static'
-# ]
+# STATIC_ROOT = BASE_DIR / 'static'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
 
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'

@@ -42,6 +42,7 @@ urlpatterns = [
     path('<str:user_id>/dm_fail/', views.dmFail),
     path('<str:account_id>/<str:user_id>/<int:memo_id>/memoSave/', views.memoSave),
     path('<str:account_id>/<str:user_id>/<int:memo_id>/memoUnSave/', views.memoUnSave),
-    path('<str:user_id>/saved_memos/',views.savedMemo)
+    path('<str:user_id>/saved_memos/',views.savedMemo),
+    path('<str:user_id>/contact/', views.contact)
 
 ]

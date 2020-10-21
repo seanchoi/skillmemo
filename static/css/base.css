@@ -550,12 +550,14 @@ input {
 .account_menu-wrap {
     right:80px;
     margin-left:0;
+    margin-right:5px;
 }
-
+}
 /* IPAD PRO */
 @media only screen and (min-width: 901px) and (max-width: 1024px) {
 .account_menu-wrap {
     right:80px;
     margin-left:0;
+    margin-right:5px;
 }
 }

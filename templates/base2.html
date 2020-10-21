@@ -543,14 +543,14 @@
                               <div class="profile_circle_frame">
                                 <img class="profile_pic" src="{{account_owner.profile_pic.url}}">                          
                               </div>
-                              <img class="profile_ring" src="{% static 'img/profile_ring.png' %}">
+                              <img class="profile_ring_left" src="{% static 'img/profile_ring.png' %}">
                             </div>
                             {% else %}
                             <div class="profile_outer-wrap">
                               <div class="profile_circle_frame">
                                 <img class="profile_frame" src="{% static 'img/profile_frame.png' %}">                            
                               </div>
-                              <img class="profile_ring" src="{% static 'img/profile_ring.png' %}">
+                              <img class="profile_ring_left" src="{% static 'img/profile_ring.png' %}">
                             </div>
                             {% endif %}
                             {% if account_owner.user_id == logged_user.user_id %}

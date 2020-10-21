@@ -1,3 +1,4 @@
+
 #slider {
   position: relative;
   overflow: hidden;
@@ -147,3 +148,39 @@ a.control_next {
     font-size: 18px;
   }
   
+
+  /* IPAD */
+  @media only screen and (max-width: 900px) {
+   
+    #slider ul li {
+      position: relative;
+      display: block;
+      float: left;
+      margin: 0;
+      padding: 0;
+      width:450px;
+      height: 300px;
+      background: #ccc;
+      /* text-align: center; */
+      /* line-height: 300px; */
+      border-radius: 25px;
+    }
+    
+  }
+  /* IPAD PRO */
+  @media only screen and (min-width: 901px) and (max-width: 1024px) {
+     
+    #slider ul li {
+      position: relative;
+      display: block;
+      float: left;
+      margin: 0;
+      padding: 0;
+      width:615px;
+      height: 400px;
+      background: #ccc;
+      /* text-align: center; */
+      /* line-height: 300px; */
+      border-radius: 25px;
+  }
+}

@@ -901,7 +901,9 @@
                                     >{{memo.keyword}}</div>
                                     <img class="m_view_keyword_ring profile_ring" 
                                     {% if memo.content_code %}
-                                    src="{% static 'img/keyword_ring_code.png' %}"                
+                                    src="{% static 'img/keyword_ring_code.png' %}" 
+                                    {% else %}
+                                    src="{% static 'img/keyword_ring_image.png' %}"               
                                     {% endif %}
                                     >                    
                                 </div>                    

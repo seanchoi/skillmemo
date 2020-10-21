@@ -530,7 +530,7 @@ input {
         left:50%;
         transform: translate(-50%,0);    
         bottom:5px;
-        width:250px;
+        width:240px;
         height:fit-content;
         padding:5px 20px 5px 20px;   
         box-sizing: border-box;
@@ -538,16 +538,21 @@ input {
         font-size: 12px;       
         background-color: white;
         border-radius: 15px;
-        box-shadow: 3px 3px 5px #dddddd;      
+        box-shadow: 2px 2px 4px #dddddd;      
         
     }
 
-     /* IPAD */
-  @media only screen and (max-width: 900px) {
-
+    /* IPAD */
+@media only screen and (max-width: 900px) {
+    .account_menu-wrap {
+        right:40px;
+        margin-left:0;
   }
 
-    /* IPAD PRO */
-    @media only screen and (min-width: 901px) and (max-width: 1024px) {
-
-    }
+/* IPAD PRO */
+@media only screen and (min-width: 901px) and (max-width: 1024px) {
+.account_menu-wrap {
+    right:40px;
+    margin-left:0;
+}
+}

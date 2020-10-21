@@ -399,11 +399,17 @@ iframe {
     margin-top:10px;
     font-size:16px;
     font-weight:300;
-    width: 200px;
+    width: fit-content;
     position: absolute;
     right:0;
     bottom:0;
+    padding:15px;
     margin-top:50px;
+    background-color: #60CFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
 }
 .comment-btn:hover {
     cursor: pointer;

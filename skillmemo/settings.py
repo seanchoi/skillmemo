@@ -16,8 +16,8 @@ with open(BASE_DIR / 'secret.json') as f:
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['3.135.224.178']
-
+ALLOWED_HOSTS = ['3.23.70.201', 'www.skillmemo.com']
+# ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [

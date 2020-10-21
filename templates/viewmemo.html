@@ -178,15 +178,6 @@
             </div>
             {% endif %}
 
-            <!-- image 01 frame -->
-            <!-- {% if the_memo.image01 %}
-
-                <div class="view_image">
-                    <img class="image" src="{{ the_memo.image01.url }}">
-                </div>
-
-            {% endif %} -->
-
                 <pre class="content_input view_content" wrap="soft">{{the_memo.content}}</pre>
                 {% if the_memo.content_code %}
                 <div class="view_code_editor">
@@ -369,7 +360,6 @@
             <div class="block-wrap">
                 <div class="subject_input view_subject">{{the_memo.subject_3rd}}</div>
                 {% if the_memo.video03 %}
-                <!-- <span class="bigsize-btn03"><i class="fas fa-expand-alt"></i></span> -->
                 <div class="video_off03">
                     <i class="fas fa-video-slash"></i>
                 </div>        
@@ -377,12 +367,6 @@
                 src="https://www.youtube.com/embed/{{hte_memo.video03}}"
                 frameborder="0" allowfullscreen></iframe>
 
-                <!-- <div class="bigscreen-wrap3" id="bigscreen-wrap3">
-                    <div class="bigscreen">
-                        <i class="fas fa-times-circle v03"></i>
-                        <iframe class="bigvideo03" id="ytplayer03" type="text/html" src="https://www.youtube.com/embed/{{video03}}" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                </div> -->
             {% endif %}
             {% if the_memo.image09 %}
             <div class="slides-container">

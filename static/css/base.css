@@ -530,7 +530,7 @@ input {
         left:50%;
         transform: translate(-50%,0);    
         bottom:5px;
-        width:fit-content;
+        width:250px;
         height:fit-content;
         padding:10px 20px 10px 20px;   
         box-sizing: border-box;

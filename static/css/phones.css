@@ -354,6 +354,26 @@
         font-size:10px;
     }
 
+/* welcome */
+.intro {
+    position: absolute;    
+    top:70px;
+    left:50%;
+    transform: translate(-50%, 0);
+    width:80%;
+    height:fit-content;
+    padding:30px 15px 30px 15px;
+    background-color: white;
+    border-radius: 20px;
+    box-sizing: border-box;
+    
+}
+.intro > span {
+    display: block;
+    margin-bottom:25px;
+}
+
+
     /* memo-save */
     .list_tag{
         font-size:16px;
@@ -622,7 +642,9 @@ option {
 .dm-list-title {
     font-size:14px;
 }
-
+.dm-from_name {
+    font-size:10px;
+}
 .result_dm-phones{
     font-size:10px;
 }
@@ -631,7 +653,7 @@ option {
     position: relative;
 }
 .dm-reply-btn {
-    width:100px;
+    width:130px;
     height:50px;
     margin-top:10px;
     position: absolute;
@@ -641,7 +663,7 @@ option {
     position: absolute;
     right:0;
     font-size:14px;
-    width:100px;
+    width:130px;
     height:50px;
     margin-top:10px;
 }

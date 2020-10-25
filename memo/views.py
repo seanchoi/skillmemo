@@ -18,12 +18,8 @@ from .forms import *
 from django.core.files.storage import FileSystemStorage
 
 def index(request):
-    if 'user_id' in request.session:
-        context  = {
-        'logged_user_id' : request.session['user_id'],
-        'logged_user' :Users.objects.get(user_id=request.session['user_id']),    
-        }
-        return render(request, 'index.html', context)
+    if 'user_id' in request.session:        
+        return redirect(f'/request.session["user_id"]/')
     return render(request,'index.html')     
 
 def dashboard(request, user_id):

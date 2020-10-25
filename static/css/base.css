@@ -85,6 +85,7 @@ a:hover {
 .register_button {
     display: flex;
     justify-content: center;
+    align-items: center;
     margin-top:10px;
 }
 .register_button > a {
@@ -542,6 +543,7 @@ input {
         display: flex;
         justify-content: center;
         align-self: center;   
+        z-index: 5;
         
     }
 

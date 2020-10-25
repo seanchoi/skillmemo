@@ -29,11 +29,11 @@
                     <span class="result_num">{{deleted.count}}</span> <span class="result_found"><!--{% if account_owner.user_id != logged_user_id %} <span class="public_search">public</span> {% endif %}-->{% if deleted.count == 1 or deleted.count == 0 %} memo {%else %} memos{% endif %}</span>
                 </div>
             </div>
-            <div class="wrapper recent-memo">
+            <div class="wrapper recent-memo deleted-phones">
                 {% for memo in deleted reversed%}
                 <div class="tab-items-set">
                         <div class="result_item_frame">
-                            <div><a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword">{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:20 }}</a></div><div>{{memo.created_at|truncatechars:14}}</div>
+                            <div><a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword">{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:20 }}</a></div>
                         </div>
                         <div class="tab_buttons-wrap">
                             <form action="/{{account_owner.user_id}}/{{memo.id}}/move_from_tab/" method="POST">

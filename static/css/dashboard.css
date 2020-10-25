@@ -814,9 +814,14 @@
     }
 }
 
+.btns-for-phones {
+    visibility: hidden;
+}
 
-
-@media only screen and (max-width: 900px) {
+@media only screen and (min-width: 501px) and (max-width: 900px) {
+    .btns-for-phones {
+        visibility: hidden;
+    }
     .sidebar-sticky {
         width:fit-content;
         height: fit-content;
@@ -1143,6 +1148,9 @@
 }   
 }
 @media only screen and (min-width: 901px) and (max-width: 1024px) {
+    .btns-for-phones {
+        visibility: hidden;
+    }
     .navbar {
         background-color:white;
         width:100%;

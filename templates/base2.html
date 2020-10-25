@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="{% static 'css/search.css' %}">
     <link rel="stylesheet" href="{% static 'css/tabColor.css' %}">
     <link rel="stylesheet" href="{% static 'css/dm.css' %}">
-    <!-- <link rel="stylesheet" href="{% static 'css/screen-iphone.css' %}"> -->
+    <link rel="stylesheet" href="{% static 'css/phones.css' %}">    
 
     <title>SKILL MEMO {% block title %}{% endblock %} </title>
 </head>
@@ -543,52 +543,52 @@
         
             <div class="sidebar-sticky">
                 <div class="sidebar_left">
-                    <div class="pic-wrap">            
-                        <div class="pic_holder">
-                            {% if account_owner.profile_pic %}
-                            <div class="profile_outer-wrap">
-                              <div class="profile_circle_frame">
-                                <img class="profile_pic" src="{{account_owner.profile_pic.url}}">                          
+                      <div class="pic-wrap">            
+                          <div class="pic_holder">
+                              {% if account_owner.profile_pic %}
+                              <div class="profile_outer-wrap">
+                                <div class="profile_circle_frame">
+                                  <img class="profile_pic" src="{{account_owner.profile_pic.url}}">                          
+                                </div>
+                                <img class="profile_ring_left" src="{% static 'img/profile_ring.png' %}">
                               </div>
-                              <img class="profile_ring_left" src="{% static 'img/profile_ring.png' %}">
-                            </div>
-                            {% else %}
-                            <div class="profile_outer-wrap">
-                              <div class="profile_circle_frame">
-                                <img class="profile_frame" src="{% static 'img/profile_frame.png' %}">                            
+                              {% else %}
+                              <div class="profile_outer-wrap">
+                                <div class="profile_circle_frame">
+                                  <img class="profile_frame" src="{% static 'img/profile_frame.png' %}">                            
+                                </div>
+                                <img class="profile_ring_left" src="{% static 'img/profile_ring.png' %}">
                               </div>
-                              <img class="profile_ring_left" src="{% static 'img/profile_ring.png' %}">
-                            </div>
-                            {% endif %}
-                            {% if account_owner.user_id == logged_user.user_id %}
-                              <a href="/{{account_owner.user_id}}/settings/"><i class="fas fa-pen"></i></a>
-                            {% else %}
-                            {% endif %}
-                        </div>   
+                              {% endif %}
+                              {% if account_owner.user_id == logged_user.user_id %}
+                                <a href="/{{account_owner.user_id}}/settings/"><i class="fas fa-pen"></i></a>
+                              {% else %}
+                              {% endif %}
+                          </div>   
                       </div>                 
-                        <div class="account_info">
-                            {% if account_owner.brand_name %}
-                            <span class="brand_name">{{account_owner.brand_name }}</span>
-                            <a href="/{{account_owner.user_id}}/"><span>@{{account_owner.user_id }}</span></a>
-                            {% else %}
-                            <span>{{account_owner.first_name}} {{account_owner.last_name}}</span>
-                            <a href="/{{account_owner.user_id}}/"><span>@{{account_owner.user_id }}</span></a>
-                            {% endif %}
-                        </div>
-                    
-                    <div class="memo_count_box">
-                        <span class="memo_count">                        
-                          {{account_owner_memos_count}}               
-                        </span>
-                        <span class="total-memo">
-                          {% if account_owner_memos_count == 0 or account_owner_memos_count == 1 %}
-                          TOTAL MEMO
+                      <div class="account_info">
+                          {% if account_owner.brand_name %}
+                          <span class="brand_name">{{account_owner.brand_name }}</span>
+                          <a href="/{{account_owner.user_id}}/"><span>@{{account_owner.user_id }}</span></a>
                           {% else %}
-                          TOTAL MEMOS
+                          <span>{{account_owner.first_name}} {{account_owner.last_name}}</span>
+                          <a href="/{{account_owner.user_id}}/"><span>@{{account_owner.user_id }}</span></a>
                           {% endif %}
+                      </div>
+                    
+                      <div class="memo_count_box">
+                          <span class="memo_count">                        
+                            {{account_owner_memos_count}}               
+                          </span>
+                          <span class="total-memo">
+                            {% if account_owner_memos_count == 0 or account_owner_memos_count == 1 %}
+                            TOTAL MEMO
+                            {% else %}
+                            TOTAL MEMOS
+                            {% endif %}
 
-                        </span>
-                    </div>
+                          </span>
+                      </div>
                     {% if 'user_id' not in request.session %}
                       <div class="btn-blue contact-inactive">
                         contact

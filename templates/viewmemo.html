@@ -343,9 +343,6 @@
                     {% endif %}
         </div>
         {% endif %}
-
-
-
                 <pre class="content_input view_content" wrap="soft">{{the_memo.content_2nd}}</pre>
                 {% if the_memo.desc_2nd %}
                 <div class="section-deco"></div>
@@ -504,6 +501,14 @@
                 {% endfor %}
             {% endif %}
         </div>
+
+        <div class="btns-for-phones">
+            <div class="btn-blue go-back-dashboard"><i class="fas fa-arrow-left"></i></div>    
+            {% if account_owner.user_id == logged_user.user_id %}        
+            <a href="/{{account_owner.user_id}}/newmemo/" class="btn-blue add-memo"><i class="fas fa-pencil-alt"></i></a>
+            {% endif %}
+        </div>
+
     </div>    
     <div class="right">
     {% if account_owner.user_id != logged_user.user_id %}

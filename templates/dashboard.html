@@ -1187,22 +1187,22 @@
                                 <div class="m_view_img_frame">
                                     <img class="m_view_img" src="{{memo.image01.url}}">
                                 </div>     
-                            <div class="m_view_keyword-wrap">
-                                <div 
-                                {% if memo.content_code %}
-                                    class="m_view_keyword"
-                                {% elif memo.video01 %}
-                                    class="m_view_keyword_video"
-                                {% else %}
-                                    class="m_view_keyword_image"
-                                {% endif %}
-                                >{{memo.keyword}}</div>
-                                <img class="m_view_keyword_ring profile_ring" 
-                                {% if memo.content_code %}
-                                src="{% static 'img/keyword_ring_code.png' %}"                
-                                {% endif %}
-                                >                   
-                            </div>
+                                <div class="m_view_keyword-wrap">
+                                    <div 
+                                    {% if memo.content_code %}
+                                        class="m_view_keyword"
+                                    {% elif memo.video01 %}
+                                        class="m_view_keyword_video"
+                                    {% else %}
+                                        class="m_view_keyword_image"
+                                    {% endif %}
+                                    >{{memo.keyword}}</div>
+                                    <img class="m_view_keyword_ring profile_ring" 
+                                    {% if memo.content_code %}
+                                    src="{% static 'img/keyword_ring_code.png' %}"                
+                                    {% endif %}
+                                    >                   
+                                </div>
                                 <a href="/{{account_owner.user_id}}/{{memo.id}}/">
                                     <div 
                                     {% if memo.content_code %}
@@ -1400,6 +1400,12 @@
 
 
 {% endif %}
+        <div class="btns-for-phones">
+            <div class="btn-blue go-back-dashboard"><i class="fas fa-arrow-left"></i></div>    
+            {% if account_owner.user_id == logged_user.user_id %}        
+            <a href="/{{account_owner.user_id}}/newmemo/" class="btn-blue add-memo"><i class="fas fa-pencil-alt"></i></a>
+            {% endif %}
+        </div>
     </div>
     <div class="right">
         <!-- new memo button -->
@@ -1410,7 +1416,7 @@
     </div>
     </div>
 </div> <!-- this tag connects to base html <div class="dash_frame"> )-->
-{% block javascript %}
+{% block script %}
     <script src="{% static 'js/saveMemo.js' %}"></script>
 {% endblock %}
 {% endblock %}

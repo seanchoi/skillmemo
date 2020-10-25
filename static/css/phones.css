@@ -422,8 +422,8 @@
     }
     
     
-    .view_subject {                       
-        font-size:20px;
+    .view_subject{                       
+        font-size:20px !important;
         color:#505050;
         font-weight: bold;               
     }

@@ -1,9 +1,9 @@
 @media only screen and (max-width: 500px) {
     body {
-        font-size: 12px;
+        font-size: 14px;
     }
     textarea {
-        font-size:12px !important;
+        font-size:14px !important;
     }
     .left {
         width:1%;
@@ -152,7 +152,7 @@
         box-sizing: border-box;
     }
 
-    .welcome_big_log >  img {
+    .welcome_big_log > img {
         width:90px;
         height:90px;
         margin: 0;
@@ -228,20 +228,7 @@
         bottom:0;        
     }
     .go-back-dashboard {
-        position: fixed;
-        width:15px;
-        height:15px;
-        right:0;
-        bottom:125px;
-        padding:15px;
-        border-radius: 50%;
-        font-size:18px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-left:5px;
-        background-color: #8c8c8c;
-        cursor: pointer;
+        visibility: hidden;
     }
     .add-memo {
         position: fixed;
@@ -415,7 +402,7 @@
     
     
     .view_subject {                       
-        font-size:18px;
+        font-size:20px;
         color:#505050;
         font-weight: bold;               
     }
@@ -458,10 +445,10 @@
     
     /* view contents */
     .view_content {
-        font-size:14px;
+        font-size:16px;
     }
     .view_desc {
-        font-size:12px;
+        font-size:16px;
     }
     .video_button-wrap {
         visibility: hidden;
@@ -614,6 +601,13 @@ option {
     font-size: 10px;
 }
 .tab_delete_perm {
+    margin-left: 3px;
+    width:10px;
+    height:10px;
+    padding:5px;
+    font-size: 10px;
+}
+.tab_delete {
     margin-left: 3px;
     width:10px;
     height:10px;

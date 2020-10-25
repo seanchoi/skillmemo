@@ -682,6 +682,18 @@ option {
     width:98%;
     height:98%;
 }
-
+.delete-modal {
+    position: fixed;
+    width:90%;
+    height:fit-content;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    background-color: white;
+    border-radius: 20px;
+    padding:40px;
+    box-shadow: 0px 0px 1000px #000000;
+}
 
 }

@@ -523,8 +523,8 @@ option {
 
 .memo-create {
     position: absolute;
-    width:fit-content;
-    height:fit-content;
+    width:110px;
+    height:90px;
     padding:35px 15px 35px 15px;
     right:5px;
     bottom:0px;
@@ -626,7 +626,25 @@ option {
 .result_dm-phones{
     font-size:10px;
 }
-
+.dm-reply-btn-wrap {    
+    height:80px;
+    position: relative;
+}
+.dm-reply-btn {
+    width:100px;
+    height:50px;
+    margin-top:10px;
+    position: absolute;
+    right:0;
+}
+.dm-delete-btn {
+    position: absolute;
+    right:0;
+    font-size:14px;
+    width:100px;
+    height:50px;
+    margin-top:10px;
+}
 .settings_label > span{
     font-size:10px;
     margin-right:10px;

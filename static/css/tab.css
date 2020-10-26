@@ -3,14 +3,14 @@
     width:50px;
     height:600px;
     position: fixed;
-    top:35%;
+    /* top:35%; */
     transform: translate(0, -50%);
-    right:-50px;
+    /* right:-50px; */
     z-index: 10;
 }
 .tabs-container {
     position: relative;
-    top:20%;
+    top:25%;
     z-index: 10;
 }
 .tab-items {
@@ -175,11 +175,11 @@
 /* tab position & color */
 .num1 {
     position: absolute;
-    right:-50px;
+    right:-45px;
 }
 .tab-toggle01 {
     position: absolute;
-    right:-50px;
+    right:-45px;
     z-index: 10;
     display: flex;
     flex-direction: row;
@@ -187,12 +187,12 @@
 
 .num2 {
     position: absolute;
-    right:-50px;
+    right:-45px;
 
 }
 .tab-toggle02 {
     position: absolute;
-    right:-50px;
+    right:-45px;
     z-index: 10;
     display: flex;
     flex-direction: row;
@@ -203,12 +203,12 @@
 
 .num3 {
     position: absolute;
-    right:-50px;
+    right:-45px;
 
 }
 .tab-toggle03 {
     position: absolute;
-    right:-50px;
+    right:-45px;
     z-index: 10;
     display: flex;
     flex-direction: row;
@@ -219,12 +219,12 @@
 
 .num4 {
     position: absolute;
-    right:-50px;
+    right:-45px;
 
 }
 .tab-toggle04 {
     position: absolute;
-    right:-50px;
+    right:-45px;
     z-index: 10;
     display: flex;
     flex-direction: row;
@@ -234,11 +234,11 @@
 }
 .num5 {
     position: absolute;
-    right:-50px;
+    right:-45px;
 }
 .tab-toggle05 {
     position: absolute;
-    right:-50px;
+    right:-45px;
     z-index: 10;
     display: flex;
     flex-direction: row;

@@ -173,11 +173,11 @@
 }
 /* tab position & color */
 .num1 {
-    position: fixed;
+    position: absolute;
     right:0;
 }
 .tab-toggle01 {
-    position: fixed;
+    position: absolute;
     right:0;
     z-index: 10;
     display: flex;
@@ -185,12 +185,12 @@
 }
 
 .num2 {
-    position: fixed;
+    position: absolute;
     right:0;
 
 }
 .tab-toggle02 {
-    position: fixed;
+    position: absolute;
     right:0;
     z-index: 10;
     display: flex;
@@ -201,12 +201,12 @@
 }
 
 .num3 {
-    position: fixed;
+    position: absolute;
     right:0;
 
 }
 .tab-toggle03 {
-    position: fixed;
+    position: absolute;
     right:0;
     z-index: 10;
     display: flex;
@@ -217,12 +217,12 @@
 }
 
 .num4 {
-    position: fixed;
+    position: absolute;
     right:0;
 
 }
 .tab-toggle04 {
-    position: fixed;
+    position: absolute;
     right:0;
     z-index: 10;
     display: flex;
@@ -232,11 +232,11 @@
 
 }
 .num5 {
-    position: fixed;
+    position: absolute;
     right:0;
 }
 .tab-toggle05 {
-    position: fixed;
+    position: absolute;
     right:0;
     z-index: 10;
     display: flex;

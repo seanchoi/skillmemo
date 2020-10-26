@@ -50,13 +50,13 @@ a:hover {
 }
 
 .index_logo {
-    width:150px;
-    height:150px
+    width:200px;
+    height:200px
 }
 .index > span {
-    font-size:24px;
+    font-size:30px;
     font-weight: bold;
-    
+
 }
 .welcome_title {
     display: flex;
@@ -447,6 +447,7 @@ input {
         border-radius:25px;
         display: flex;
         justify-content: center;
+        align-items: center;
         flex-direction: column;
         box-sizing: border-box;
         padding:2.8em;

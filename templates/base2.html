@@ -604,11 +604,12 @@
                         memo keywords
                     </div>
                     <div class="keyword_crumbs">
-                        {% for crumb in crumbs reversed %}                    
+                        {% for crumb in crumbs reversed %}
+                        {% if crumb %}                    
                         <div class="crumb_btn">
                             <a href="/{{account_owner.user_id}}/search/{{crumb}}" > {{crumb}}</a>
                         </div>
-                         
+                        {% endif %}
                       {% endfor %}
                     </div>
                     {% endif %}

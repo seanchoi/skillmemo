@@ -49,12 +49,14 @@ a:hover {
     color:#8c8c8c;
 }
 
-.welcome_big_logo {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    box-sizing: border-box;
-    align-items: center;
+.index_logo {
+    width:150px;
+    height:150px
+}
+.index > span {
+    font-size:24px;
+    font-weight: bold;
+    
 }
 .welcome_title {
     display: flex;

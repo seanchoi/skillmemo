@@ -154,11 +154,11 @@
 
     .index > img {
         width:75px;
-        height:75px;
-        margin: 0;
+        height:75px;        
     }
     .index > h1 {
         font-size:24px;
+        text-align: center;
     }
     .welcome_title > span {
         font-size:20px;

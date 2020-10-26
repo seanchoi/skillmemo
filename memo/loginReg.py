@@ -119,7 +119,7 @@ def loginIdCheck(request):
 
 def login(request):
     if request.method == "POST":
-        user = Users.objects.filter(user_id=request.POST['user_id'])
+        user = Users.objects.filter(user_id=request.POST['user_id'].lower())
         if len(user):
             logged_user = user[0]
             if bcrypt.checkpw(request.POST['password'].encode(), logged_user.password.encode()):

@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
-
 <div class="form_wrapper">
     <div class="register">
         <h3>It's a skill time!</h3>
@@ -20,5 +19,7 @@
         </form>
     </div>
 </div>
-
+{% endblock %}
+{% block script %}
+ <script src="{% static 'js/login_reg.js' %}"></script> 
 {% endblock %}

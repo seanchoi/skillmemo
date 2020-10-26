@@ -119,12 +119,18 @@ def loginIdCheck(request):
 
 def login(request):
     if request.method == "POST":
-        user = Users.objects.filter(user_id=request.POST['user_id'].lower())
-        if len(user):
-            logged_user = user[0]
-            if bcrypt.checkpw(request.POST['password'].encode(), logged_user.password.encode()):
-                request.session['user_id'] = logged_user.user_id
-                return redirect(f'/{user[0].user_id}/')
+        errors = Users.objects.validator(request.POST)
+        if len(errors):
+            for key, val in errors.items():
+                messages.error(request, val)
+                return redirect('/login')
+        else:
+            user = Users.objects.filter(user_id=request.POST['user_id'].lower())
+            if len(user):
+                logged_user = user[0]
+                if bcrypt.checkpw(request.POST['password'].encode(), logged_user.password.encode()):
+                    request.session['user_id'] = logged_user.user_id
+                    return redirect(f'/{user[0].user_id}/')
     return render(request, 'login.html')
 
 def logout(request):

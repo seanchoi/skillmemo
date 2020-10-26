@@ -162,7 +162,22 @@ a.control_next {
       border-radius: 25px;
     }
   }
-  @media only screen and (min-width:375px) and (max-width: 500px) {
+  @media only screen and (min-width:375px) and (max-width: 414px) {
+    #slider ul li {
+      position: relative;
+      display: block;
+      float: left;
+      margin: 0;
+      padding: 0;
+      width:340px;
+      height:220px;
+      background: #ccc;
+      /* text-align: center; */
+      /* line-height: 300px; */
+      border-radius: 25px;
+    }
+  }
+  @media only screen and (max-width: 414px) {
   #slider ul li {
     position: relative;
     display: block;

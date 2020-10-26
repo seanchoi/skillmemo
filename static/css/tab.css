@@ -1,5 +1,7 @@
 
 .tabs-wrap {
+    width:50px;
+    height:600px;
     position: fixed;
     top:10%;
     transform: translate(0, -50%);

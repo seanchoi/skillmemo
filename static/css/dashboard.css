@@ -870,7 +870,7 @@
         background-color: rgb(223, 33, 223);
         font-size:16px;
         position: absolute;
-        right:15px;
+        right:5px;
         border-radius: 50%;
         z-index: 2;
     }
@@ -1212,7 +1212,7 @@
     background-color: rgb(223, 33, 223);
     font-size:16px;
     position: absolute;
-    right:15px;
+    right:5px;
     border-radius: 50%;
     z-index: 2;
 }

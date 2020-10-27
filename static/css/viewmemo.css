@@ -306,6 +306,7 @@ iframe {
 }
 
 .comment_name {
+    width:200px;
     margin-left: 10px;
 }
 

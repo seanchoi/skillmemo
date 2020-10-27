@@ -313,6 +313,12 @@ iframe {
     padding:0 15px 0 15px;
     box-sizing: border-box;
     margin-left: 10px;
+    background-color:white;
+    border:none;
+    border-radius: 20px;
+}
+.comment_name:focus {
+    outline:none;
 }
 
 .comment_area {

@@ -108,7 +108,7 @@ def loginIdCheck(request):
     found = ""
     if len(data) == 0:
         found = "required"    
-    if users:
+    if users[0]:
         found = True
     else:
         found = False

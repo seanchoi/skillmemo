@@ -861,6 +861,20 @@
     visibility: hidden;
 }
 
+@media only screen and (min-width: 325px) and (max-width: 500px) {
+    .comment_alert {
+        width:fit-content;
+        height:fit-content;
+        padding:10px;
+        color:white;
+        background-color: rgb(223, 33, 223);
+        font-size:16px;
+        position: absolute;
+        right:15px;
+        border-radius: 50%;
+        z-index: 2;
+    }
+}
 @media only screen and (min-width: 501px) and (max-width: 900px) {
     .btns-for-phones {
         visibility: hidden;
@@ -1190,6 +1204,18 @@
     justify-content: center;    
     align-items: center;
 }   
+.comment_alert {
+    width:fit-content;
+    height:fit-content;
+    padding:10px;
+    color:white;
+    background-color: rgb(223, 33, 223);
+    font-size:16px;
+    position: absolute;
+    right:15px;
+    border-radius: 50%;
+    z-index: 2;
+}
 }
 @media only screen and (min-width: 901px) and (max-width: 1024px) {
     .btns-for-phones {

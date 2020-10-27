@@ -632,6 +632,11 @@
     font-size:16px;
     transition: 400ms ease-in-out;
 }
+.visitor-memo-frame:hover {
+    background-color: rgb(221, 245, 255);
+    transition: 250ms ease-in-out;
+    
+}
 .memo_frame_condition {
     width: 70%;
     height: 40px;

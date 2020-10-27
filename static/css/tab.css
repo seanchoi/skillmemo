@@ -63,6 +63,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    position: relative;
 }
 .tab_buttons-wrap {
     display: flex;

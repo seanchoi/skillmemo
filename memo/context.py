@@ -65,7 +65,8 @@ class OwnerContext:
         dms_got_noReplyCheck = DMs.objects.filter(to=self.owner_info.owner, if_to_reply_checked="no")
         dms_sent = DMs.objects.filter(sent_by=self.owner)
         dms_sent_noReplyCheck = DMs.objects.filter(sent_by=self.owner_info.owner, if_from_reply_checked="no")
-        dms_notificaion_count = len(dms_got_nocheck) + len(dms_got_noReplyCheck) + len(dms_sent_noReplyCheck)
+        dms_notificaion_count = len(dms_got_nocheck) + len(dms_got_noReplyCheck) + len(dms_sent_noReplyCheck)       
+
         self.owner_context = {
             'account_owner':self.owner,
             'account_owner_memos_count':self.context_memos.count,
@@ -88,8 +89,18 @@ class OwnerContext:
             'dms_sent':dms_sent,
             'dms_sent_noReplyCheck':dms_sent_noReplyCheck,
             'dms_notification_count': dms_notificaion_count,
-            'saved_memos':saved_memos,
+            'saved_memos':saved_memos,            
         }
+    def checkNewComments(self):                        
+        for memo in self.context_memos:
+            comments = Comments.objects.filter(reply_to=memo)            
+            if len(comments) > memo.comment_num:
+                new_comment = len(comments) - memo.comment_num
+                memo.comment_num = len(comments)
+                memo.if_new_comment = "yes"
+                memo.new_comment_num = new_comment
+                memo.save()                                    
+        return
 
 class VisitorMemoContext:
     def __init__(self, user_id, memo_id):

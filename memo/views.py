@@ -36,6 +36,7 @@ def dashboard(request, user_id):
         context = LoggedUserContext(user_id, request.session['user_id']).logged_user_context        
     # when account owner comes in his dashboard
     else:
+        OwnerContext(user_id, request.session['user_id']).checkNewComments()
         context = OwnerContext(user_id, request.session['user_id']).owner_context
     return render(request, 'dashboard.html', context)
 
@@ -54,6 +55,8 @@ def viewMemo(request, user_id, memo_id):
             return redirect(f'/{user_id}/')
         context = UserMemoContext(user_id, memo_id, request.session['user_id']).memo_context
     else:
+        the_memo.if_new_comment = "no"
+        the_memo.save()
         context = OwnerMemoContext(user_id, memo_id, request.session['user_id']).memo_context
     return render(request,'viewmemo.html', context)
 

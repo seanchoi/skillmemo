@@ -772,6 +772,9 @@
                     {% if memo.tab_name != "TRASH" %}
                         {% if memo.video01 %}
                         <div class="m_view_keyword_frame">
+                            {% if memo.if_new_comment == "yes" %}
+                                <div class="comment_alert"><i class="fas fa-comment-dots"></i></div>
+                            {% endif %}
                             <iframe class="m_view_video_frame" id="ytplayer02" type="text/html"
                             src="https://www.youtube.com/embed/{{memo.video01}}"
                             frameborder="0" allowfullscreen></iframe>    
@@ -840,6 +843,9 @@
                         </div>
                     {% elif memo.image01 %}
                             <div class="m_view_keyword_frame">
+                                {% if memo.if_new_comment == "yes" %}
+                                    <div class="comment_alert"><i class="fas fa-comment-dots"></i></div>
+                                {% endif %}
                                 <div class="m_view_img_frame">
                                     <img class="m_view_img" src="{{memo.image01.url}}">
                                 </div>    
@@ -910,6 +916,9 @@
                         {% else %}   
                           
                             <div class="m_view_keyword_frame_none">
+                                {% if memo.if_new_comment == "yes" %}
+                                    <div class="comment_alert"><i class="fas fa-comment-dots"></i></div>
+                                {% endif %}
                                 <a href="/{{account_owner.user_id}}/{{memo.id}}/">
                                     <div class="m_sub_cont-wrap">                                
                                         <div class="m_view_keyword-wrap_none">                        
@@ -966,6 +975,9 @@
                         <div class="wrapper recent-memo">                
                             {% for memo in account_owner_memos reversed%}
                                 <div class="tab-items-set">
+                                    {% if memo.if_new_comment == "yes" %}
+                                        <div class="comment_alert_listmode"><i class="fas fa-comment-dots"></i></div>
+                                    {% endif %}
                                     {% if memo.tab_name == "TRASH" %}
                                     <div class="memo_frame_condition">    
                                         <a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword"><span class="condition_tag"><i class="fas fa-trash-alt"></i></span>{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:25 }}</a>   
@@ -1011,8 +1023,7 @@
                                 Over 15 days
                             </div>
                         </div>
-                        <div class="wrapper recent-memo">
-        
+                        <div class="wrapper recent-memo">        
                                 {% for memo in over_time_memos reversed%}
                                     <div class="tab-items-set">
                                         {% if memo.tab_name == "TRASH" %}
@@ -1073,6 +1084,9 @@
                     <div class="m_view">
                         {% if memo.video01 %}
                             <div class="m_view_keyword_frame">
+                                {% if memo.if_new_comment == "yes" %}
+                                    <div class="comment_alert"><i class="fas fa-comment-dots"></i></div>
+                                {% endif %}
                                 <iframe class="m_view_video_frame" id="ytplayer02" type="text/html"
                                 src="https://www.youtube.com/embed/{{memo.video01}}"
                                 frameborder="0" allowfullscreen></iframe>
@@ -1139,6 +1153,9 @@
                             </div>
                         {% elif memo.image01 %}
                             <div class="m_view_keyword_frame">
+                                {% if memo.if_new_comment == "yes" %}
+                                    <div class="comment_alert"><i class="fas fa-comment-dots"></i></div>
+                                {% endif %}
                                 <div class="m_view_img_frame">
                                     <img class="m_view_img" src="{{memo.image01.url}}">
                                 </div>     
@@ -1206,6 +1223,9 @@
                             </div>
                         {% else %}
                         <div class="m_view_keyword_frame_none">
+                            {% if memo.if_new_comment == "yes" %}
+                                <div class="comment_alert"><i class="fas fa-comment-dots"></i></div>
+                            {% endif %}
                             <a href="/{{account_owner.user_id}}/{{memo.id}}/">
                               
                                     <div class="m_sub_cont-wrap">                                
@@ -1263,10 +1283,10 @@
                         </div>
                         <div class="wrapper recent-memo">                         
                             {% for memo in account_owner_memos reversed %}
-                                    <!-- <div class="memo_frame">
-                                    <span class="list_keyword"><a href="/{{account_owner.user_id}}/{{memo.id}}/">{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:40 }}</a>
-                                    </div> -->
-                                    <div class="tab-items-set">                                        
+                                    <div class="tab-items-set">
+                                        {% if memo.if_new_comment == "yes" %}
+                                            <div class="comment_alert_listmode"><i class="fas fa-comment-dots"></i></div>
+                                         {% endif %}                                        
                                         {% if memo.tab_name == "TRASH" %}
                                         <div class="memo_frame_condition">    
                                             <a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword"><span class="condition_tag"><i class="fas fa-trash-alt"></i></span>{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:25 }}</a>   

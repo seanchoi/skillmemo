@@ -118,10 +118,14 @@ def search(request, user_id):
             search_keyword = request.POST['search']
             if search_keyword[0] == "@":
                 search_keyword = search_keyword[1:]
-                user = Users.objects.get(user_id=search_keyword)
-                if not user:
+                if search_keyword[1:] == "":
                     return redirect(f'/{user_id}/')
-                return redirect(f'/{user.user_id}/')
+                else: 
+                    user = Users.objects.get(user_id=search_keyword)
+                    if not user:
+                        return redirect(f'/{user_id}/')
+                    else:
+                        return redirect(f'/{user.user_id}/')
             else:
                 context = Search(user_id, search_keyword, session).context
                 return render(request, 'search_result.html', context)   

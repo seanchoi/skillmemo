@@ -511,6 +511,7 @@
 
     </div>    
     <div class="right">
+    {% if logged_user %}
     {% if account_owner.user_id != logged_user.user_id %}
             <form class="memo-save-form view-save-btns" id="memo-save-form" action="/{{account_owner.user_id}}/{{logged_user.user_id}}/{{the_memo.id}}/memoSave/" method="POST">
                 {% csrf_token %}
@@ -535,6 +536,7 @@
             {% endif %}
         {% endfor %}
 
+    {% endif %}
     {% endif %}
         <div class="btn-blue go-back-dashboard"><i class="fas fa-arrow-left"></i></div>  
         <!-- <a href="/{{account_owner.user_id}}" class="btn-blue go-back-dashboard"><i class="fas fa-arrow-left"></i></a> -->

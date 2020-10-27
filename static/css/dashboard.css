@@ -209,11 +209,11 @@
     overflow: hidden;
 }
 .profile_pic {
-    width:135%;
+    width:145%;
     height: auto;
 }
 .profile_frame {
-    width:135%;
+    width:100%;
     height:auto;
 }
 .profile_ring {
@@ -945,12 +945,12 @@
         overflow: hidden;
     }
     .profile_pic {
-        width:155%;
+        width:145%;
         height: auto;
         transform: scale(1.3);
     }
     .profile_frame {
-        width:155%;
+        width:100%;
         height:auto;
     }
     .profile_ring {

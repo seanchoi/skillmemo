@@ -307,6 +307,11 @@ iframe {
 
 .comment_name {
     width:200px !important;
+    height:40px;
+    border-radius: 15px;
+    border:none;
+    padding:0 15px 0 15px;
+    box-sizing: border-box;
     margin-left: 10px;
 }
 

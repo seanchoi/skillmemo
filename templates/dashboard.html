@@ -176,7 +176,7 @@
                     <div class="wrapper recent-memo">            
                         {% for memo in account_owner_public_memos reversed%}
                             <div class="tab-items-set">
-                                <div class="memo_frame ">
+                                <div class="memo_frame visitor-memo-frame">
                                 <a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword">{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:40 }}</a>
                                 </div>
                             </div>
@@ -315,7 +315,7 @@
                     <div class="wrapper recent-memo">        
                         {% for memo in account_owner_public_memos reversed %}
                             <div class="tab-items-set">
-                                <div class="memo_frame ">
+                                <div class="memo_frame visitor-memo-frame">
                                 <a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword">{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:40 }}</a>
                                 </div>
                             </div>
@@ -530,7 +530,7 @@
                     <div class="wrapper recent-memo">            
                         {% for memo in account_owner_public_memos reversed%}
                             <div class="tab-items-set">
-                                <div class="memo_frame ">
+                                <div class="memo_frame visitor-memo-frame">
                                 <a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword">{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:40 }}</a>
                                 </div>
                             </div>
@@ -743,7 +743,7 @@
                     <div class="wrapper recent-memo">        
                         {% for memo in account_owner_public_memos reversed %}
                             <div class="tab-items-set">
-                                <div class="memo_frame ">                
+                                <div class="memo_frame visitor-memo-frame">                
                                 <a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword">{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:40 }}</a>
                                 </div>
                             </div>

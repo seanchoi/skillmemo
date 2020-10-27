@@ -17,21 +17,17 @@ class userManager(models.Manager):
             errors['last_name_letterOnly'] ="Name must be alphabet characters only"
         if len(postData['user_id']) < 6:
             errors['user_id'] = "user ID, at least 6 characters"
-
         user_id = Users.objects.filter(user_id=postData['user_id'])
         if len(user_id):
             if postData['user_id'] == user_id[0].user_id:
                 errors['user_id'] = "user ID is not available"
-
         EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
         if not EMAIL_REGEX.match(postData['email']):    
             errors['email'] = ("Invalid email address format!")
-
         email = Users.objects.filter(email=postData['email'])
         if len(email):
             if postData['email'] == email[0].email:
                 errors['duplicate_email'] = "The email is already registered"
-
         if len(postData['password']) < 8:
             errors['password'] = "Passwords, at least 8 chracters"
         if postData['password'] != postData['confirm']:

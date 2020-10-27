@@ -107,30 +107,27 @@ def loginIdCheck(request):
     users = Users.objects.filter(user_id=data)
     found = ""
     if len(data) == 0:
-        found = "required"    
-    if users[0]:
-        found = True
-    else:
-        found = False
+        found = "required"
+    if len(data) >0 and len(data)<6:
+        found = "not exist"
+    if len(data) > 5:    
+        if users:
+            found = True
+        else:
+            found = "not found"
     context = {
         'found' : found
     }
     return render(request, 'partials/login_id.html', context)
 
 def login(request):
-    if request.method == "POST":
-        errors = Users.objects.validator(request.POST)
-        if len(errors):
-            for key, val in errors.items():
-                messages.error(request, val)
-                return redirect('/login')
-        else:
-            user = Users.objects.filter(user_id=request.POST['user_id'].lower())
-            if len(user):
-                logged_user = user[0]
-                if bcrypt.checkpw(request.POST['password'].encode(), logged_user.password.encode()):
-                    request.session['user_id'] = logged_user.user_id
-                    return redirect(f'/{user[0].user_id}/')
+    if request.method == "POST":    
+        user = Users.objects.filter(user_id=request.POST['user_id'].lower())
+        if len(user):
+            logged_user = user[0]
+            if bcrypt.checkpw(request.POST['password'].encode(), logged_user.password.encode()):
+                request.session['user_id'] = logged_user.user_id
+                return redirect(f'/{user[0].user_id}/')
     return render(request, 'login.html')
 
 def logout(request):

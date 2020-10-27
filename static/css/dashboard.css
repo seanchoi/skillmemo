@@ -621,7 +621,7 @@
     transition: 400ms ease-in-out;
 }
 .visitor-memo-frame {
-    width: 100%;
+    width: 100% !important;
 }
 .memo_frame_condition {
     width: 70%;

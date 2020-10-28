@@ -514,6 +514,7 @@
     font-size:14px;
     font-weight: bold;
     border: 3px solid white;
+    padding:5px;
 }
 .m_view_keyword_image {
     position: absolute;

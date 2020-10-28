@@ -145,6 +145,16 @@ $(document).ready(function(){
         })          
     })
 
+// delete from m_view
+$(".tab_delete_mview").click(function() {
+    var data = $(this).parent().serialize()
+    $.ajax({
+        type:"POST",
+        url: $(this).parent().attr('action'),
+        data: data,
+        success: $(this).parent().parent().parent().parent().hide()
+    })          
+})
 
 // memo-move from tab
     $(".tab_move").click(function() {

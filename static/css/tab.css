@@ -136,6 +136,14 @@
     border-radius: 50%;
     color: white;
 }
+.tab_delete_mview {
+    margin-left:10px;
+    font-size:12px;
+    padding:10px;
+    background-color: rgb(255, 133, 153);
+    border-radius: 50%;
+    color: white;
+}
 .tab_delete_perm {
     margin-left:10px;
     font-size:12px;

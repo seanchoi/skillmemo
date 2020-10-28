@@ -135,6 +135,7 @@
     background-color: rgb(255, 133, 153);
     border-radius: 50%;
     color: white;
+    cursor: pointer;
 }
 .tab_delete_mview {
     margin-left:10px;
@@ -143,6 +144,7 @@
     background-color: rgb(255, 133, 153);
     border-radius: 50%;
     color: white;
+    cursor: pointer;
 }
 .tab_delete_perm {
     margin-left:10px;
@@ -151,6 +153,7 @@
     background-color: rgb(189, 0, 82);
     border-radius: 50%;
     color: white;
+    cursor: pointer;
 }
 
 /* tap overlay position, z-index */

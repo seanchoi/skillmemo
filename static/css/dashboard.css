@@ -95,6 +95,7 @@
     z-index: 1;
     position: absolute;
     margin-top:15px;
+    z-index: 3;
 
 }
 .search_user-wrap > a {

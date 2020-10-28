@@ -9,17 +9,20 @@ class userManager(models.Manager):
         errors = {}
         if len(postData['first_name']) < 2:
             errors['first_name'] = "First Name must be at least 2 characters"        
-        if not postData['first_name'].isalpha():
-            errors['first_name_letterOnly'] ="Name must be alphabet characters only"
+        for i in range(len(postData['fist_name'])):
+            if not postData['first_name'][i].isalpha():
+                errors['first_name_letterOnly'] ="Name must be alphabet characters only"
         if len(postData['last_name']) < 2:
             errors['last_name'] = "Last Name must be at least 2 characters" 
-        if not postData['last_name'].isalpha():
-            errors['last_name_letterOnly'] ="Name must be alphabet characters only"
+        for i in range(len(postData['last_name'])):
+            if not postData['last_name'][i].isalpha():
+                errors['last_name_letterOnly'] ="Name must be alphabet characters only"
         if len(postData['user_id']) < 6:
             errors['user_id'] = "user ID, at least 6 characters"
         user_id = Users.objects.filter(user_id=postData['user_id'])
-        if not postData['user_id'].isalpha():
-            errors['user_id'] = "Id cannot contain special characters"
+        for i in range(len(postData['user_id'])):
+            if not postData['user_id'][i].isalpha():
+                errors['user_id'] = "Id cannot contain special characters"
         if len(user_id):
             if postData['user_id'] == user_id[0].user_id:
                 errors['user_id'] = "user ID is not available"

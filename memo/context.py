@@ -58,7 +58,7 @@ class OwnerContext:
         self.imgList01 = Photos.objects.filter(user=user_id)
         self.imgList02 = Photos.objects.filter(user=user_id)
         self.imgList03 = Photos.objects.filter(user=user_id)
-        self.deleted = Memos.objects.filter(tab_name="TRASH")
+        self.deleted = Memos.objects.filter(made_by=self.owner, tab_name="TRASH")
         saved_memos = Memos.objects.filter(users=self.owner)            
         dms_got = DMs.objects.filter(to=self.owner)
         dms_got_nocheck = DMs.objects.filter(to=self.owner_info.owner, if_to_checked="no")

@@ -55,7 +55,7 @@ def userIdCheck(request):
     found = ""
     if len(data) == 0:
         found = "required"
-    if not data.isalpha:
+    if not data.isalpha():
         found = True
     if len(data) > 0 and len(data) < 4:
         found = "short"

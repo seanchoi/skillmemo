@@ -7,7 +7,9 @@
     </div>
     <div class="middle">
         <div class="middle-wrapper">
+                {% if the_memo.keyword %}
                 <span class="view_keyword">| {{the_memo.keyword}} |</span>
+                {% endif %}
                 <div class="subject_input view_subject">{{the_memo.subject}}</div>
                 <span class="view_status">
                     {% if the_memo.disclose == "public" %}

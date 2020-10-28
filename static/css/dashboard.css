@@ -85,7 +85,7 @@
 .search_preview_frame {
     width:650px;
     height:fit-content;
-    max-height:400px;
+    max-height:600px;
     overflow-y: auto;
     background-color:#464646;
     box-sizing: border-box;

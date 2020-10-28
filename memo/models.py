@@ -9,7 +9,7 @@ class userManager(models.Manager):
         errors = {}
         if len(postData['first_name']) < 2:
             errors['first_name'] = "First Name must be at least 2 characters"        
-        for i in range(len(postData['fist_name'])):
+        for i in range(len(postData['first_name'])):
             if not postData['first_name'][i].isalpha():
                 errors['first_name_letterOnly'] ="Name must be alphabet characters only"
         if len(postData['last_name']) < 2:

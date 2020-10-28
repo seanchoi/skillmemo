@@ -1,7 +1,7 @@
 .view_keyword {
     font-size:14px;
     color:#8c8c8c;
-    margin-bottom:5px;
+    margin-bottom:10px;
 }
 .video_off01 {
     position: absolute;
@@ -130,7 +130,7 @@
     height:40px;
     display: flex;
     align-items: center;
-    font-size:26px;
+    font-size:22px;
     color:#505050;
     font-weight: bold;
     border-radius: 25px;

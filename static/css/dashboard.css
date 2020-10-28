@@ -515,6 +515,7 @@
     font-weight: bold;
     border: 3px solid white;
     padding:5px;
+    box-sizing: border-box;
 }
 .m_view_keyword_image {
     position: absolute;

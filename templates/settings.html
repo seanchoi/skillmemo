@@ -85,11 +85,11 @@
                                     </div>
                                     <div class="input settings_input_width si_right">
                                         
-                                        <input type="text" name="tab01" {% if tab01 %} value="{{tab01}}" {% else %} value="Tab #1" {% endif %}>
-                                        <input type="text" name="tab02" {% if tab02 %} value="{{tab02}}" {% else %} value="Tab #2" {% endif %}>
-                                        <input type="text" name="tab03" {% if tab03 %} value="{{tab03}}" {% else %} value="Tab #3" {% endif %}>
-                                        <input type="text" name="tab04" {% if tab04 %} value="{{tab04}}" {% else %} value="Tab #4" {% endif %}>
-                                        <input type="text" name="tab05" {% if tab05 %} value="{{tab05}}" {% else %} value="Tab #5" {% endif %}>
+                                        <input type="text" name="tab01" {% if account_owner.tab01 %} value="{{account_owner.tab01}}" {% else %} value="Tab #1" {% endif %}>
+                                        <input type="text" name="tab02" {% if account_owner.tab02 %} value="{{account_owner.tab02}}" {% else %} value="Tab #2" {% endif %}>
+                                        <input type="text" name="tab03" {% if account_owner.tab03 %} value="{{account_owner.tab03}}" {% else %} value="Tab #3" {% endif %}>
+                                        <input type="text" name="tab04" {% if account_owner.tab04 %} value="{{account_owner.tab04}}" {% else %} value="Tab #4" {% endif %}>
+                                        <input type="text" name="tab05" {% if account_owner.tab05 %} value="{{account_owner.tab05}}" {% else %} value="Tab #5" {% endif %}>
                                         <select class="tab_theme" name="tab_theme">
                                             <option selected value="{{account_owner.tab_theme}}">{{account_owner.tab_theme}}</option>
                                             <option value="study">Study</option>

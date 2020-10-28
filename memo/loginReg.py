@@ -54,19 +54,18 @@ def userIdCheck(request):
     users = Users.objects.filter(user_id=data)    
     found = ""
     if len(data) == 0:
-        found = "required"
-    for i in range(len(data)):
-        if not data[i].isalpha():
-            found = True
+        found = "required" 
     if len(data) > 0 and len(data) < 4:
         found = "short"
     elif len(data) > 4:
         found = False
-        if len(users):
-            found = True
-        
-        else:
-            found = False
+        for i in range(len(data)):
+            if not data[i].isalpha():
+                found = True
+            elif len(users):
+                found = True        
+            else:
+                found = False
     
     context = {
         'found' : found

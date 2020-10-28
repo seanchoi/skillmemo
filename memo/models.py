@@ -18,6 +18,8 @@ class userManager(models.Manager):
         if len(postData['user_id']) < 6:
             errors['user_id'] = "user ID, at least 6 characters"
         user_id = Users.objects.filter(user_id=postData['user_id'])
+        if not postData['user_id'].isalpha():
+            errors['user_id'] = "Id cannot contain special characters"
         if len(user_id):
             if postData['user_id'] == user_id[0].user_id:
                 errors['user_id'] = "user ID is not available"

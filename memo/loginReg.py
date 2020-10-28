@@ -55,14 +55,18 @@ def userIdCheck(request):
     found = ""
     if len(data) == 0:
         found = "required"
+    if not data.isalpha:
+        found = True
     if len(data) > 0 and len(data) < 4:
         found = "short"
     elif len(data) > 4:
         found = False
         if len(users):
             found = True
+        
         else:
             found = False
+    
     context = {
         'found' : found
     }

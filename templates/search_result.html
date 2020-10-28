@@ -37,7 +37,7 @@
                 {% for memo in memos_found reversed%}
                     <div class="result-items-set">
                         <div class="result_item_frame">
-                            <div><a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword">{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:30 }}</a></div>
+                            <div><a href="/{{account_owner.user_id}}/{{memo.id}}/"><span class="list_keyword">{{ memo.keyword }}</span> | {{ memo.subject|truncatechars:25 }}</a></div>
                         </div>
                         <div class="tab_buttons-wrap">
                             <form action="/{{account_owner.user_id}}/{{memo.id}}/move_from_tab/" method="POST">

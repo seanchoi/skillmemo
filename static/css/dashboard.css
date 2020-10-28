@@ -503,8 +503,8 @@
 }
 .m_view_keyword_video {
     position: absolute;
-    width:100px;
-    height:100px;
+    width:105px;
+    height:105px;
     border-radius: 50%;
     background-image: linear-gradient(to top right,rgb(255, 23, 23),rgb(212, 58, 255));
     display: flex;

@@ -6,7 +6,7 @@ class SearchPreview:
         self.session = session
         if self.keyword[0] == "@":
             self.keyword = self.keyword[1:]
-            self.users = Users.objects.filter(user_id__icontains=self.keyword)
+            self.users = Users.objects.filter(user_id__icontains=self.keyword).order_by('user_id',)
             self.context = {
                 'search':self.users
             }

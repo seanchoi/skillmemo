@@ -203,7 +203,7 @@
                         
                         <input id="fileupload" type="file" name="files" multiple
                             style="display: none;"
-                            data-url="/{{account_owner.user_id}}/image_upload_first_section/"
+                            data-url="/{{account_owner.user_id}}/section1_image_upload/"
                             data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
                     </div>
                     <div class="image_desc"> * up to 4 images</div>
@@ -248,7 +248,7 @@
            
 
                 <textarea name="content" class="content_input second" wrap="soft">{{the_memo.content}}</textarea>
-                <!-- if there's conde content -->
+                <!-- if there's code content -->
                 {% if the_memo.content_code %}
                     <div class="view_code_editor">
                         <textarea name="content_code" class="code CodeMirror">{{the_memo.content_code}}</textarea>
@@ -326,7 +326,7 @@
                                     
                                     <input id="fileupload02" type="file" name="files" multiple
                                         style="display: none;"
-                                        data-url="/{{account_owner.user_id}}/image_upload_second_section/"
+                                        data-url="/{{account_owner.user_id}}/section2_image_upload/"
                                         data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
                                 </div>
 
@@ -563,7 +563,7 @@
                                 
                                 <input id="fileupload02" type="file" name="files" multiple
                                     style="display: none;"
-                                    data-url="/{{account_owner.user_id}}/image_upload_second_section/"
+                                    data-url="/{{account_owner.user_id}}/section2_image_upload/"
                                     data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
                             </div>
 
@@ -642,7 +642,7 @@
                                     
                                     <input id="fileupload03" type="file" name="files" multiple
                                         style="display: none;"
-                                        data-url="/{{account_owner.user_id}}/image_upload_third_section/"
+                                        data-url="/{{account_owner.user_id}}/section3_image_upload/"
                                         data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
                                 </div>
 
@@ -768,7 +768,7 @@
                                 
                                 <input id="fileupload03" type="file" name="files" multiple
                                     style="display: none;"
-                                    data-url="/{{account_owner.user_id}}/image_upload_third_section/"
+                                    data-url="/{{account_owner.user_id}}/section3_image_upload/"
                                     data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
                             </div>
 

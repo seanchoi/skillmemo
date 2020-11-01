@@ -257,8 +257,13 @@
                             <select name="language" class="language">
                                 
                                 <option 
-                                    {% if the_memo.language %}    
-                                        value="{{the_memo.language}}">{{the_memo.language}}
+                                    {% if the_memo.language %}                                 
+                                        value="{{the_memo.language}}">
+                                        {% if the_memo.language == "htmlmixed" %}
+                                        HTML
+                                        {% else %}
+                                        {{the_memo.language}}
+                                        {% endif %}
                                     {% else %}
                                         value="">Language
                                     {% endif %}

@@ -182,13 +182,13 @@
 
                 <pre class="content_input view_content" wrap="soft">{{the_memo.content}}</pre>
                 {% if the_memo.content_code %}
-                <div class="view_code_editor">
-                    <textarea name="content_code" class="code CodeMirror">{{the_memo.content_code}}</textarea>
-                    <input type="hidden" class="language" value="{{the_memo.language}}">
-                </div>
+                    <div class="view_code_editor">
+                        <textarea name="content_code" class="code CodeMirror">{{the_memo.content_code}}</textarea>
+                        <input type="hidden" class="language" value="{{the_memo.language}}">
+                    </div>                 
                 {% endif %}
 
-                {% if the_memo.desc%}
+                {% if the_memo.desc %}
                 <div class="section-deco"></div>
                 <pre class="desc view_desc" wrap="soft">{{the_memo.desc}}</pre> 
                 {% endif %}
@@ -570,8 +570,8 @@
     <script src=" {% static 'plugin/codemirror/mode/swift/swift.js' %}"></script>
     <script src=" {% static 'plugin/codemirror/mode/sass/sass.js' %}"></script>
     <script src=" {% static 'plugin/codemirror/mode/ruby/ruby.js' %}"></script>
-    <script src=" {% static 'plugin/codemirror/mode/php/php.js' %}"></script>
-    <script src=" {% static 'plugin/codemirror/mode/vbscript/vbscript.js' %}"></script>
+    <script src=" {% static 'plugin/codemirror/mode/php/php.js' %}"></script>    
+    <script src=" {% static 'plugin/codemirror/mode/jsx/jsx.js' %}"></script>    
         <!-- code editor css -->
     <link rel="stylesheet" href="{% static 'plugin/codemirror/lib/codemirror.css' %}">
     <link rel="stylesheet" href="{% static 'plugin/codemirror/theme/cobalt.css' %}">

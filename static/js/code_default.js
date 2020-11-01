@@ -19,5 +19,6 @@ $(document).ready(function() {
         autoCloseBrackets: true,
         comment:true,
         autoRefresh:true,
+        selectionPointer: true,
     });
 })

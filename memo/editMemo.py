@@ -114,6 +114,7 @@ def editMemo(request, user_id, memo_id):
         the_memo.language = language
         the_memo.desc = desc
         the_memo.subject_2nd = subject_2nd
+        the_memo.content_2nd = content_2nd
         the_memo.desc_2nd = desc_2nd
         the_memo.subject_3rd = subject_3rd
         the_memo.content_3rd = content_3rd

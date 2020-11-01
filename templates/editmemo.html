@@ -259,7 +259,7 @@
                                 <option 
                                     {% if the_memo.language %}                                 
                                         value="{{the_memo.language}}">
-                                        {% if the_memo.language == "htmlmixed" %}
+                                        {% if the_memo.language == "htmlembedded" %}
                                         HTML
                                         {% else %}
                                         {{the_memo.language}}
@@ -273,7 +273,7 @@
                                 <option value="python">Python</option>
                                 <option value="swift">Swift</option>
                                 <option value="ruby">Ruby</option>
-                                <option value="htmlmixed">HTML</option>
+                                <option value="htmlembedded">HTML</option>
                                 <option value="css">CSS</option>
                                 <option value="sass">SASS</option>
                             </select>
@@ -293,7 +293,7 @@
                                 <option value="python">Python</option>
                                 <option value="swift">Swift</option>
                                 <option value="ruby">Ruby</option>
-                                <option value="html">HTML</option>
+                                <option value="htmlembedded">HTML</option>
                                 <option value="css">CSS</option>
                                 <option value="sass">SASS</option>
                             </select>
@@ -894,7 +894,7 @@
 <script src=" {% static 'plugin/codemirror/addon/display/autorefresh.js' %}"></script>
 <!-- code editor supporting language -->
 <script src=" {% static 'plugin/codemirror/mode/javascript/javascript.js' %}"></script>
-<script src=" {% static 'plugin/codemirror/mode/htmlmixed/htmlmixed.js' %}"></script>
+<script src=" {% static 'plugin/codemirror/mode/htmlembedded/htmlembedded.js' %}"></script>
 <script src=" {% static 'plugin/codemirror/mode/css/css.js' %}"></script>
 <script src=" {% static 'plugin/codemirror/mode/python/python.js' %}"></script>
 <script src=" {% static 'plugin/codemirror/mode/swift/swift.js' %}"></script>

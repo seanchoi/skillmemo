@@ -32,7 +32,7 @@ def editMemo(request, user_id, memo_id):
         desc_2nd = request.POST['desc_2nd']
         subject_3rd = request.POST['subject_3rd']
         content_3rd = request.POST['content_3rd']
-        desc_3rd = request.POST['desc']
+        desc_3rd = request.POST['desc_3rd']
         # cloud_link = request.POST['cloud_link']
         keyword = request.POST['keyword']
         tab_name = request.POST['tab_name']

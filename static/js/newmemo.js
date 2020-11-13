@@ -4,7 +4,7 @@ $(document).ready(function() {
     $('.style_options-wrap03').hide()
     $('.code_editor-wrap').hide()
 
-    $('.add_3rd').hide()
+    // $('.add_3rd').hide()
     $('.content_2nd-wrap').hide()
 
     $('.add_2nd').click(function() {

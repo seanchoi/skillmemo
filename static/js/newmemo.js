@@ -9,7 +9,7 @@ $(document).ready(function() {
 
     $('.add_2nd').click(function() {
         $('.content_2nd-wrap').slideToggle()
-        $('.add_3rd').show()
+        // $('.add_3rd').show()
     })
     $('.content_3rd-wrap').hide()
     $('.add_3rd').click(function() {
